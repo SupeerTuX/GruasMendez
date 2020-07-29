@@ -1,7 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mrd_interfaz/widget/utils/HeaderLogo.dart';
 import 'package:mrd_interfaz/widget/utils/SaveButton.dart';
+
+List<String> rutasFotos = new List(8);
 
 class ReporteFotograficoScreen extends StatefulWidget {
   @override
@@ -76,7 +81,7 @@ class _ReporteFBodyState extends State<ReporteFBody> {
           SliverGrid(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
-              childAspectRatio: 4 / 4,
+              childAspectRatio: 4 / 5,
             ),
             delegate: SliverChildListDelegate(
               [
@@ -88,6 +93,7 @@ class _ReporteFBodyState extends State<ReporteFBody> {
                   iconoColor: Colors.purple,
                   cardColor: Colors.grey[200],
                   accion: () {},
+                  index: 0,
                 ),
                 CardBody(
                   titulo: 'Foto Trasera',
@@ -97,6 +103,7 @@ class _ReporteFBodyState extends State<ReporteFBody> {
                   iconoColor: Colors.purple,
                   cardColor: Colors.grey[200],
                   accion: () {},
+                  index: 1,
                 ),
                 CardBody(
                   titulo: 'Foto De Costado',
@@ -106,6 +113,7 @@ class _ReporteFBodyState extends State<ReporteFBody> {
                   iconoColor: Colors.purple,
                   cardColor: Colors.grey[200],
                   accion: () {},
+                  index: 2,
                 ),
                 CardBody(
                   titulo: 'Foto De Costado',
@@ -115,6 +123,7 @@ class _ReporteFBodyState extends State<ReporteFBody> {
                   iconoColor: Colors.purple,
                   cardColor: Colors.grey[200],
                   accion: () {},
+                  index: 3,
                 ),
                 CardBody(
                   titulo: 'Placas',
@@ -124,6 +133,7 @@ class _ReporteFBodyState extends State<ReporteFBody> {
                   iconoColor: Colors.purple,
                   cardColor: Colors.grey[200],
                   accion: () {},
+                  index: 4,
                 ),
                 CardBody(
                   titulo: 'Foto De Auto Sobre Grua',
@@ -133,6 +143,27 @@ class _ReporteFBodyState extends State<ReporteFBody> {
                   iconoColor: Colors.purple,
                   cardColor: Colors.grey[200],
                   accion: () {},
+                  index: 5,
+                ),
+                CardBody(
+                  titulo: 'Foto Del Tablero',
+                  subtitulo: 'Foto del tablero del vehiculo',
+                  icono: Icons.photo_camera,
+                  iconoFondo: Colors.grey[400],
+                  iconoColor: Colors.purple,
+                  cardColor: Colors.grey[200],
+                  accion: () {},
+                  index: 5,
+                ),
+                CardBody(
+                  titulo: 'Foto No Serie',
+                  subtitulo: 'Foto del numero de serie',
+                  icono: Icons.photo_camera,
+                  iconoFondo: Colors.grey[400],
+                  iconoColor: Colors.purple,
+                  cardColor: Colors.grey[200],
+                  accion: () {},
+                  index: 5,
                 ),
               ],
             ),
@@ -153,6 +184,7 @@ class _ReporteFBodyState extends State<ReporteFBody> {
 }
 
 class CardBody extends StatefulWidget {
+  final int index;
   final String titulo;
   final String subtitulo;
   final IconData icono;
@@ -163,6 +195,7 @@ class CardBody extends StatefulWidget {
 
   const CardBody({
     Key key,
+    @required this.index,
     @required this.titulo,
     @required this.subtitulo,
     @required this.icono,
@@ -177,51 +210,83 @@ class CardBody extends StatefulWidget {
 }
 
 class _CardBodyState extends State<CardBody> {
+  //contenedor de la imagen
+  final picker = ImagePicker();
+  BoxDecoration _fondo = BoxDecoration(); //Imagen de fondo
+
+  Future getImage() async {
+    final pickedFile = await picker.getImage(source: ImageSource.camera);
+
+    if (pickedFile != null) {
+      print(pickedFile.path);
+      setState(() {
+        //_image = File(pickedFile.path);
+        rutasFotos[widget.index] = pickedFile.path;
+        print('Ruta de la imagen: $rutasFotos');
+        _fondo = new BoxDecoration(
+          image: DecorationImage(
+            image: FileImage(File(pickedFile.path)),
+            fit: BoxFit.fill,
+          ),
+        );
+      });
+    } else {
+      print('No se capturo la imagen');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Card(
-        elevation: 10.0,
-        color: this.widget.cardColor,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: InkWell(
-          onTap: () {
-            this.widget.accion();
-            HapticFeedback.vibrate();
-          },
+        padding: const EdgeInsets.all(4.0),
+        child: Card(
+          elevation: 10.0,
+          color: Colors.grey[300],
           child: Padding(
-            padding: const EdgeInsets.all(4.0),
+            padding: const EdgeInsets.all(8.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                Text(
-                  this.widget.titulo,
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.purple[300],
+                Card(
+                  color: Colors.blueGrey[100],
+                  child: Text(
+                    this.widget.titulo,
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.purple[300],
+                    ),
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
                   ),
-                  textAlign: TextAlign.center,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 2,
                 ),
-                CircleAvatar(
-                  radius: 36,
-                  backgroundColor: this.widget.iconoFondo,
-                  child: Icon(
-                    this.widget.icono,
-                    color: this.widget.iconoColor,
-                    size: 40,
+                Expanded(
+                  child: InkWell(
+                    onTap: () {
+                      HapticFeedback.vibrate();
+                      getImage();
+                    },
+                    onLongPress: () {
+                      if (rutasFotos[widget.index] != null) {
+                        Navigator.of(context).pushNamed('/fotoScreen',
+                            arguments: {
+                              'titulo': this.widget.titulo,
+                              'ruta': rutasFotos[widget.index]
+                            });
+                      }
+                    },
+                    child: Container(
+                      decoration: _fondo,
+                    ),
                   ),
                 ),
                 Text(
                   this.widget.subtitulo,
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
-                    color: Colors.purple[200],
+                    color: Colors.purple[300],
                   ),
                   textAlign: TextAlign.center,
                   overflow: TextOverflow.ellipsis,
@@ -230,8 +295,6 @@ class _CardBodyState extends State<CardBody> {
               ],
             ),
           ),
-        ),
-      ),
-    );
+        ));
   }
 }

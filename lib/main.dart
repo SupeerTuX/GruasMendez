@@ -7,6 +7,7 @@ import 'package:mrd_interfaz/pages/ExteriorScreen.dart';
 import 'package:mrd_interfaz/pages/ReporteFotograficoScreen.dart';
 import 'package:mrd_interfaz/pages/SelectionScreen.dart';
 import 'package:mrd_interfaz/pages/MotorScreen.dart';
+import 'package:mrd_interfaz/pages/FotoScreen.dart';
 
 void main() {
   runApp(MyApp());
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
         '/motor': (context) => MotorScreen(),
         '/fotos': (context) => ReporteFotograficoScreen(),
         '/seleccion': (context) => SelectionScreen(),
+        '/fotoScreen': (context) => FotoScreen(),
       },
       home: LoginPage(),
     );
