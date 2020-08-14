@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:mrd_interfaz/models/Temas.dart';
 import 'package:provider/provider.dart';
 import 'package:mrd_interfaz/widget/utils/HeaderLogo.dart';
 import 'package:mrd_interfaz/widget/utils/SaveButton.dart';
@@ -108,6 +109,7 @@ class _InteriorScreenState extends State<InteriorScreen> {
 }
 
 class InteriorBody extends StatelessWidget {
+  CardCustomTheme theme = themeFail;
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -121,9 +123,7 @@ class InteriorBody extends StatelessWidget {
           titulo: 'Tablero',
           subtitulo: '',
           tooltip: 'tooltip',
-          okOrFailIcon: Icons.error,
-          iconoColor: Colors.red,
-          fondoColor: Colors.grey[200],
+          theme: theme,
           accion: () => {
             pasarRuta(datos: [ruta, 'Tablero'])
           },
@@ -132,9 +132,7 @@ class InteriorBody extends StatelessWidget {
           titulo: 'Volante',
           subtitulo: '',
           tooltip: 'tooltip',
-          okOrFailIcon: Icons.error,
-          iconoColor: Colors.red,
-          fondoColor: Colors.grey[200],
+          theme: theme,
           accion: () => {
             pasarRuta(datos: [ruta, 'Volante'])
           },
@@ -143,9 +141,7 @@ class InteriorBody extends StatelessWidget {
           titulo: 'Radio',
           subtitulo: '',
           tooltip: 'tooltip',
-          okOrFailIcon: Icons.error,
-          iconoColor: Colors.red,
-          fondoColor: Colors.grey[200],
+          theme: theme,
           accion: () => {
             pasarRuta(datos: [ruta, 'Radio'])
           },
@@ -154,9 +150,7 @@ class InteriorBody extends StatelessWidget {
           titulo: 'Equipo de sonido',
           subtitulo: '',
           tooltip: 'tooltip',
-          okOrFailIcon: Icons.error,
-          iconoColor: Colors.red,
-          fondoColor: Colors.grey[200],
+          theme: theme,
           accion: () => {
             pasarRuta(datos: [ruta, 'Equipo de sonido'])
           },
@@ -165,9 +159,7 @@ class InteriorBody extends StatelessWidget {
           titulo: 'Encendedor',
           subtitulo: '',
           tooltip: 'tooltip',
-          okOrFailIcon: Icons.error,
-          iconoColor: Colors.red,
-          fondoColor: Colors.grey[200],
+          theme: theme,
           accion: () => {
             pasarRuta(datos: [ruta, 'Encendedor'])
           },
@@ -176,9 +168,7 @@ class InteriorBody extends StatelessWidget {
           titulo: 'Espejo',
           subtitulo: '',
           tooltip: 'tooltip',
-          okOrFailIcon: Icons.error,
-          iconoColor: Colors.red,
-          fondoColor: Colors.grey[200],
+          theme: theme,
           accion: () => {
             pasarRuta(datos: [ruta, 'Espejo'])
           },
@@ -187,9 +177,7 @@ class InteriorBody extends StatelessWidget {
           titulo: 'Asientos',
           subtitulo: '',
           tooltip: 'tooltip',
-          okOrFailIcon: Icons.error,
-          iconoColor: Colors.red,
-          fondoColor: Colors.grey[200],
+          theme: theme,
           accion: () => {
             pasarRuta(datos: [ruta, 'Asientos'])
           },
@@ -198,9 +186,7 @@ class InteriorBody extends StatelessWidget {
           titulo: 'Tapetes de alfombra',
           subtitulo: '',
           tooltip: 'tooltip',
-          okOrFailIcon: Icons.error,
-          iconoColor: Colors.red,
-          fondoColor: Colors.grey[200],
+          theme: theme,
           accion: () => {
             pasarRuta(datos: [ruta, 'Tapetes de alfombra'])
           },
@@ -209,9 +195,7 @@ class InteriorBody extends StatelessWidget {
           titulo: 'Tapete de hule',
           subtitulo: '',
           tooltip: 'tooltip',
-          okOrFailIcon: Icons.error,
-          iconoColor: Colors.red,
-          fondoColor: Colors.grey[200],
+          theme: theme,
           accion: () => {
             pasarRuta(datos: [ruta, 'Tapete de hule'])
           },
@@ -220,9 +204,7 @@ class InteriorBody extends StatelessWidget {
           titulo: 'Extintor',
           subtitulo: '',
           tooltip: 'tooltip',
-          okOrFailIcon: Icons.error,
-          iconoColor: Colors.red,
-          fondoColor: Colors.grey[200],
+          theme: theme,
           accion: () => {
             pasarRuta(datos: [ruta, 'Extintor'])
           },
@@ -231,9 +213,7 @@ class InteriorBody extends StatelessWidget {
           titulo: 'Gato y maneral',
           subtitulo: '',
           tooltip: 'tooltip',
-          okOrFailIcon: Icons.error,
-          iconoColor: Colors.red,
-          fondoColor: Colors.grey[200],
+          theme: theme,
           accion: () => {
             pasarRuta(datos: [ruta, 'Gato y maneral'])
           },
@@ -242,9 +222,7 @@ class InteriorBody extends StatelessWidget {
           titulo: 'Triangulo de seguridad',
           subtitulo: '',
           tooltip: 'tooltip',
-          okOrFailIcon: Icons.error,
-          iconoColor: Colors.red,
-          fondoColor: Colors.grey[200],
+          theme: theme,
           accion: () => {
             pasarRuta(datos: [ruta, 'Triangulo de seguridad'])
           },
@@ -253,9 +231,7 @@ class InteriorBody extends StatelessWidget {
           titulo: 'Bocinas',
           subtitulo: '',
           tooltip: 'tooltip',
-          okOrFailIcon: Icons.error,
-          iconoColor: Colors.red,
-          fondoColor: Colors.grey[200],
+          theme: theme,
           accion: () => {
             pasarRuta(datos: [ruta, 'Bocinas'])
           },
@@ -264,9 +240,7 @@ class InteriorBody extends StatelessWidget {
           titulo: 'Luces',
           subtitulo: '',
           tooltip: 'tooltip',
-          okOrFailIcon: Icons.error,
-          iconoColor: Colors.red,
-          fondoColor: Colors.grey[200],
+          theme: theme,
           accion: () => {
             pasarRuta(datos: [ruta, 'Luces'])
           },
@@ -275,9 +249,7 @@ class InteriorBody extends StatelessWidget {
           titulo: 'Tag',
           subtitulo: '',
           tooltip: 'tooltip',
-          okOrFailIcon: Icons.error,
-          iconoColor: Colors.red,
-          fondoColor: Colors.grey[200],
+          theme: theme,
           accion: () => {
             pasarRuta(datos: [ruta, 'Tag'])
           },
@@ -286,9 +258,7 @@ class InteriorBody extends StatelessWidget {
           titulo: 'Vial pass',
           subtitulo: '',
           tooltip: 'tooltip',
-          okOrFailIcon: Icons.error,
-          iconoColor: Colors.red,
-          fondoColor: Colors.grey[200],
+          theme: theme,
           accion: () => {
             pasarRuta(datos: [ruta, 'Vial pass'])
           },
@@ -297,9 +267,7 @@ class InteriorBody extends StatelessWidget {
           titulo: 'Sim Card',
           subtitulo: '',
           tooltip: 'tooltip',
-          okOrFailIcon: Icons.error,
-          iconoColor: Colors.red,
-          fondoColor: Colors.grey[200],
+          theme: theme,
           accion: () => {
             pasarRuta(datos: [ruta, 'Sim Card'])
           },

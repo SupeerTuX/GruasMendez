@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mrd_interfaz/models/Temas.dart';
 import 'package:mrd_interfaz/widget/utils/HeaderLogo.dart';
 import 'package:mrd_interfaz/widget/ClienteScreenWidget/ClientData.dart';
 import 'package:mrd_interfaz/widget/utils/SaveButton.dart';
@@ -62,6 +63,8 @@ List<String> pasarRuta({var datos}) {
   return datos;
 }
 
+CardCustomTheme theme = themeFail;
+
 class _ExteriorBodyState extends State<ExteriorBody> {
   @override
   Widget build(BuildContext context) {
@@ -76,9 +79,7 @@ class _ExteriorBodyState extends State<ExteriorBody> {
           titulo: 'Defensa Delantera',
           subtitulo: '',
           tooltip: 'Datos sin capturar',
-          okOrFailIcon: Icons.error,
-          iconoColor: Colors.red,
-          fondoColor: Colors.grey[200],
+          theme: theme,
           accion: () => {
             pasarRuta(datos: [ruta, 'Defensa Delantera'])
           },
@@ -87,9 +88,7 @@ class _ExteriorBodyState extends State<ExteriorBody> {
           titulo: 'Carroceria Sin Golpes',
           subtitulo: '',
           tooltip: 'Datos sin capturar',
-          okOrFailIcon: Icons.error,
-          iconoColor: Colors.red,
-          fondoColor: Colors.grey[200],
+          theme: theme,
           accion: () => {
             pasarRuta(datos: [ruta, 'Carroceria Sin Golpes'])
           },
@@ -98,9 +97,7 @@ class _ExteriorBodyState extends State<ExteriorBody> {
           titulo: 'Parrilla',
           subtitulo: '',
           tooltip: 'Datos sin capturar',
-          okOrFailIcon: Icons.error,
-          iconoColor: Colors.red,
-          fondoColor: Colors.grey[200],
+          theme: theme,
           accion: () => {
             pasarRuta(datos: [ruta, 'Parrilla'])
           },
@@ -109,9 +106,7 @@ class _ExteriorBodyState extends State<ExteriorBody> {
           titulo: 'Faros',
           subtitulo: '',
           tooltip: 'Datos sin capturar',
-          okOrFailIcon: Icons.error,
-          iconoColor: Colors.red,
-          fondoColor: Colors.grey[200],
+          theme: theme,
           accion: () => {
             pasarRuta(datos: [ruta, 'Faros'])
           },
@@ -120,9 +115,7 @@ class _ExteriorBodyState extends State<ExteriorBody> {
           titulo: 'Cofre',
           subtitulo: '',
           tooltip: 'Datos sin capturar',
-          okOrFailIcon: Icons.error,
-          iconoColor: Colors.red,
-          fondoColor: Colors.grey[200],
+          theme: theme,
           accion: () => {
             pasarRuta(datos: [ruta, 'Cofre'])
           },
@@ -131,9 +124,7 @@ class _ExteriorBodyState extends State<ExteriorBody> {
           titulo: 'Parabrisas',
           subtitulo: '',
           tooltip: 'Datos sin capturar',
-          okOrFailIcon: Icons.error,
-          iconoColor: Colors.red,
-          fondoColor: Colors.grey[200],
+          theme: theme,
           accion: () => {
             pasarRuta(datos: [ruta, 'Parabrisas'])
           },
@@ -142,9 +133,7 @@ class _ExteriorBodyState extends State<ExteriorBody> {
           titulo: 'Limpiadores',
           subtitulo: '',
           tooltip: 'Datos sin capturar',
-          okOrFailIcon: Icons.error,
-          iconoColor: Colors.red,
-          fondoColor: Colors.grey[200],
+          theme: theme,
           accion: () => {
             pasarRuta(datos: [ruta, 'Limpiadores'])
           },
@@ -153,9 +142,7 @@ class _ExteriorBodyState extends State<ExteriorBody> {
           titulo: 'Emblemas',
           subtitulo: '',
           tooltip: 'Datos sin capturar',
-          okOrFailIcon: Icons.error,
-          iconoColor: Colors.red,
-          fondoColor: Colors.grey[200],
+          theme: theme,
           accion: () => {
             pasarRuta(datos: [ruta, 'Emblemas'])
           },
@@ -164,9 +151,7 @@ class _ExteriorBodyState extends State<ExteriorBody> {
           titulo: 'Portezuela Izquierda',
           subtitulo: '',
           tooltip: 'Datos sin capturar',
-          okOrFailIcon: Icons.error,
-          iconoColor: Colors.red,
-          fondoColor: Colors.grey[200],
+          theme: theme,
           accion: () => {
             pasarRuta(datos: [ruta, 'Portezuela Izquierda'])
           },
@@ -175,9 +160,7 @@ class _ExteriorBodyState extends State<ExteriorBody> {
           titulo: 'Cristales lat Izquierda',
           subtitulo: '',
           tooltip: 'Datos sin capturar',
-          okOrFailIcon: Icons.error,
-          iconoColor: Colors.red,
-          fondoColor: Colors.grey[200],
+          theme: theme,
           accion: () => {
             pasarRuta(datos: [ruta, 'Cristales lat Izquierda'])
           },
@@ -186,9 +169,7 @@ class _ExteriorBodyState extends State<ExteriorBody> {
           titulo: 'Medallon',
           subtitulo: '',
           tooltip: 'Datos sin capturar',
-          okOrFailIcon: Icons.error,
-          iconoColor: Colors.red,
-          fondoColor: Colors.grey[200],
+          theme: theme,
           accion: () => {
             pasarRuta(datos: [ruta, 'Medallon'])
           },
@@ -197,9 +178,7 @@ class _ExteriorBodyState extends State<ExteriorBody> {
           titulo: 'Cajuela',
           subtitulo: '',
           tooltip: 'Datos sin capturar',
-          okOrFailIcon: Icons.error,
-          iconoColor: Colors.red,
-          fondoColor: Colors.grey[200],
+          theme: theme,
           accion: () => {
             pasarRuta(datos: [ruta, 'Cajuela'])
           },
@@ -208,9 +187,7 @@ class _ExteriorBodyState extends State<ExteriorBody> {
           titulo: 'Defensa Trasera',
           subtitulo: '',
           tooltip: 'Datos sin capturar',
-          okOrFailIcon: Icons.error,
-          iconoColor: Colors.red,
-          fondoColor: Colors.grey[200],
+          theme: theme,
           accion: () => {
             pasarRuta(datos: [ruta, 'Defensa Trasera'])
           },
@@ -219,9 +196,7 @@ class _ExteriorBodyState extends State<ExteriorBody> {
           titulo: 'Portezuela Derecha',
           subtitulo: '',
           tooltip: 'Datos sin capturar',
-          okOrFailIcon: Icons.error,
-          iconoColor: Colors.red,
-          fondoColor: Colors.grey[200],
+          theme: theme,
           accion: () => {
             pasarRuta(datos: [ruta, 'Portezuela Derecha'])
           },
@@ -230,9 +205,7 @@ class _ExteriorBodyState extends State<ExteriorBody> {
           titulo: 'Cristal lat Derecho',
           subtitulo: '',
           tooltip: 'Datos sin capturar',
-          okOrFailIcon: Icons.error,
-          iconoColor: Colors.red,
-          fondoColor: Colors.grey[200],
+          theme: theme,
           accion: () => {
             pasarRuta(datos: [ruta, 'Cristal lat Derecho'])
           },
@@ -241,9 +214,7 @@ class _ExteriorBodyState extends State<ExteriorBody> {
           titulo: 'Antenas',
           subtitulo: '',
           tooltip: 'Datos sin capturar',
-          okOrFailIcon: Icons.error,
-          iconoColor: Colors.red,
-          fondoColor: Colors.grey[200],
+          theme: theme,
           accion: () => {
             pasarRuta(datos: [ruta, 'Antenas'])
           },
@@ -252,9 +223,7 @@ class _ExteriorBodyState extends State<ExteriorBody> {
           titulo: 'Espejos',
           subtitulo: '',
           tooltip: 'Datos sin capturar',
-          okOrFailIcon: Icons.error,
-          iconoColor: Colors.red,
-          fondoColor: Colors.grey[200],
+          theme: theme,
           accion: () => {
             pasarRuta(datos: [ruta, 'Espejos'])
           },
@@ -263,9 +232,7 @@ class _ExteriorBodyState extends State<ExteriorBody> {
           titulo: 'Tapones Ruedas',
           subtitulo: '',
           tooltip: 'Datos sin capturar',
-          okOrFailIcon: Icons.error,
-          iconoColor: Colors.red,
-          fondoColor: Colors.grey[200],
+          theme: theme,
           accion: () => {
             pasarRuta(datos: [ruta, 'Tapones Ruedas'])
           },
@@ -274,9 +241,7 @@ class _ExteriorBodyState extends State<ExteriorBody> {
           titulo: 'Tapon De Gasolina',
           subtitulo: '',
           tooltip: 'Datos sin capturar',
-          okOrFailIcon: Icons.error,
-          iconoColor: Colors.red,
-          fondoColor: Colors.grey[200],
+          theme: theme,
           accion: () => {
             pasarRuta(datos: [ruta, 'Tapon De Gasolina'])
           },
@@ -285,9 +250,7 @@ class _ExteriorBodyState extends State<ExteriorBody> {
           titulo: 'Salpicadera Derecha',
           subtitulo: '',
           tooltip: 'Datos sin capturar',
-          okOrFailIcon: Icons.error,
-          iconoColor: Colors.red,
-          fondoColor: Colors.grey[200],
+          theme: theme,
           accion: () => {
             pasarRuta(datos: [ruta, 'Salpicadera Derecha'])
           },
@@ -296,9 +259,7 @@ class _ExteriorBodyState extends State<ExteriorBody> {
           titulo: 'Defensa Delantera',
           subtitulo: '',
           tooltip: 'Datos sin capturar',
-          okOrFailIcon: Icons.error,
-          iconoColor: Colors.red,
-          fondoColor: Colors.grey[200],
+          theme: theme,
           accion: () => {
             pasarRuta(datos: [ruta, 'Defensa Delantera'])
           },
@@ -307,9 +268,7 @@ class _ExteriorBodyState extends State<ExteriorBody> {
           titulo: 'Salpicadera Izquierda',
           subtitulo: '',
           tooltip: 'Datos sin capturar',
-          okOrFailIcon: Icons.error,
-          iconoColor: Colors.red,
-          fondoColor: Colors.grey[200],
+          theme: theme,
           accion: () => {
             pasarRuta(datos: [ruta, 'Salpicadera Izquierda'])
           },
