@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mrd_interfaz/models/Temas.dart';
 import 'package:mrd_interfaz/widget/utils/HeaderLogo.dart';
 import 'package:mrd_interfaz/widget/ClienteScreenWidget/ClientData.dart';
 import 'package:mrd_interfaz/widget/utils/SaveButton.dart';
@@ -63,6 +64,7 @@ class MotorBody extends StatefulWidget {
 }
 
 class _MotorBodyState extends State<MotorBody> {
+  CardCustomTheme theme = themeFail;
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -76,9 +78,7 @@ class _MotorBodyState extends State<MotorBody> {
           titulo: 'Radiador',
           subtitulo: '',
           tooltip: 'Datos sin capturar',
-          okOrFailIcon: Icons.error,
-          iconoColor: Colors.red,
-          fondoColor: Colors.grey[200],
+          theme: theme,
           accion: () => {
             pasarRuta(datos: [ruta, 'Radiador'])
           },
@@ -87,9 +87,7 @@ class _MotorBodyState extends State<MotorBody> {
           titulo: 'Motoventilador',
           subtitulo: '',
           tooltip: 'Datos sin capturar',
-          okOrFailIcon: Icons.error,
-          iconoColor: Colors.red,
-          fondoColor: Colors.grey[200],
+          theme: theme,
           accion: () => {
             pasarRuta(datos: [ruta, 'Motoventilador'])
           },
@@ -98,9 +96,7 @@ class _MotorBodyState extends State<MotorBody> {
           titulo: 'Alternador',
           subtitulo: '',
           tooltip: 'Datos sin capturar',
-          okOrFailIcon: Icons.error,
-          iconoColor: Colors.red,
-          fondoColor: Colors.grey[200],
+          theme: theme,
           accion: () => {
             pasarRuta(datos: [ruta, 'Alternador'])
           },
@@ -109,9 +105,7 @@ class _MotorBodyState extends State<MotorBody> {
           titulo: 'Cable de bujias',
           subtitulo: '',
           tooltip: 'Datos sin capturar',
-          okOrFailIcon: Icons.error,
-          iconoColor: Colors.red,
-          fondoColor: Colors.grey[200],
+          theme: theme,
           accion: () => {
             pasarRuta(datos: [ruta, 'Cable de bujias'])
           },
@@ -120,9 +114,7 @@ class _MotorBodyState extends State<MotorBody> {
           titulo: 'Depurador',
           subtitulo: '',
           tooltip: 'Datos sin capturar',
-          okOrFailIcon: Icons.error,
-          iconoColor: Colors.red,
-          fondoColor: Colors.grey[200],
+          theme: theme,
           accion: () => {
             pasarRuta(datos: [ruta, 'Depurador'])
           },
@@ -131,9 +123,7 @@ class _MotorBodyState extends State<MotorBody> {
           titulo: 'Carburador',
           subtitulo: '',
           tooltip: 'Datos sin capturar',
-          okOrFailIcon: Icons.error,
-          iconoColor: Colors.red,
-          fondoColor: Colors.grey[200],
+          theme: theme,
           accion: () => {
             pasarRuta(datos: [ruta, 'Carburador'])
           },
@@ -142,9 +132,7 @@ class _MotorBodyState extends State<MotorBody> {
           titulo: 'Filtro de aire',
           subtitulo: '',
           tooltip: 'Datos sin capturar',
-          okOrFailIcon: Icons.error,
-          iconoColor: Colors.red,
-          fondoColor: Colors.grey[200],
+          theme: theme,
           accion: () => {
             pasarRuta(datos: [ruta, 'Filtro de aire'])
           },
@@ -153,9 +141,7 @@ class _MotorBodyState extends State<MotorBody> {
           titulo: 'Inyectores',
           subtitulo: '',
           tooltip: 'Datos sin capturar',
-          okOrFailIcon: Icons.error,
-          iconoColor: Colors.red,
-          fondoColor: Colors.grey[200],
+          theme: theme,
           accion: () => {
             pasarRuta(datos: [ruta, 'Inyectores'])
           },
@@ -164,9 +150,7 @@ class _MotorBodyState extends State<MotorBody> {
           titulo: 'Compresor',
           subtitulo: '',
           tooltip: 'Datos sin capturar',
-          okOrFailIcon: Icons.error,
-          iconoColor: Colors.red,
-          fondoColor: Colors.grey[200],
+          theme: theme,
           accion: () => {
             pasarRuta(datos: [ruta, 'Compresor'])
           },
@@ -175,9 +159,7 @@ class _MotorBodyState extends State<MotorBody> {
           titulo: 'Computadora',
           subtitulo: '',
           tooltip: 'Datos sin capturar',
-          okOrFailIcon: Icons.error,
-          iconoColor: Colors.red,
-          fondoColor: Colors.grey[200],
+          theme: theme,
           accion: () => {
             pasarRuta(datos: [ruta, 'Computadora'])
           },
@@ -186,9 +168,7 @@ class _MotorBodyState extends State<MotorBody> {
           titulo: 'Bateria',
           subtitulo: '',
           tooltip: 'Datos sin capturar',
-          okOrFailIcon: Icons.error,
-          iconoColor: Colors.red,
-          fondoColor: Colors.grey[200],
+          theme: theme,
           accion: () => {
             pasarRuta(datos: [ruta, 'Bateria'])
           },

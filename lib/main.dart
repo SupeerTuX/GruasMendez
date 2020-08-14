@@ -8,6 +8,8 @@ import 'package:mrd_interfaz/pages/ReporteFotograficoScreen.dart';
 import 'package:mrd_interfaz/pages/SelectionScreen.dart';
 import 'package:mrd_interfaz/pages/MotorScreen.dart';
 import 'package:mrd_interfaz/pages/FotoScreen.dart';
+import 'package:mrd_interfaz/pages/GpsScreen.dart';
+import 'package:mrd_interfaz/pages/MotivoInventario.dart';
 
 void main() {
   runApp(MyApp());
@@ -33,6 +35,8 @@ class MyApp extends StatelessWidget {
         '/fotos': (context) => ReporteFotograficoScreen(),
         '/seleccion': (context) => SelectionScreen(),
         '/fotoScreen': (context) => FotoScreen(),
+        '/gps': (context) => GpsScreen(),
+        '/inventario': (context) => InventarioScreen(),
       },
       home: LoginPage(),
     );

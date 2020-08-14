@@ -1,0 +1,8 @@
+{
+    "marca": {
+        "ACURA": ["MDX", "RDX", "RL", "TL", "TSX", "ZDX", "ILX"],
+        "ALFA ROMEO": ["145", "147", "156", "159", "166", "BRERA", "GT", "GTV", "SPIDER"],
+        "ASTON MARTIN": ["DB9", "DBS", "VANQUISH", "VANTAGE"],
+        "AUDI": ["A1", "A3", "A3 CABRIOLET", "A4"]
+    }
+}

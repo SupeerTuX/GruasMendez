@@ -31,6 +31,10 @@ dependencies:
     http: ^0.12.1
     image_picker: ^0.6.7+4
     photo_view: ^0.9.2
+    flutter_typeahead: ^1.8.6
+    google_maps_flutter: ^0.5.28+1
+    geocoder: ^0.2.1
+    location: ^3.0.0
 
 dev_dependencies:
     flutter_test:
@@ -55,6 +59,7 @@ flutter:
         - assets/motor.png
         - assets/camara.png
         - assets/fondoLogin.jpg
+        - assets/json/modelo.json
     #   - images/a_dot_ham.jpeg
     # An image asset can refer to one or more resolution-specific "variants", see
     # https://flutter.dev/assets-and-images/#resolution-aware.
