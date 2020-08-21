@@ -5,15 +5,16 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:mrd_interfaz/models/Temas.dart';
 
 class CardBody extends StatefulWidget {
   final String titulo;
   final String subtitulo;
   final String tooltip;
+  final CardBodyTheme theme;
   final IconData icono;
-  final Color iconoFondo;
   final Color iconoColor;
-  final Color cardColor;
+  final Color iconoFondo;
   final Function accion;
 
   const CardBody({
@@ -21,10 +22,10 @@ class CardBody extends StatefulWidget {
     @required this.titulo,
     @required this.subtitulo,
     @required this.tooltip,
+    @required this.theme,
     @required this.icono,
-    @required this.iconoFondo,
     @required this.iconoColor,
-    @required this.cardColor,
+    @required this.iconoFondo,
     @required this.accion,
   }) : super(key: key);
 
@@ -37,7 +38,7 @@ class _CardBodyState extends State<CardBody> {
   Widget build(BuildContext context) {
     return Card(
       elevation: 10.0,
-      color: this.widget.cardColor,
+      color: widget.theme.cardColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15),
       ),
@@ -55,8 +56,8 @@ class _CardBodyState extends State<CardBody> {
                 backgroundColor: this.widget.iconoFondo,
                 radius: 22,
                 child: Icon(
-                  this.widget.icono,
-                  color: this.widget.iconoColor,
+                  widget.icono,
+                  color: Colors.white,
                 ),
               ),
               Column(
@@ -84,7 +85,10 @@ class _CardBodyState extends State<CardBody> {
                 alignment: Alignment.bottomRight,
                 child: Tooltip(
                   message: this.widget.tooltip,
-                  child: Icon(Icons.error, color: Colors.red),
+                  child: Icon(
+                    widget.theme.icono,
+                    color: widget.theme.iconoColor,
+                  ),
                 ),
               ),
             ],

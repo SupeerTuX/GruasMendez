@@ -2,11 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:mrd_interfaz/models/DataModel.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mrd_interfaz/widget/utils/HeaderLogo.dart';
-import 'package:mrd_interfaz/widget/utils/SaveButton.dart';
-
-List<String> rutasFotos = new List(8);
 
 class ReporteFotograficoScreen extends StatefulWidget {
   @override
@@ -41,16 +39,43 @@ class _ReporteFotograficoScreenState extends State<ReporteFotograficoScreen> {
         false;
   }
 
+  GlobalKey<ScaffoldState> scaffoldState = GlobalKey();
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: _onBackPressed,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Interior'),
+          title: Text('Fotos'),
           backgroundColor: Colors.purple,
         ),
         body: ReporteFBody(),
+        key: scaffoldState,
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            //print(mapReporteFotografico);
+            HapticFeedback.vibrate();
+            bool validacion = true;
+            mapReporteFotografico.forEach((key, value) {
+              if (value == '') {
+                print('Valor $key: $value');
+                print('Validacion = $validacion');
+                validacion = false;
+              }
+            });
+
+            if (validacion) {
+              scaffoldState.currentState.showSnackBar(
+                  new SnackBar(content: Text('Datos guardados correctamente')));
+              Navigator.of(context).pop(validacion);
+            } else {
+              scaffoldState.currentState.showSnackBar(new SnackBar(
+                  content: Text('No se han capturado todos los datos')));
+            }
+          },
+          child: Icon(Icons.save),
+          backgroundColor: Colors.tealAccent[400],
+        ),
       ),
     );
   }
@@ -93,7 +118,7 @@ class _ReporteFBodyState extends State<ReporteFBody> {
                   iconoColor: Colors.purple,
                   cardColor: Colors.grey[200],
                   accion: () {},
-                  index: 0,
+                  mapKey: 'img1',
                 ),
                 CardBody(
                   titulo: 'Foto Trasera',
@@ -103,7 +128,7 @@ class _ReporteFBodyState extends State<ReporteFBody> {
                   iconoColor: Colors.purple,
                   cardColor: Colors.grey[200],
                   accion: () {},
-                  index: 1,
+                  mapKey: 'img2',
                 ),
                 CardBody(
                   titulo: 'Foto De Costado',
@@ -113,7 +138,7 @@ class _ReporteFBodyState extends State<ReporteFBody> {
                   iconoColor: Colors.purple,
                   cardColor: Colors.grey[200],
                   accion: () {},
-                  index: 2,
+                  mapKey: 'img3',
                 ),
                 CardBody(
                   titulo: 'Foto De Costado',
@@ -123,7 +148,7 @@ class _ReporteFBodyState extends State<ReporteFBody> {
                   iconoColor: Colors.purple,
                   cardColor: Colors.grey[200],
                   accion: () {},
-                  index: 3,
+                  mapKey: 'img4',
                 ),
                 CardBody(
                   titulo: 'Placas',
@@ -133,7 +158,7 @@ class _ReporteFBodyState extends State<ReporteFBody> {
                   iconoColor: Colors.purple,
                   cardColor: Colors.grey[200],
                   accion: () {},
-                  index: 4,
+                  mapKey: 'img5',
                 ),
                 CardBody(
                   titulo: 'Foto De Auto Sobre Grua',
@@ -143,7 +168,7 @@ class _ReporteFBodyState extends State<ReporteFBody> {
                   iconoColor: Colors.purple,
                   cardColor: Colors.grey[200],
                   accion: () {},
-                  index: 5,
+                  mapKey: 'img6',
                 ),
                 CardBody(
                   titulo: 'Foto Del Tablero',
@@ -153,7 +178,7 @@ class _ReporteFBodyState extends State<ReporteFBody> {
                   iconoColor: Colors.purple,
                   cardColor: Colors.grey[200],
                   accion: () {},
-                  index: 5,
+                  mapKey: 'img7',
                 ),
                 CardBody(
                   titulo: 'Foto No Serie',
@@ -163,17 +188,8 @@ class _ReporteFBodyState extends State<ReporteFBody> {
                   iconoColor: Colors.purple,
                   cardColor: Colors.grey[200],
                   accion: () {},
-                  index: 5,
+                  mapKey: 'img8',
                 ),
-              ],
-            ),
-          ),
-          SliverList(
-            delegate: SliverChildListDelegate(
-              [
-                SaveButton(
-                  color: Colors.purple,
-                )
               ],
             ),
           ),
@@ -184,7 +200,7 @@ class _ReporteFBodyState extends State<ReporteFBody> {
 }
 
 class CardBody extends StatefulWidget {
-  final int index;
+  final String mapKey;
   final String titulo;
   final String subtitulo;
   final IconData icono;
@@ -195,7 +211,7 @@ class CardBody extends StatefulWidget {
 
   const CardBody({
     Key key,
-    @required this.index,
+    @required this.mapKey,
     @required this.titulo,
     @required this.subtitulo,
     @required this.icono,
@@ -213,6 +229,28 @@ class _CardBodyState extends State<CardBody> {
   //contenedor de la imagen
   final picker = ImagePicker();
   BoxDecoration _fondo = BoxDecoration(); //Imagen de fondo
+  ImageProvider<dynamic> fondoImg;
+
+  @override
+  void initState() {
+    super.initState();
+
+    if (mapReporteFotografico[widget.mapKey] == '') {
+      _fondo = new BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/foto.png'),
+          fit: BoxFit.fill,
+        ),
+      );
+    } else {
+      _fondo = new BoxDecoration(
+        image: DecorationImage(
+          image: FileImage(File(mapReporteFotografico[widget.mapKey])),
+          fit: BoxFit.fill,
+        ),
+      );
+    }
+  }
 
   Future getImage() async {
     final pickedFile = await picker.getImage(source: ImageSource.camera);
@@ -221,11 +259,10 @@ class _CardBodyState extends State<CardBody> {
       print(pickedFile.path);
       setState(() {
         //_image = File(pickedFile.path);
-        rutasFotos[widget.index] = pickedFile.path;
-        print('Ruta de la imagen: $rutasFotos');
+        mapReporteFotografico[widget.mapKey] = pickedFile.path;
         _fondo = new BoxDecoration(
           image: DecorationImage(
-            image: FileImage(File(pickedFile.path)),
+            image: FileImage(File(mapReporteFotografico[widget.mapKey])),
             fit: BoxFit.fill,
           ),
         );
@@ -238,63 +275,64 @@ class _CardBodyState extends State<CardBody> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.all(4.0),
-        child: Card(
-          elevation: 10.0,
-          color: Colors.grey[300],
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                Card(
-                  color: Colors.blueGrey[100],
-                  child: Text(
-                    this.widget.titulo,
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.purple[300],
-                    ),
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 2,
-                  ),
-                ),
-                Expanded(
-                  child: InkWell(
-                    onTap: () {
-                      HapticFeedback.vibrate();
-                      getImage();
-                    },
-                    onLongPress: () {
-                      if (rutasFotos[widget.index] != null) {
-                        Navigator.of(context).pushNamed('/fotoScreen',
-                            arguments: {
-                              'titulo': this.widget.titulo,
-                              'ruta': rutasFotos[widget.index]
-                            });
-                      }
-                    },
-                    child: Container(
-                      decoration: _fondo,
-                    ),
-                  ),
-                ),
-                Text(
-                  this.widget.subtitulo,
+      padding: const EdgeInsets.all(4.0),
+      child: Card(
+        elevation: 10.0,
+        color: Colors.grey[300],
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Card(
+                color: Colors.blueGrey[100],
+                child: Text(
+                  this.widget.titulo,
                   style: TextStyle(
-                    fontWeight: FontWeight.w500,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
                     color: Colors.purple[300],
                   ),
                   textAlign: TextAlign.center,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
                 ),
-              ],
-            ),
+              ),
+              Expanded(
+                child: InkWell(
+                  onTap: () {
+                    HapticFeedback.vibrate();
+                    getImage();
+                  },
+                  onLongPress: () {
+                    if (mapReporteFotografico[widget.mapKey] != null) {
+                      Navigator.of(context).pushNamed('/fotoScreen',
+                          arguments: {
+                            'titulo': this.widget.titulo,
+                            'ruta': mapReporteFotografico[widget.mapKey]
+                          });
+                    }
+                  },
+                  child: Container(
+                    decoration: _fondo,
+                  ),
+                ),
+              ),
+              Text(
+                this.widget.subtitulo,
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  color: Colors.purple[300],
+                ),
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+              ),
+            ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

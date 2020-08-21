@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:mrd_interfaz/models/DataModel.dart';
 import 'package:mrd_interfaz/models/Temas.dart';
+import 'package:mrd_interfaz/models/Contenido.dart';
 import 'package:mrd_interfaz/widget/utils/HeaderLogo.dart';
+import 'package:mrd_interfaz/widget/utils/Input.dart';
 import 'package:mrd_interfaz/widget/ClienteScreenWidget/ClientData.dart';
-import 'package:mrd_interfaz/widget/utils/SaveButton.dart';
 
 //Rura de la pagina de seleccion
-const String ruta = '/seleccion';
-//Funcion para pasar argumentos  al widget
-List<String> pasarRuta({var datos}) {
-  return datos;
-}
+const String routeName = '/seleccion';
 
 class MotorScreen extends StatefulWidget {
   @override
@@ -43,6 +42,7 @@ class _MotorScreenState extends State<MotorScreen> {
         false;
   }
 
+  GlobalKey<ScaffoldState> scaffoldState = GlobalKey();
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -53,6 +53,32 @@ class _MotorScreenState extends State<MotorScreen> {
           backgroundColor: Colors.blue,
         ),
         body: MotorBody(),
+        key: scaffoldState,
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            //print(mapMotor);
+            HapticFeedback.vibrate();
+            bool validacion = true;
+            mapMotor.forEach((key, value) {
+              if (value == '') {
+                print('Valor $key: $value');
+                print('Validacion = $validacion');
+                validacion = false;
+              }
+            });
+
+            if (validacion) {
+              scaffoldState.currentState.showSnackBar(
+                  new SnackBar(content: Text('Datos guardados correctamente')));
+              Navigator.of(context).pop(validacion);
+            } else {
+              scaffoldState.currentState.showSnackBar(new SnackBar(
+                  content: Text('No se han capturado todos los datos')));
+            }
+          },
+          child: Icon(Icons.save),
+          backgroundColor: Colors.tealAccent[400],
+        ),
       ),
     );
   }
@@ -65,6 +91,7 @@ class MotorBody extends StatefulWidget {
 
 class _MotorBodyState extends State<MotorBody> {
   CardCustomTheme theme = themeFail;
+  double _gasValue = 0.0;
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -75,111 +102,234 @@ class _MotorBodyState extends State<MotorBody> {
           subtitulo: 'Capture la informacion solicitada',
         ),
         CardData(
-          titulo: 'Radiador',
-          subtitulo: '',
-          tooltip: 'Datos sin capturar',
-          theme: theme,
-          accion: () => {
-            pasarRuta(datos: [ruta, 'Radiador'])
-          },
-        ),
+            contenido: radiador,
+            accion: () {
+              Navigator.of(context)
+                  .pushNamed(routeName, arguments: radiador.titulo)
+                  .then((value) {
+                setState(() {
+                  radiador.theme = themeOk;
+                  radiador.subtitulo = value;
+                  mapMotor['Radiador'] = value;
+                });
+              });
+            }),
         CardData(
-          titulo: 'Motoventilador',
-          subtitulo: '',
-          tooltip: 'Datos sin capturar',
-          theme: theme,
-          accion: () => {
-            pasarRuta(datos: [ruta, 'Motoventilador'])
-          },
-        ),
+            contenido: motoventilador,
+            accion: () {
+              Navigator.of(context)
+                  .pushNamed(routeName, arguments: motoventilador.titulo)
+                  .then((value) {
+                setState(() {
+                  motoventilador.theme = themeOk;
+                  motoventilador.subtitulo = value;
+                  mapMotor['Motoventilador'] = value;
+                });
+              });
+            }),
         CardData(
-          titulo: 'Alternador',
-          subtitulo: '',
-          tooltip: 'Datos sin capturar',
-          theme: theme,
-          accion: () => {
-            pasarRuta(datos: [ruta, 'Alternador'])
-          },
-        ),
+            contenido: alternador,
+            accion: () {
+              Navigator.of(context)
+                  .pushNamed(routeName, arguments: alternador.titulo)
+                  .then((value) {
+                setState(() {
+                  alternador.theme = themeOk;
+                  alternador.subtitulo = value;
+                  mapMotor['Alternador'] = value;
+                });
+              });
+            }),
         CardData(
-          titulo: 'Cable de bujias',
-          subtitulo: '',
-          tooltip: 'Datos sin capturar',
-          theme: theme,
-          accion: () => {
-            pasarRuta(datos: [ruta, 'Cable de bujias'])
-          },
-        ),
+            contenido: cableDeBujias,
+            accion: () {
+              Navigator.of(context)
+                  .pushNamed(routeName, arguments: cableDeBujias.titulo)
+                  .then((value) {
+                setState(() {
+                  cableDeBujias.theme = themeOk;
+                  cableDeBujias.subtitulo = value;
+                  mapMotor['CableDeBujias'] = value;
+                });
+              });
+            }),
         CardData(
-          titulo: 'Depurador',
-          subtitulo: '',
-          tooltip: 'Datos sin capturar',
-          theme: theme,
-          accion: () => {
-            pasarRuta(datos: [ruta, 'Depurador'])
-          },
-        ),
+            contenido: depurador,
+            accion: () {
+              Navigator.of(context)
+                  .pushNamed(routeName, arguments: depurador.titulo)
+                  .then((value) {
+                setState(() {
+                  depurador.theme = themeOk;
+                  depurador.subtitulo = value;
+                  mapMotor['Depurador'] = value;
+                });
+              });
+            }),
         CardData(
-          titulo: 'Carburador',
-          subtitulo: '',
-          tooltip: 'Datos sin capturar',
-          theme: theme,
-          accion: () => {
-            pasarRuta(datos: [ruta, 'Carburador'])
-          },
-        ),
+            contenido: carburador,
+            accion: () {
+              Navigator.of(context)
+                  .pushNamed(routeName, arguments: carburador.titulo)
+                  .then((value) {
+                setState(() {
+                  carburador.theme = themeOk;
+                  carburador.subtitulo = value;
+                  mapMotor['Carburador'] = value;
+                });
+              });
+            }),
         CardData(
-          titulo: 'Filtro de aire',
-          subtitulo: '',
-          tooltip: 'Datos sin capturar',
-          theme: theme,
-          accion: () => {
-            pasarRuta(datos: [ruta, 'Filtro de aire'])
-          },
-        ),
+            contenido: filtroDeAire,
+            accion: () {
+              Navigator.of(context)
+                  .pushNamed(routeName, arguments: filtroDeAire.titulo)
+                  .then((value) {
+                setState(() {
+                  filtroDeAire.theme = themeOk;
+                  filtroDeAire.subtitulo = value;
+                  mapMotor['FiltroAire'] = value;
+                });
+              });
+            }),
         CardData(
-          titulo: 'Inyectores',
-          subtitulo: '',
-          tooltip: 'Datos sin capturar',
-          theme: theme,
-          accion: () => {
-            pasarRuta(datos: [ruta, 'Inyectores'])
-          },
-        ),
+            contenido: inyectores,
+            accion: () {
+              Navigator.of(context)
+                  .pushNamed(routeName, arguments: inyectores.titulo)
+                  .then((value) {
+                setState(() {
+                  inyectores.theme = themeOk;
+                  inyectores.subtitulo = value;
+                  mapMotor['Inyectores'] = value;
+                });
+              });
+            }),
         CardData(
-          titulo: 'Compresor',
-          subtitulo: '',
-          tooltip: 'Datos sin capturar',
-          theme: theme,
-          accion: () => {
-            pasarRuta(datos: [ruta, 'Compresor'])
-          },
-        ),
+            contenido: compresor,
+            accion: () {
+              Navigator.of(context)
+                  .pushNamed(routeName, arguments: compresor.titulo)
+                  .then((value) {
+                setState(() {
+                  compresor.theme = themeOk;
+                  compresor.subtitulo = value;
+                  mapMotor['Compresor'] = value;
+                });
+              });
+            }),
         CardData(
-          titulo: 'Computadora',
-          subtitulo: '',
-          tooltip: 'Datos sin capturar',
-          theme: theme,
-          accion: () => {
-            pasarRuta(datos: [ruta, 'Computadora'])
-          },
-        ),
+            contenido: computadora,
+            accion: () {
+              Navigator.of(context)
+                  .pushNamed(routeName, arguments: computadora.titulo)
+                  .then((value) {
+                setState(() {
+                  computadora.theme = themeOk;
+                  computadora.subtitulo = value;
+                  mapMotor['Computadora'] = value;
+                });
+              });
+            }),
         CardData(
-          titulo: 'Bateria',
-          subtitulo: '',
-          tooltip: 'Datos sin capturar',
-          theme: theme,
-          accion: () => {
-            pasarRuta(datos: [ruta, 'Bateria'])
-          },
-        ),
+            contenido: bateria,
+            accion: () {
+              Navigator.of(context)
+                  .pushNamed(routeName, arguments: bateria.titulo)
+                  .then((value) {
+                setState(() {
+                  bateria.theme = themeOk;
+                  bateria.subtitulo = value;
+                  mapMotor['Bateria'] = value;
+                });
+              });
+            }),
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 12.0),
-          child: ClientForm(
-            hint: 'Marca',
+          padding: const EdgeInsets.only(left: 12.0, right: 12.0, top: 18.0),
+          child: Text(
+            'Combustible en el tanque: $_gasValue%',
+            style: TextStyle(fontSize: 16.0, color: Colors.black54),
+            textAlign: TextAlign.center,
           ),
         ),
-        SaveButton(color: Colors.blue),
+        SliderTheme(
+          data: SliderTheme.of(context).copyWith(
+            activeTrackColor: Colors.red[700],
+            inactiveTrackColor: Colors.red[100],
+            trackShape: RoundedRectSliderTrackShape(),
+            trackHeight: 4.0,
+            thumbShape: RoundSliderThumbShape(enabledThumbRadius: 12.0),
+            thumbColor: Colors.redAccent,
+            overlayColor: Colors.red.withAlpha(32),
+            overlayShape: RoundSliderOverlayShape(overlayRadius: 28.0),
+            tickMarkShape: RoundSliderTickMarkShape(),
+            activeTickMarkColor: Colors.red[700],
+            inactiveTickMarkColor: Colors.red[100],
+            valueIndicatorShape: PaddleSliderValueIndicatorShape(),
+            valueIndicatorColor: Colors.redAccent,
+            valueIndicatorTextStyle: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+          child: Slider(
+            value: _gasValue,
+            min: 0,
+            max: 100,
+            divisions: 10,
+            label: '$_gasValue%',
+            onChanged: (value) {
+              setState(() {
+                _gasValue = value;
+                mapMotor['TanqueGasolina'] = _gasValue.toString();
+              });
+            },
+          ),
+        ),
+        InputText(
+          hint: 'Marca De Motor',
+          controller: formController.controller[14],
+          theme: formController.theme[14],
+          capitalization: TextCapitalization.sentences,
+          accion: () {
+            print('Marca de motor: ${formController.controller[14].text}');
+            mapMotor['MarcaMotor'] = formController.controller[14].text;
+            setState(() {
+              formController.controller[14].text.isEmpty
+                  ? formController.theme[14] = inputThemeFail
+                  : formController.theme[14] = inputThemeOK;
+            });
+          },
+        ),
+        InputText(
+          hint: 'Carga Consiste En',
+          controller: formController.controller[15],
+          theme: formController.theme[15],
+          capitalization: TextCapitalization.sentences,
+          accion: () {
+            print('Carga consite en: ${formController.controller[15].text}');
+            mapMotor['CargaConsistente'] = formController.controller[15].text;
+            setState(() {
+              formController.controller[15].text.isEmpty
+                  ? formController.theme[15] = inputThemeFail
+                  : formController.theme[15] = inputThemeOK;
+            });
+          },
+        ),
+        InputText(
+          hint: 'Observaciones',
+          controller: formController.controller[16],
+          theme: formController.theme[16],
+          capitalization: TextCapitalization.sentences,
+          accion: () {
+            print('Carga consite en: ${formController.controller[16].text}');
+            mapMotor['Observaciones'] = formController.controller[16].text;
+            setState(() {
+              formController.controller[16].text.isEmpty
+                  ? formController.theme[16] = inputThemeFail
+                  : formController.theme[16] = inputThemeOK;
+            });
+          },
+        ),
       ],
     );
   }

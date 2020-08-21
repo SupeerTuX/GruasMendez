@@ -1,65 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mrd_interfaz/models/Temas.dart';
-import 'package:provider/provider.dart';
+import 'package:mrd_interfaz/models/Contenido.dart';
+import 'package:mrd_interfaz/models/DataModel.dart';
 import 'package:mrd_interfaz/widget/utils/HeaderLogo.dart';
-import 'package:mrd_interfaz/widget/utils/SaveButton.dart';
+import 'package:mrd_interfaz/widget/utils/Input.dart';
 import 'package:mrd_interfaz/widget/ClienteScreenWidget/ClientData.dart';
 
+const String routeName = '/seleccion';
 //Manejo del estado del las CardList
-class CardState with ChangeNotifier {
-  String _titulo = '';
-  String _subtitulo = '';
-  String _tooltip;
-  IconData _okOrFailIcon = Icons.error;
-  Color _iconoColor = Colors.red;
-  Color _fondoColor = Colors.grey[200];
-
-  String get titulo => _titulo;
-  String get subtitulo => _subtitulo;
-  String get tooltip => _tooltip;
-  IconData get okOrFailIcon => _okOrFailIcon;
-  Color get iconoColor => _iconoColor;
-  Color get fondoColor => _fondoColor;
-
-  set titulo(String value) {
-    _titulo = value;
-    notifyListeners();
-  }
-
-  set subtitulo(String value) {
-    _subtitulo = value;
-    notifyListeners();
-  }
-
-  set tooltip(String value) {
-    _tooltip = value;
-    notifyListeners();
-  }
-
-  set okOrFailIcon(IconData value) {
-    _okOrFailIcon = value;
-    notifyListeners();
-  }
-
-  set iconoColor(Color value) {
-    _iconoColor = value;
-    notifyListeners();
-  }
-
-  set fondoColor(Color value) {
-    _fondoColor = value;
-    notifyListeners();
-  }
-}
-
-//Ruta de seleccion
-const String ruta = '/seleccion';
-
-//Funcion para pasar datos
-List<String> pasarRuta({var datos}) {
-  return datos;
-}
 
 class InteriorScreen extends StatefulWidget {
   @override
@@ -93,6 +42,7 @@ class _InteriorScreenState extends State<InteriorScreen> {
         false;
   }
 
+  GlobalKey<ScaffoldState> scaffoldState = GlobalKey();
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -103,13 +53,43 @@ class _InteriorScreenState extends State<InteriorScreen> {
           backgroundColor: Colors.cyan,
         ),
         body: InteriorBody(),
+        key: scaffoldState,
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            //print(mapInterior);
+            HapticFeedback.vibrate();
+            bool validacion = true;
+            mapInterior.forEach((key, value) {
+              if (value == '') {
+                print('Valor $key: $value');
+                print('Validacion = $validacion');
+                validacion = false;
+              }
+            });
+
+            if (validacion) {
+              scaffoldState.currentState.showSnackBar(
+                  new SnackBar(content: Text('Datos guardados correctamente')));
+              Navigator.of(context).pop(validacion);
+            } else {
+              scaffoldState.currentState.showSnackBar(new SnackBar(
+                  content: Text('No se han capturado todos los datos')));
+            }
+          },
+          child: Icon(Icons.save),
+          backgroundColor: Colors.tealAccent[400],
+        ),
       ),
     );
   }
 }
 
-class InteriorBody extends StatelessWidget {
-  CardCustomTheme theme = themeFail;
+class InteriorBody extends StatefulWidget {
+  @override
+  _InteriorBodyState createState() => _InteriorBodyState();
+}
+
+class _InteriorBodyState extends State<InteriorBody> {
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -120,334 +100,293 @@ class InteriorBody extends StatelessWidget {
           subtitulo: 'Capture la informacion solicitada',
         ),
         CardData(
-          titulo: 'Tablero',
-          subtitulo: '',
-          tooltip: 'tooltip',
-          theme: theme,
-          accion: () => {
-            pasarRuta(datos: [ruta, 'Tablero'])
-          },
-        ),
+            contenido: tablero,
+            accion: () {
+              Navigator.of(context)
+                  .pushNamed(routeName, arguments: tablero.titulo)
+                  .then((value) {
+                setState(() {
+                  tablero.theme = themeOk;
+                  tablero.subtitulo = value;
+                  mapInterior['Tablero'] = value;
+                });
+              });
+            }),
         CardData(
-          titulo: 'Volante',
-          subtitulo: '',
-          tooltip: 'tooltip',
-          theme: theme,
-          accion: () => {
-            pasarRuta(datos: [ruta, 'Volante'])
-          },
-        ),
+            contenido: volante,
+            accion: () {
+              Navigator.of(context)
+                  .pushNamed(routeName, arguments: volante.titulo)
+                  .then((value) {
+                setState(() {
+                  volante.theme = themeOk;
+                  volante.subtitulo = value;
+                  mapInterior['Volante'] = value;
+                });
+              });
+            }),
         CardData(
-          titulo: 'Radio',
-          subtitulo: '',
-          tooltip: 'tooltip',
-          theme: theme,
-          accion: () => {
-            pasarRuta(datos: [ruta, 'Radio'])
-          },
-        ),
+            contenido: radio,
+            accion: () {
+              Navigator.of(context)
+                  .pushNamed(routeName, arguments: radio.titulo)
+                  .then((value) {
+                setState(() {
+                  radio.theme = themeOk;
+                  radio.subtitulo = value;
+                  mapInterior['Radio'] = value;
+                });
+              });
+            }),
         CardData(
-          titulo: 'Equipo de sonido',
-          subtitulo: '',
-          tooltip: 'tooltip',
-          theme: theme,
-          accion: () => {
-            pasarRuta(datos: [ruta, 'Equipo de sonido'])
-          },
-        ),
+            contenido: equipoDeSonido,
+            accion: () {
+              Navigator.of(context)
+                  .pushNamed(routeName, arguments: equipoDeSonido.titulo)
+                  .then((value) {
+                setState(() {
+                  equipoDeSonido.theme = themeOk;
+                  equipoDeSonido.subtitulo = value;
+                  mapInterior['EquipoSonido'] = value;
+                });
+              });
+            }),
         CardData(
-          titulo: 'Encendedor',
-          subtitulo: '',
-          tooltip: 'tooltip',
-          theme: theme,
-          accion: () => {
-            pasarRuta(datos: [ruta, 'Encendedor'])
-          },
-        ),
+            contenido: encendedor,
+            accion: () {
+              Navigator.of(context)
+                  .pushNamed(routeName, arguments: encendedor.titulo)
+                  .then((value) {
+                setState(() {
+                  encendedor.theme = themeOk;
+                  encendedor.subtitulo = value;
+                  mapInterior['Encendedor'] = value;
+                });
+              });
+            }),
         CardData(
-          titulo: 'Espejo',
-          subtitulo: '',
-          tooltip: 'tooltip',
-          theme: theme,
-          accion: () => {
-            pasarRuta(datos: [ruta, 'Espejo'])
-          },
-        ),
+            contenido: espejo,
+            accion: () {
+              Navigator.of(context)
+                  .pushNamed(routeName, arguments: espejo.titulo)
+                  .then((value) {
+                setState(() {
+                  espejo.theme = themeOk;
+                  espejo.subtitulo = value;
+                  mapInterior['Espejo'] = value;
+                });
+              });
+            }),
         CardData(
-          titulo: 'Asientos',
-          subtitulo: '',
-          tooltip: 'tooltip',
-          theme: theme,
-          accion: () => {
-            pasarRuta(datos: [ruta, 'Asientos'])
-          },
-        ),
+            contenido: asientos,
+            accion: () {
+              Navigator.of(context)
+                  .pushNamed(routeName, arguments: asientos.titulo)
+                  .then((value) {
+                setState(() {
+                  asientos.theme = themeOk;
+                  asientos.subtitulo = value;
+                  mapInterior['Asientos'] = value;
+                });
+              });
+            }),
         CardData(
-          titulo: 'Tapetes de alfombra',
-          subtitulo: '',
-          tooltip: 'tooltip',
-          theme: theme,
-          accion: () => {
-            pasarRuta(datos: [ruta, 'Tapetes de alfombra'])
-          },
-        ),
+            contenido: tapetesDeAlfombra,
+            accion: () {
+              Navigator.of(context)
+                  .pushNamed(routeName, arguments: tapetesDeAlfombra.titulo)
+                  .then((value) {
+                setState(() {
+                  tapetesDeAlfombra.theme = themeOk;
+                  tapetesDeAlfombra.subtitulo = value;
+                  mapInterior['TapetesAlfombra'] = value;
+                });
+              });
+            }),
         CardData(
-          titulo: 'Tapete de hule',
-          subtitulo: '',
-          tooltip: 'tooltip',
-          theme: theme,
-          accion: () => {
-            pasarRuta(datos: [ruta, 'Tapete de hule'])
-          },
-        ),
+            contenido: tapetesDeHule,
+            accion: () {
+              Navigator.of(context)
+                  .pushNamed(routeName, arguments: tapetesDeHule.titulo)
+                  .then((value) {
+                setState(() {
+                  tapetesDeHule.theme = themeOk;
+                  tapetesDeHule.subtitulo = value;
+                  mapInterior['TapetesHule'] = value;
+                });
+              });
+            }),
         CardData(
-          titulo: 'Extintor',
-          subtitulo: '',
-          tooltip: 'tooltip',
-          theme: theme,
-          accion: () => {
-            pasarRuta(datos: [ruta, 'Extintor'])
-          },
-        ),
+            contenido: extintor,
+            accion: () {
+              Navigator.of(context)
+                  .pushNamed(routeName, arguments: extintor.titulo)
+                  .then((value) {
+                setState(() {
+                  extintor.theme = themeOk;
+                  extintor.subtitulo = value;
+                  mapInterior['Extintor'] = value;
+                });
+              });
+            }),
         CardData(
-          titulo: 'Gato y maneral',
-          subtitulo: '',
-          tooltip: 'tooltip',
-          theme: theme,
-          accion: () => {
-            pasarRuta(datos: [ruta, 'Gato y maneral'])
-          },
-        ),
+            contenido: gatoManeral,
+            accion: () {
+              Navigator.of(context)
+                  .pushNamed(routeName, arguments: gatoManeral.titulo)
+                  .then((value) {
+                setState(() {
+                  gatoManeral.theme = themeOk;
+                  gatoManeral.subtitulo = value;
+                  mapInterior['GatoYManeral'] = value;
+                });
+              });
+            }),
         CardData(
-          titulo: 'Triangulo de seguridad',
-          subtitulo: '',
-          tooltip: 'tooltip',
-          theme: theme,
-          accion: () => {
-            pasarRuta(datos: [ruta, 'Triangulo de seguridad'])
-          },
-        ),
+            contenido: trianguloDeSeguridad,
+            accion: () {
+              Navigator.of(context)
+                  .pushNamed(routeName, arguments: trianguloDeSeguridad.titulo)
+                  .then((value) {
+                setState(() {
+                  trianguloDeSeguridad.theme = themeOk;
+                  trianguloDeSeguridad.subtitulo = value;
+                  mapInterior['TrianguloDeSeguridad'] = value;
+                });
+              });
+            }),
         CardData(
-          titulo: 'Bocinas',
-          subtitulo: '',
-          tooltip: 'tooltip',
-          theme: theme,
-          accion: () => {
-            pasarRuta(datos: [ruta, 'Bocinas'])
-          },
-        ),
+            contenido: bocinas,
+            accion: () {
+              Navigator.of(context)
+                  .pushNamed(routeName, arguments: bocinas.titulo)
+                  .then((value) {
+                setState(() {
+                  bocinas.theme = themeOk;
+                  bocinas.subtitulo = value;
+                  mapInterior['Bocinas'] = value;
+                });
+              });
+            }),
         CardData(
-          titulo: 'Luces',
-          subtitulo: '',
-          tooltip: 'tooltip',
-          theme: theme,
-          accion: () => {
-            pasarRuta(datos: [ruta, 'Luces'])
-          },
-        ),
+            contenido: luces,
+            accion: () {
+              Navigator.of(context)
+                  .pushNamed(routeName, arguments: luces.titulo)
+                  .then((value) {
+                setState(() {
+                  luces.theme = themeOk;
+                  luces.subtitulo = value;
+                  mapInterior['Luces'] = value;
+                });
+              });
+            }),
         CardData(
-          titulo: 'Tag',
-          subtitulo: '',
-          tooltip: 'tooltip',
-          theme: theme,
-          accion: () => {
-            pasarRuta(datos: [ruta, 'Tag'])
-          },
-        ),
+            contenido: tag,
+            accion: () {
+              Navigator.of(context)
+                  .pushNamed(routeName, arguments: tag.titulo)
+                  .then((value) {
+                setState(() {
+                  tag.theme = themeOk;
+                  tag.subtitulo = value;
+                  mapInterior['Tag'] = value;
+                });
+              });
+            }),
         CardData(
-          titulo: 'Vial pass',
-          subtitulo: '',
-          tooltip: 'tooltip',
-          theme: theme,
-          accion: () => {
-            pasarRuta(datos: [ruta, 'Vial pass'])
-          },
-        ),
+            contenido: vialPass,
+            accion: () {
+              Navigator.of(context)
+                  .pushNamed(routeName, arguments: vialPass.titulo)
+                  .then((value) {
+                setState(() {
+                  vialPass.theme = themeOk;
+                  vialPass.subtitulo = value;
+                  mapInterior['VialPass'] = value;
+                });
+              });
+            }),
         CardData(
-          titulo: 'Sim Card',
-          subtitulo: '',
-          tooltip: 'tooltip',
-          theme: theme,
-          accion: () => {
-            pasarRuta(datos: [ruta, 'Sim Card'])
-          },
-        ),
+            contenido: simCard,
+            accion: () {
+              Navigator.of(context)
+                  .pushNamed(routeName, arguments: simCard.titulo)
+                  .then((value) {
+                setState(() {
+                  simCard.theme = themeOk;
+                  simCard.subtitulo = value;
+                  mapInterior['SimCard'] = value;
+                });
+              });
+            }),
         Padding(
-          padding: const EdgeInsets.only(top: 8),
-          child: Text(
-            'LLantas',
-            style: TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.bold,
-                color: Colors.black54),
-            textAlign: TextAlign.center,
-          ),
-        ),
-        RowInputLine(textForm1: 'Marca', textForm2: 'Medida'),
-        ClientForm(
-          hint: 'Cantidad',
-          tecladoType: TextInputType.number,
-        ),
-        SaveButton(color: Colors.cyan),
-      ],
-    );
-  }
-}
-
-class CardList extends StatelessWidget {
-  final String titulo;
-  final String subtitulo;
-  final String tooltip;
-  final IconData okOrFailIcon;
-  final Color iconoColor;
-  final Color fondoColor;
-  final Function accion;
-
-  CardList({
-    @required this.titulo,
-    @required this.subtitulo,
-    @required this.tooltip,
-    @required this.okOrFailIcon,
-    @required this.iconoColor,
-    @required this.fondoColor,
-    @required this.accion,
-  });
-  @override
-  Widget build(BuildContext context) {
-    final cardState = Provider.of<CardState>(context, listen: false);
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
-      child: Card(
-        color: cardState.fondoColor,
-        elevation: 10.0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: InkWell(
-          onTap: () {
-            HapticFeedback.vibrate();
-            Navigator.of(context)
-                .pushNamed('/seleccion', arguments: this.subtitulo)
-                .then((value) {
-              if (value != null) {
-                cardState.subtitulo = value;
-                cardState.okOrFailIcon = Icons.check;
-                cardState.iconoColor = Colors.green;
-                cardState._fondoColor = Colors.cyan[100];
-                print(cardState.subtitulo);
-              }
-            });
-          },
-          child: Container(
-            height: 80,
+          padding: const EdgeInsets.all(12.0),
+          child: Card(
+            color: Colors.cyan[200],
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(
-                        this.titulo,
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black38,
-                        ),
-                      ),
-                      Consumer<CardState>(
-                        builder: (_, cardState, __) => CircleAvatar(
-                          backgroundColor: Colors.grey[400],
-                          child: Icon(
-                            cardState.okOrFailIcon,
-                            color: cardState.iconoColor,
-                            size: 32,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Consumer<CardState>(
-                    builder: (_, cardState, __) => Text(
-                      '${cardState.subtitulo}',
-                      style: TextStyle(fontSize: 14, color: Colors.black54),
-                      textAlign: TextAlign.left,
-                    ),
-                  ),
-                ],
+              child: Text(
+                'Llantas',
+                style: TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.white,
+                ),
+                textAlign: TextAlign.center,
               ),
             ),
           ),
         ),
-      ),
-    );
-  }
-}
-
-class RowInputLine extends StatelessWidget {
-  final String textForm1;
-  final String textForm2;
-  const RowInputLine({
-    @required this.textForm1,
-    @required this.textForm2,
-    Key key,
-  }) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        ClientForm(
-          hint: this.textForm1,
-        ),
-        ClientForm(
-          hint: this.textForm2,
-        ),
-      ],
-    );
-  }
-}
-
-//Widget 1 input field
-class ClientForm extends StatefulWidget {
-  final TextInputType tecladoType;
-  final String hint;
-  ClientForm({@required this.hint, this.tecladoType});
-  @override
-  _ClientFormState createState() => _ClientFormState();
-}
-
-class _ClientFormState extends State<ClientForm> {
-  String inputText = '';
-  final TextEditingController _controller = TextEditingController();
-  void onSubmitted(String value) {
-    setState(() {
-      print(_controller.text);
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
-      child: Container(
-        width: (MediaQuery.of(context).size.width / 2) - 26,
-        child: TextField(
-          keyboardType: this.widget.tecladoType,
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            labelText: this.widget.hint,
-            hintText: this.widget.hint,
-            hintStyle: TextStyle(color: Colors.cyan),
-          ),
-          controller: _controller,
-          onSubmitted: (String value) {
-            onSubmitted(value);
+        InputText(
+          hint: 'Marca',
+          controller: formController.controller[11],
+          theme: formController.theme[11],
+          capitalization: TextCapitalization.sentences,
+          accion: () {
+            print('Marca: ${formController.controller[11].text}');
+            mapInterior['MarcaLlantas'] = formController.controller[11].text;
+            setState(() {
+              formController.controller[11].text.isEmpty
+                  ? formController.theme[11] = inputThemeFail
+                  : formController.theme[11] = inputThemeOK;
+            });
           },
         ),
-      ),
+        InputText(
+          hint: 'Medida',
+          controller: formController.controller[12],
+          theme: formController.theme[12],
+          capitalization: TextCapitalization.sentences,
+          accion: () {
+            print('Medida: ${formController.controller[12].text}');
+            mapInterior['MedidaLlantas'] = formController.controller[12].text;
+            setState(() {
+              formController.controller[12].text.isEmpty
+                  ? formController.theme[12] = inputThemeFail
+                  : formController.theme[12] = inputThemeOK;
+            });
+          },
+        ),
+        InputText(
+          hint: 'Cantidad',
+          controller: formController.controller[13],
+          theme: formController.theme[13],
+          capitalization: TextCapitalization.sentences,
+          accion: () {
+            print('Cantidad: ${formController.controller[13].text}');
+            mapInterior['CantidadLlantas'] = formController.controller[13].text;
+            setState(() {
+              formController.controller[13].text.isEmpty
+                  ? formController.theme[13] = inputThemeFail
+                  : formController.theme[13] = inputThemeOK;
+            });
+          },
+        ),
+        SizedBox(
+          height: 50,
+        ),
+      ],
     );
   }
 }

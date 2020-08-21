@@ -9,7 +9,7 @@ class _InputMailState extends State<InputMail> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(50),
+      padding: const EdgeInsets.symmetric(horizontal: 50.0, vertical: 20.0),
       child: Container(
         height: 60,
         width: MediaQuery.of(context).size.width,
