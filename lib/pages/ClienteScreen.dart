@@ -3,10 +3,12 @@ import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:mrd_interfaz/models/Temas.dart';
+import 'package:mrd_interfaz/models/Contenido.dart';
 import 'package:mrd_interfaz/models/DataModel.dart';
 import 'package:mrd_interfaz/models/autocomplete_data.dart';
 import 'package:mrd_interfaz/widget/ClienteScreenWidget/ClientData.dart';
 import 'package:mrd_interfaz/widget/utils/HeaderLogo.dart';
+import 'package:mrd_interfaz/widget/utils/Input.dart';
 
 String modeloSelected = '';
 String modeloVehiculo = '';
@@ -45,6 +47,7 @@ class _ClienteScreenState extends State<ClienteScreen> {
         false;
   }
 
+  GlobalKey<ScaffoldState> scaffoldState = GlobalKey();
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -55,11 +58,29 @@ class _ClienteScreenState extends State<ClienteScreen> {
           backgroundColor: Colors.orange,
         ),
         body: ClienteBody(),
+        key: scaffoldState,
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            print(clienteDataModel.data);
+            //print(mapCliente);
+            bool validacion = true;
+            mapCliente.forEach((key, value) {
+              if (value == '') {
+                print('Valor $key: $value');
+                print('Validacion = $validacion');
+                validacion = false;
+              }
+            });
+
+            if (validacion) {
+              scaffoldState.currentState.showSnackBar(
+                  new SnackBar(content: Text('Datos guardados correctamente')));
+              Navigator.of(context).pop(validacion);
+            } else {
+              scaffoldState.currentState.showSnackBar(new SnackBar(
+                  content: Text('No se han capturado todos los datos')));
+            }
           },
-          backgroundColor: Colors.green,
+          backgroundColor: Colors.tealAccent[400],
           elevation: 15.0,
           child: Icon(Icons.save),
         ),
@@ -106,7 +127,7 @@ class _ClienteBodyState extends State<ClienteBody> {
                   subtitulo: 'Capture los datos del cliente solicitados.',
                 ),
                 NumeroReporte(),
-                CardData1(
+                CardData(
                   contenido: fechaHoraContenido,
                   accion: () {
                     print('Captura de hora y fecha');
@@ -118,17 +139,23 @@ class _ClienteBodyState extends State<ClienteBody> {
                             fechaHoraContenido.subtitulo =
                                 'No se ha ingresado la fecha y hora';
                             fechaHoraContenido.theme = themeFail;
-                            clienteDataModel.data['fecha'] = '';
+                            mapCliente['Fecha'] = '';
                           } else {
-                            fechaHoraContenido.subtitulo =
-                                'Fecha: ${valueD.day}/${valueD.month}/${valueD.year} -- ${valueT.hour}:${valueT.minute} ';
+                            if (valueT.minute < 10) {
+                              fechaHoraContenido.subtitulo =
+                                  'Fecha: ${valueD.day}/${valueD.month}/${valueD.year} -- ${valueT.hour}:0${valueT.minute}:00 ';
+                              mapCliente['Fecha'] =
+                                  '${valueD.year}-${valueD.month}-${valueD.year} ${valueT.hour}:0${valueT.minute}:00';
+                            } else {
+                              fechaHoraContenido.subtitulo =
+                                  'Fecha: ${valueD.day}/${valueD.month}/${valueD.year} -- ${valueT.hour}:${valueT.minute}:00 ';
+                              mapCliente['Fecha'] =
+                                  '${valueD.year}-${valueD.month}-${valueD.day} ${valueT.hour}:${valueT.minute}:00';
+                            }
+
                             fechaHoraContenido.theme = themeOk;
                             //Data model
-                            clienteDataModel.data['fecha'] =
-                                '${valueD.day}/${valueD.month}/${valueD.year}';
-                            //Data model
-                            clienteDataModel.data['hora'] =
-                                '${valueT.hour}:${valueT.minute}:00';
+
                           }
                         });
                       });
@@ -136,7 +163,7 @@ class _ClienteBodyState extends State<ClienteBody> {
                   },
                 ),
                 //Captura de direccion por gps
-                CardData1(
+                CardData(
                   contenido: direccionContenido,
                   accion: () {
                     print('Captura de direccion por gps');
@@ -147,20 +174,20 @@ class _ClienteBodyState extends State<ClienteBody> {
                           direccionContenido.theme = themeOk;
                           direccionContenido.subtitulo = value;
                           //Carga de direccion en el modelo
-                          clienteDataModel.data['direccion'] = value;
+                          mapCliente['Direccion'] = value;
                         } else {
                           direccionContenido.subtitulo =
                               'Capture la direccion del arrastre';
                           direccionContenido.theme = themeFail;
                           //Carga de direccion en el modelo
-                          clienteDataModel.data['direccion'] = '';
+                          mapCliente['Direccion'] = '';
                         }
                       });
                     });
                   },
                 ),
                 //Captura de motivo de inventario
-                CardData1(
+                CardData(
                   contenido: inventarioContenido,
                   accion: () {
                     Navigator.of(context)
@@ -171,15 +198,18 @@ class _ClienteBodyState extends State<ClienteBody> {
                           inventarioContenido.theme = themeOk;
                           inventarioContenido.subtitulo = value;
                           //Carga de direccion en el modelo
-                          clienteDataModel.data['inventario'] = value;
+                          mapCliente['MotivoInventario'] = value;
                         } else {
                           inventarioContenido.theme = themeFail;
                           //Carga de direccion en el modelo
-                          clienteDataModel.data['inventario'] = '';
+                          mapCliente['MotivoInventario'] = '';
                         }
                       });
                     });
                   },
+                ),
+                SizedBox(
+                  height: 20,
                 ),
               ],
             ),
@@ -197,7 +227,7 @@ class _ClienteBodyState extends State<ClienteBody> {
                   theme: formController.theme[9],
                   accion: () {
                     print('Marca: ${formController.controller[9].text}');
-                    clienteDataModel.data['marca'] =
+                    mapCliente['VahiculoMarca'] =
                         formController.controller[9].text;
                     setState(() {
                       formController.controller[9].text.isEmpty
@@ -213,8 +243,7 @@ class _ClienteBodyState extends State<ClienteBody> {
                   theme: formController.theme[10],
                   accion: () {
                     print('Modelo: ${formController.controller[10].text}');
-                    clienteDataModel.data['modelo'] =
-                        formController.controller[10].text;
+                    mapCliente['Modelo'] = formController.controller[10].text;
                     setState(() {
                       formController.controller[10].text.isEmpty
                           ? formController.theme[10] = inputThemeFail
@@ -229,8 +258,7 @@ class _ClienteBodyState extends State<ClienteBody> {
                   capitalization: TextCapitalization.sentences,
                   accion: () {
                     print('Tipo: ${formController.controller[0].text}');
-                    clienteDataModel.data['tipo'] =
-                        formController.controller[0].text;
+                    mapCliente['Tipo'] = formController.controller[0].text;
                     setState(() {
                       formController.controller[0].text.isEmpty
                           ? formController.theme[0] = inputThemeFail
@@ -245,8 +273,7 @@ class _ClienteBodyState extends State<ClienteBody> {
                   capitalization: TextCapitalization.sentences,
                   accion: () {
                     print('Color: ${formController.controller[1].text}');
-                    clienteDataModel.data['color'] =
-                        formController.controller[1].text;
+                    mapCliente['Color'] = formController.controller[1].text;
                     setState(() {
                       formController.controller[1].text.isEmpty
                           ? formController.theme[1] = inputThemeFail
@@ -261,8 +288,7 @@ class _ClienteBodyState extends State<ClienteBody> {
                   capitalization: TextCapitalization.characters,
                   accion: () {
                     print('Placas: ${formController.controller[2].text}');
-                    clienteDataModel.data['placas'] =
-                        formController.controller[2].text;
+                    mapCliente['Placas'] = formController.controller[2].text;
                     setState(() {
                       formController.controller[2].text.isEmpty
                           ? formController.theme[2] = inputThemeFail
@@ -277,8 +303,7 @@ class _ClienteBodyState extends State<ClienteBody> {
                   capitalization: TextCapitalization.characters,
                   accion: () {
                     print('Serie: ${formController.controller[3].text}');
-                    clienteDataModel.data['serie'] =
-                        formController.controller[3].text;
+                    mapCliente['NoSerie'] = formController.controller[3].text;
                     setState(() {
                       formController.controller[3].text.isEmpty
                           ? formController.theme[3] = inputThemeFail
@@ -293,7 +318,7 @@ class _ClienteBodyState extends State<ClienteBody> {
                   capitalization: TextCapitalization.sentences,
                   accion: () {
                     print('Serie: ${formController.controller[4].text}');
-                    clienteDataModel.data['propietario'] =
+                    mapCliente['NombreConductor'] =
                         formController.controller[4].text;
                     setState(() {
                       formController.controller[4].text.isEmpty
@@ -310,8 +335,7 @@ class _ClienteBodyState extends State<ClienteBody> {
                   capitalization: TextCapitalization.sentences,
                   accion: () {
                     print('Telefono: ${formController.controller[5].text}');
-                    clienteDataModel.data['telefono'] =
-                        formController.controller[5].text;
+                    mapCliente['Telefono'] = formController.controller[5].text;
                     setState(() {
                       formController.controller[5].text.isEmpty
                           ? formController.theme[5] = inputThemeFail
@@ -326,8 +350,7 @@ class _ClienteBodyState extends State<ClienteBody> {
                   capitalization: TextCapitalization.sentences,
                   accion: () {
                     print('Grua: ${formController.controller[6].text}');
-                    clienteDataModel.data['grua'] =
-                        formController.controller[6].text;
+                    mapCliente['Grua'] = formController.controller[6].text;
                     setState(() {
                       formController.controller[6].text.isEmpty
                           ? formController.theme[6] = inputThemeFail
@@ -342,7 +365,7 @@ class _ClienteBodyState extends State<ClienteBody> {
                   capitalization: TextCapitalization.characters,
                   accion: () {
                     print('Grua: ${formController.controller[7].text}');
-                    clienteDataModel.data['claveOperador'] =
+                    mapCliente['ClaveOperador'] =
                         formController.controller[7].text;
                     setState(() {
                       formController.controller[7].text.isEmpty
@@ -359,7 +382,7 @@ class _ClienteBodyState extends State<ClienteBody> {
                   accion: () {
                     print(
                         'Autoridad o Solicitante: ${formController.controller[8].text}');
-                    clienteDataModel.data['autoridad'] =
+                    mapCliente['Solicitante'] =
                         formController.controller[8].text;
                     setState(() {
                       formController.controller[8].text.isEmpty
@@ -393,44 +416,6 @@ class _ClienteBodyState extends State<ClienteBody> {
   }
 }
 
-class InputText extends StatelessWidget {
-  final String hint;
-  final TextEditingController controller;
-  final Function accion;
-  final TextInputTheme theme;
-  final TextCapitalization capitalization;
-
-  InputText({
-    this.hint,
-    this.controller,
-    this.accion,
-    this.theme,
-    this.capitalization,
-  });
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: TextField(
-        textCapitalization: capitalization,
-        style: TextStyle(color: this.theme.textInputColor),
-        decoration: InputDecoration(
-          labelText: this.hint,
-          labelStyle: TextStyle(
-            color: this.theme.labelColor,
-          ),
-        ),
-        controller: controller,
-        onSubmitted: (value) {
-          //print(value);
-          //controller.text = value;
-          this.accion();
-        },
-      ),
-    );
-  }
-}
-
 //TextField autocompletado MARCA
 class TextAutoCompleteMarca extends StatefulWidget {
   final String hint;
@@ -452,7 +437,6 @@ class _TextAutoCompleteMarcaState extends State<TextAutoCompleteMarca> {
   String inputText = '';
   List<String> marcas = [];
   Map<String, dynamic> data;
-  final TextEditingController _typeAheadController = TextEditingController();
 
   @override
   void initState() {
@@ -470,10 +454,11 @@ class _TextAutoCompleteMarcaState extends State<TextAutoCompleteMarca> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
       child: TypeAheadField(
         textFieldConfiguration: TextFieldConfiguration(
           decoration: InputDecoration(
+            border: OutlineInputBorder(),
             labelText: this.widget.hint,
             labelStyle: TextStyle(
               color: widget.theme.labelColor,
@@ -537,15 +522,15 @@ class TextAutocompleteModelo extends StatefulWidget {
 class _TextAutocompleteModeloState extends State<TextAutocompleteModelo> {
   String inputText = '';
   Map<String, dynamic> data;
-  final TextEditingController _typeAheadController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
       child: TypeAheadField(
         textFieldConfiguration: TextFieldConfiguration(
           decoration: InputDecoration(
+            border: OutlineInputBorder(),
             labelText: this.widget.hint,
             labelStyle: TextStyle(
               color: widget.theme.labelColor,
@@ -602,7 +587,7 @@ class NumeroReporte extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Text(
-        'REPORTE #: ',
+        'REPORTE #: ${mapCliente['Folio']}',
         style: TextStyle(
             fontSize: 18, fontWeight: FontWeight.w500, color: Colors.redAccent),
       ),

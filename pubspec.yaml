@@ -58,6 +58,7 @@ flutter:
         - assets/coche.png
         - assets/motor.png
         - assets/camara.png
+        - assets/foto.png
         - assets/fondoLogin.jpg
         - assets/json/modelo.json
     #   - images/a_dot_ham.jpeg

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:mrd_interfaz/models/DataModel.dart';
 import 'package:mrd_interfaz/models/Temas.dart';
+import 'package:mrd_interfaz/models/Contenido.dart';
 import 'package:mrd_interfaz/widget/utils/HeaderLogo.dart';
 import 'package:mrd_interfaz/widget/ClienteScreenWidget/ClientData.dart';
-import 'package:mrd_interfaz/widget/utils/SaveButton.dart';
+
+const String routeName = '/seleccion';
 
 class ExteriorScreen extends StatefulWidget {
   @override
@@ -36,6 +39,7 @@ class _ExteriorScreenState extends State<ExteriorScreen> {
         false;
   }
 
+  GlobalKey<ScaffoldState> scaffoldState = GlobalKey();
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -46,6 +50,31 @@ class _ExteriorScreenState extends State<ExteriorScreen> {
           backgroundColor: Colors.tealAccent[400],
         ),
         body: ExteriorBody(),
+        key: scaffoldState,
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            //print(mapExterior);
+            bool validacion = true;
+            mapExterior.forEach((key, value) {
+              if (value == '') {
+                print('Valor $key: $value');
+                print('Validacion = $validacion');
+                validacion = false;
+              }
+            });
+
+            if (validacion) {
+              scaffoldState.currentState.showSnackBar(
+                  new SnackBar(content: Text('Datos guardados correctamente')));
+              Navigator.of(context).pop(validacion);
+            } else {
+              scaffoldState.currentState.showSnackBar(new SnackBar(
+                  content: Text('No se han capturado todos los datos')));
+            }
+          },
+          child: Icon(Icons.save),
+          backgroundColor: Colors.tealAccent[400],
+        ),
       ),
     );
   }
@@ -76,204 +105,323 @@ class _ExteriorBodyState extends State<ExteriorBody> {
           subtitulo: 'Capture la informacion solicitada',
         ),
         CardData(
-          titulo: 'Defensa Delantera',
-          subtitulo: '',
-          tooltip: 'Datos sin capturar',
-          theme: theme,
-          accion: () => {
-            pasarRuta(datos: [ruta, 'Defensa Delantera'])
-          },
-        ),
+            contenido: defensaDelantera,
+            accion: () {
+              Navigator.of(context)
+                  .pushNamed(routeName, arguments: defensaDelantera.titulo)
+                  .then((value) {
+                if (value != null) {
+                  setState(() {
+                    defensaDelantera.theme = themeOk;
+                    defensaDelantera.subtitulo = value;
+                    mapExterior['DefensaDelantera'] = value;
+                  });
+                }
+              });
+            }),
         CardData(
-          titulo: 'Carroceria Sin Golpes',
-          subtitulo: '',
-          tooltip: 'Datos sin capturar',
-          theme: theme,
-          accion: () => {
-            pasarRuta(datos: [ruta, 'Carroceria Sin Golpes'])
-          },
-        ),
+            contenido: carroceriaSinGolpes,
+            accion: () {
+              Navigator.of(context)
+                  .pushNamed(routeName, arguments: carroceriaSinGolpes.titulo)
+                  .then((value) {
+                if (value != null) {
+                  setState(() {
+                    carroceriaSinGolpes.theme = themeOk;
+                    carroceriaSinGolpes.subtitulo = value;
+                    mapExterior['CarroceriaSinGolpes'] = value;
+                  });
+                }
+              });
+            }),
         CardData(
-          titulo: 'Parrilla',
-          subtitulo: '',
-          tooltip: 'Datos sin capturar',
-          theme: theme,
-          accion: () => {
-            pasarRuta(datos: [ruta, 'Parrilla'])
-          },
-        ),
+            contenido: parrilla,
+            accion: () {
+              Navigator.of(context)
+                  .pushNamed(routeName, arguments: parrilla.titulo)
+                  .then((value) {
+                if (value != null) {
+                  setState(() {
+                    parrilla.theme = themeOk;
+                    parrilla.subtitulo = value;
+                    mapExterior['Parrilla'] = value;
+                  });
+                }
+              });
+            }),
         CardData(
-          titulo: 'Faros',
-          subtitulo: '',
-          tooltip: 'Datos sin capturar',
-          theme: theme,
-          accion: () => {
-            pasarRuta(datos: [ruta, 'Faros'])
-          },
-        ),
+            contenido: faros,
+            accion: () {
+              Navigator.of(context)
+                  .pushNamed(routeName, arguments: faros.titulo)
+                  .then((value) {
+                if (value != null) {
+                  setState(() {
+                    faros.theme = themeOk;
+                    faros.subtitulo = value;
+                    mapExterior['Faros'] = value;
+                  });
+                }
+              });
+            }),
         CardData(
-          titulo: 'Cofre',
-          subtitulo: '',
-          tooltip: 'Datos sin capturar',
-          theme: theme,
-          accion: () => {
-            pasarRuta(datos: [ruta, 'Cofre'])
-          },
-        ),
+            contenido: cofre,
+            accion: () {
+              Navigator.of(context)
+                  .pushNamed(routeName, arguments: cofre.titulo)
+                  .then((value) {
+                if (value != null) {
+                  setState(() {
+                    cofre.theme = themeOk;
+                    cofre.subtitulo = value;
+                    mapExterior['Cofre'] = value;
+                  });
+                }
+              });
+            }),
         CardData(
-          titulo: 'Parabrisas',
-          subtitulo: '',
-          tooltip: 'Datos sin capturar',
-          theme: theme,
-          accion: () => {
-            pasarRuta(datos: [ruta, 'Parabrisas'])
-          },
-        ),
+            contenido: parabrisas,
+            accion: () {
+              Navigator.of(context)
+                  .pushNamed(routeName, arguments: parabrisas.titulo)
+                  .then((value) {
+                if (value != null) {
+                  setState(() {
+                    parabrisas.theme = themeOk;
+                    parabrisas.subtitulo = value;
+                    mapExterior['Parabrisas'] = value;
+                  });
+                }
+              });
+            }),
         CardData(
-          titulo: 'Limpiadores',
-          subtitulo: '',
-          tooltip: 'Datos sin capturar',
-          theme: theme,
-          accion: () => {
-            pasarRuta(datos: [ruta, 'Limpiadores'])
-          },
-        ),
+            contenido: limpiadores,
+            accion: () {
+              Navigator.of(context)
+                  .pushNamed(routeName, arguments: limpiadores.titulo)
+                  .then((value) {
+                if (value != null) {
+                  setState(() {
+                    limpiadores.theme = themeOk;
+                    limpiadores.subtitulo = value;
+                    mapExterior['Limpiadores'] = value;
+                  });
+                }
+              });
+            }),
         CardData(
-          titulo: 'Emblemas',
-          subtitulo: '',
-          tooltip: 'Datos sin capturar',
-          theme: theme,
-          accion: () => {
-            pasarRuta(datos: [ruta, 'Emblemas'])
-          },
-        ),
+            contenido: emblemas,
+            accion: () {
+              Navigator.of(context)
+                  .pushNamed(routeName, arguments: emblemas.titulo)
+                  .then((value) {
+                if (value != null) {
+                  setState(() {
+                    emblemas.theme = themeOk;
+                    emblemas.subtitulo = value;
+                    mapExterior['Emblemas'] = value;
+                  });
+                }
+              });
+            }),
         CardData(
-          titulo: 'Portezuela Izquierda',
-          subtitulo: '',
-          tooltip: 'Datos sin capturar',
-          theme: theme,
-          accion: () => {
-            pasarRuta(datos: [ruta, 'Portezuela Izquierda'])
-          },
-        ),
+            contenido: portezuelaIzquierda,
+            accion: () {
+              Navigator.of(context)
+                  .pushNamed(routeName, arguments: portezuelaIzquierda.titulo)
+                  .then((value) {
+                if (value != null) {
+                  setState(() {
+                    portezuelaIzquierda.theme = themeOk;
+                    portezuelaIzquierda.subtitulo = value;
+                    mapExterior['PortezuelaIzq'] = value;
+                  });
+                }
+              });
+            }),
         CardData(
-          titulo: 'Cristales lat Izquierda',
-          subtitulo: '',
-          tooltip: 'Datos sin capturar',
-          theme: theme,
-          accion: () => {
-            pasarRuta(datos: [ruta, 'Cristales lat Izquierda'])
-          },
-        ),
+            contenido: cristalLatIzquierda,
+            accion: () {
+              Navigator.of(context)
+                  .pushNamed(routeName, arguments: cristalLatIzquierda.titulo)
+                  .then((value) {
+                if (value != null) {
+                  setState(() {
+                    cristalLatIzquierda.theme = themeOk;
+                    cristalLatIzquierda.subtitulo = value;
+                    mapExterior['CristalLatIzq'] = value;
+                  });
+                }
+              });
+            }),
         CardData(
-          titulo: 'Medallon',
-          subtitulo: '',
-          tooltip: 'Datos sin capturar',
-          theme: theme,
-          accion: () => {
-            pasarRuta(datos: [ruta, 'Medallon'])
-          },
-        ),
+            contenido: medallon,
+            accion: () {
+              Navigator.of(context)
+                  .pushNamed(routeName, arguments: medallon.titulo)
+                  .then((value) {
+                if (value != null) {
+                  setState(() {
+                    medallon.theme = themeOk;
+                    medallon.subtitulo = value;
+                    mapExterior['Medallon'] = value;
+                  });
+                }
+              });
+            }),
         CardData(
-          titulo: 'Cajuela',
-          subtitulo: '',
-          tooltip: 'Datos sin capturar',
-          theme: theme,
-          accion: () => {
-            pasarRuta(datos: [ruta, 'Cajuela'])
-          },
-        ),
+            contenido: cajuela,
+            accion: () {
+              Navigator.of(context)
+                  .pushNamed(routeName, arguments: cajuela.titulo)
+                  .then((value) {
+                if (value != null) {
+                  setState(() {
+                    cajuela.theme = themeOk;
+                    cajuela.subtitulo = value;
+                    mapExterior['Cajuela'] = value;
+                  });
+                }
+              });
+            }),
         CardData(
-          titulo: 'Defensa Trasera',
-          subtitulo: '',
-          tooltip: 'Datos sin capturar',
-          theme: theme,
-          accion: () => {
-            pasarRuta(datos: [ruta, 'Defensa Trasera'])
-          },
-        ),
+            contenido: defensaTrasera,
+            accion: () {
+              Navigator.of(context)
+                  .pushNamed(routeName, arguments: defensaTrasera.titulo)
+                  .then((value) {
+                if (value != null) {
+                  setState(() {
+                    defensaTrasera.theme = themeOk;
+                    defensaTrasera.subtitulo = value;
+                    mapExterior['DefensaTrasera'] = value;
+                  });
+                }
+              });
+            }),
         CardData(
-          titulo: 'Portezuela Derecha',
-          subtitulo: '',
-          tooltip: 'Datos sin capturar',
-          theme: theme,
-          accion: () => {
-            pasarRuta(datos: [ruta, 'Portezuela Derecha'])
-          },
-        ),
+            contenido: portezuelaDerecha,
+            accion: () {
+              Navigator.of(context)
+                  .pushNamed(routeName, arguments: portezuelaDerecha.titulo)
+                  .then((value) {
+                if (value != null) {
+                  setState(() {
+                    portezuelaDerecha.theme = themeOk;
+                    portezuelaDerecha.subtitulo = value;
+                    mapExterior['PortezuelaDer'] = value;
+                  });
+                }
+              });
+            }),
         CardData(
-          titulo: 'Cristal lat Derecho',
-          subtitulo: '',
-          tooltip: 'Datos sin capturar',
-          theme: theme,
-          accion: () => {
-            pasarRuta(datos: [ruta, 'Cristal lat Derecho'])
-          },
-        ),
+            contenido: cristalLatDerecho,
+            accion: () {
+              Navigator.of(context)
+                  .pushNamed(routeName, arguments: cristalLatDerecho.titulo)
+                  .then((value) {
+                if (value != null) {
+                  setState(() {
+                    cristalLatDerecho.theme = themeOk;
+                    cristalLatDerecho.subtitulo = value;
+                    mapExterior['CristalLatDer'] = value;
+                  });
+                }
+              });
+            }),
         CardData(
-          titulo: 'Antenas',
-          subtitulo: '',
-          tooltip: 'Datos sin capturar',
-          theme: theme,
-          accion: () => {
-            pasarRuta(datos: [ruta, 'Antenas'])
-          },
-        ),
+            contenido: antenas,
+            accion: () {
+              Navigator.of(context)
+                  .pushNamed(routeName, arguments: antenas.titulo)
+                  .then((value) {
+                if (value != null) {
+                  setState(() {
+                    antenas.theme = themeOk;
+                    antenas.subtitulo = value;
+                    mapExterior['Antenas'] = value;
+                  });
+                }
+              });
+            }),
         CardData(
-          titulo: 'Espejos',
-          subtitulo: '',
-          tooltip: 'Datos sin capturar',
-          theme: theme,
-          accion: () => {
-            pasarRuta(datos: [ruta, 'Espejos'])
-          },
-        ),
+            contenido: espejos,
+            accion: () {
+              Navigator.of(context)
+                  .pushNamed(routeName, arguments: espejos.titulo)
+                  .then((value) {
+                if (value != null) {
+                  setState(() {
+                    espejos.theme = themeOk;
+                    espejos.subtitulo = value;
+                    mapExterior['Espejos'] = value;
+                  });
+                }
+              });
+            }),
         CardData(
-          titulo: 'Tapones Ruedas',
-          subtitulo: '',
-          tooltip: 'Datos sin capturar',
-          theme: theme,
-          accion: () => {
-            pasarRuta(datos: [ruta, 'Tapones Ruedas'])
-          },
-        ),
+            contenido: taponesRuedas,
+            accion: () {
+              Navigator.of(context)
+                  .pushNamed(routeName, arguments: taponesRuedas.titulo)
+                  .then((value) {
+                if (value != null) {
+                  setState(() {
+                    taponesRuedas.theme = themeOk;
+                    taponesRuedas.subtitulo = value;
+                    mapExterior['TaponesRuedas'] = value;
+                  });
+                }
+              });
+            }),
         CardData(
-          titulo: 'Tapon De Gasolina',
-          subtitulo: '',
-          tooltip: 'Datos sin capturar',
-          theme: theme,
-          accion: () => {
-            pasarRuta(datos: [ruta, 'Tapon De Gasolina'])
-          },
-        ),
+            contenido: taponGasolina,
+            accion: () {
+              Navigator.of(context)
+                  .pushNamed(routeName, arguments: taponGasolina.titulo)
+                  .then((value) {
+                if (value != null) {
+                  setState(() {
+                    taponGasolina.theme = themeOk;
+                    taponGasolina.subtitulo = value;
+                    mapExterior['TaponGasolina'] = value;
+                  });
+                }
+              });
+            }),
         CardData(
-          titulo: 'Salpicadera Derecha',
-          subtitulo: '',
-          tooltip: 'Datos sin capturar',
-          theme: theme,
-          accion: () => {
-            pasarRuta(datos: [ruta, 'Salpicadera Derecha'])
-          },
-        ),
+            contenido: salpicaderaDerecha,
+            accion: () {
+              Navigator.of(context)
+                  .pushNamed(routeName, arguments: salpicaderaDerecha.titulo)
+                  .then((value) {
+                if (value != null) {
+                  setState(() {
+                    salpicaderaDerecha.theme = themeOk;
+                    salpicaderaDerecha.subtitulo = value;
+                    mapExterior['SalpicaderaDer'] = value;
+                  });
+                }
+              });
+            }),
         CardData(
-          titulo: 'Defensa Delantera',
-          subtitulo: '',
-          tooltip: 'Datos sin capturar',
-          theme: theme,
-          accion: () => {
-            pasarRuta(datos: [ruta, 'Defensa Delantera'])
-          },
+            contenido: salpicaderaIzquierda,
+            accion: () {
+              Navigator.of(context)
+                  .pushNamed(routeName, arguments: salpicaderaIzquierda.titulo)
+                  .then((value) {
+                if (value != null) {
+                  setState(() {
+                    salpicaderaIzquierda.theme = themeOk;
+                    salpicaderaIzquierda.subtitulo = value;
+                    mapExterior['SalpicaderaIzq'] = value;
+                  });
+                }
+              });
+            }),
+        SizedBox(
+          height: 50,
         ),
-        CardData(
-          titulo: 'Salpicadera Izquierda',
-          subtitulo: '',
-          tooltip: 'Datos sin capturar',
-          theme: theme,
-          accion: () => {
-            pasarRuta(datos: [ruta, 'Salpicadera Izquierda'])
-          },
-        ),
-        SaveButton(color: Colors.tealAccent[400]),
       ],
     );
   }

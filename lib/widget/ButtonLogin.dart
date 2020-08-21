@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class ButtonLogin extends StatelessWidget {
+  final Function accion;
+  ButtonLogin({this.accion});
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -23,7 +25,7 @@ class ButtonLogin extends StatelessWidget {
         ),
         child: FlatButton(
           onPressed: () {
-            Navigator.of(context).pushNamed('/main');
+            this.accion();
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,

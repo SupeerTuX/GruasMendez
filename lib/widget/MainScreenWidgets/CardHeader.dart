@@ -2,22 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class CardHeader extends StatefulWidget {
+  final Function uploadReporte;
+  CardHeader({this.uploadReporte});
   @override
   _CardHeaderState createState() => _CardHeaderState();
 }
 
 class _CardHeaderState extends State<CardHeader> {
-  @override
-  Widget build(BuildContext context) {
-    return CardHeaderBody();
-  }
-}
-
-class CardHeaderBody extends StatelessWidget {
-  const CardHeaderBody({
-    Key key,
-  }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -64,6 +55,7 @@ class CardHeaderBody extends StatelessWidget {
                 InkWell(
                     onTap: () {
                       HapticFeedback.vibrate();
+                      widget.uploadReporte();
                     },
                     child: IconoHeader(
                         icono: Icons.cloud, iconoText: 'Subir Reporte')),
