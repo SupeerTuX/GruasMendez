@@ -1,30 +1,42 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
 import 'package:mrd_interfaz/models/DataModel.dart';
 import 'package:mrd_interfaz/models/Temas.dart';
+import 'package:mrd_interfaz/servicios/Servicios.dart';
 import 'package:mrd_interfaz/widget/MainScreenWidgets/CardHeader.dart';
 import 'package:mrd_interfaz/widget/MainScreenWidgets/CuerpoReporte.dart';
 import 'package:mrd_interfaz/widget/MainScreenWidgets/HeaderText.dart';
 import 'package:mrd_interfaz/widget/MainScreenWidgets/Info.dart';
 
 Future<ResponseReporte> uploadReporte(Map data) async {
-  final http.Response response = await http.post(
-    'https://consulta.ustgm.net/mrd/public/api/reporte',
-    headers: <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-    },
-    body: jsonEncode(data),
-  );
-  if (response.statusCode == 201) {
-    // If the server did return a 201 CREATED response,
-    // then parse the JSON.
-    return ResponseReporte.fromJson(json.decode(response.body));
+  //Checamos el mapa de validacion
+  var datos, fotos;
+
+  //subiendo datos
+  if (!validacionReporte['Datos']) {
+    datos = await sendData(data);
+  }
+
+  //si los datos se subieron correctamente, enviamos las fotos
+  if (!validacionReporte['Fotos']) {
+    fotos = await sendImages(rutas: mapReporteFotografico, data: mapCliente);
+  }
+
+  //check si los datos y fotos se subieron correctamente
+  if (validacionReporte['Datos'] && validacionReporte['Fotos']) {
+    //Si los datos y fotos fueron subidos correctamente devolvemos
+    //una instancia de la clase ResponseReporte
+    ResponseReporte response = new ResponseReporte(
+        code: 201, error: false, msg: 'Reporte enviado correctamente');
+    return response;
   } else {
-    // If the server did not return a 201 CREATED response,
-    // then throw an exception.
-    throw Exception('Failed to load album');
+    //Si algun servicio fallo, salimos y damos el mensaje de error para
+    //que el usuario lo intente nuevamente
+    ResponseReporte response = new ResponseReporte(
+        code: 401,
+        error: true,
+        msg: 'Ha ocurrido un error, Intentelo nuevamente');
+    return response;
   }
 }
 
@@ -100,39 +112,23 @@ class _MainBodyState extends State<MainBody> {
                 CardHeader(
                   uploadReporte: () {
                     //print(mapTest);
-                    print(checkValidacion());
+                    //print(checkValidacion());
                     if (checkValidacion()) {
                       Map mapReporte = new Map();
                       mapReporte.addAll(mapCliente);
                       mapReporte.addAll(mapExterior);
                       mapReporte.addAll(mapInterior);
                       mapReporte.addAll(mapMotor);
-
-                      /*
-                      mapTest.forEach((key, value) {
-                        print('$key: $value');
-                      });
-                      print('\n\n');
-                      */
-
-                      mapReporte.forEach((key, value) {
-                        print('$key: $value');
-                      });
-
+                      print(mapReporte);
                       _showMaterialDialog(mapReporte);
                     } else {
                       scaffoldState.currentState.showSnackBar(new SnackBar(
-                          content: Text('Debe llenar los todos los datos')));
+                          content: Text('Debe capturar todos los campos')));
                     }
-                    /*
-                    uploadReporte().then((value) {
-                      print('Code: ${value.code}');
-                      print('Error: ${value.error}');
-                      print('Msg: ${value.msg}');
-                    });*/
                   },
+                  uploadImages: () {},
                 ),
-                Info(),
+                Info(infoModel: infoModel),
               ],
             ),
           ),
@@ -278,7 +274,7 @@ class _MainBodyState extends State<MainBody> {
         onWillPop: () {},
         child: AlertDialog(
           title: Text("Subiendo Reporte"),
-          content: Text("Espere mientras se sube el reporte"),
+          content: Text("Subiendo reporte"),
           actions: <Widget>[
             FutureBuilder<ResponseReporte>(
               future: uploadReporte(data),
@@ -303,11 +299,16 @@ class _MainBodyState extends State<MainBody> {
   }
 }
 
-class ReporteOK extends StatelessWidget {
+class ReporteOK extends StatefulWidget {
   final String folio;
 
   ReporteOK({this.folio});
 
+  @override
+  _ReporteOKState createState() => _ReporteOKState();
+}
+
+class _ReporteOKState extends State<ReporteOK> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -315,16 +316,15 @@ class ReporteOK extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Text(
-            'Reporte guardado correctamente',
-            style: TextStyle(fontSize: 16.0),
-          ),
-          Text(
-            this.folio,
-            style: TextStyle(color: Colors.green),
+            this.widget.folio,
+            style: TextStyle(color: Colors.green, fontSize: 16.0),
             textAlign: TextAlign.end,
           ),
           FlatButton(
             onPressed: () {
+              setState(() {
+                infoModel.info = 'Reporte enviado';
+              });
               Navigator.of(context).pop();
             },
             child: Text('Continuar'),

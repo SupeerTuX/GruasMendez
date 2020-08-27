@@ -30,6 +30,9 @@ class InputText extends StatelessWidget {
           ),
         ),
         controller: controller,
+        onChanged: (value) {
+          this.accion();
+        },
         onSubmitted: (value) {
           this.accion();
         },

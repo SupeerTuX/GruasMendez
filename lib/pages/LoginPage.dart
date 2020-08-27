@@ -129,11 +129,16 @@ class _LoginPageState extends State<LoginPage> {
   }
 }
 
-class RequestOK extends StatelessWidget {
+class RequestOK extends StatefulWidget {
   final String folio;
 
   RequestOK({this.folio});
 
+  @override
+  _RequestOKState createState() => _RequestOKState();
+}
+
+class _RequestOKState extends State<RequestOK> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -145,14 +150,17 @@ class RequestOK extends StatelessWidget {
             style: TextStyle(fontSize: 16.0),
           ),
           Text(
-            'Folio: ${this.folio}',
+            'Folio: ${this.widget.folio}',
             style: TextStyle(color: Colors.red[400]),
             textAlign: TextAlign.end,
           ),
           FlatButton(
               onPressed: () {
-                mapCliente['Folio'] = this.folio;
+                mapCliente['Folio'] = this.widget.folio;
                 mapCliente['Region'] = dropdownValue.toLowerCase();
+                setState(() {
+                  infoModel.reporte = this.widget.folio;
+                });
                 Navigator.of(context).pop();
                 Navigator.of(context).pushNamed('/main');
               },

@@ -3,7 +3,8 @@ import 'package:flutter/services.dart';
 
 class CardHeader extends StatefulWidget {
   final Function uploadReporte;
-  CardHeader({this.uploadReporte});
+  final Function uploadImages;
+  CardHeader({this.uploadReporte, this.uploadImages});
   @override
   _CardHeaderState createState() => _CardHeaderState();
 }
@@ -62,6 +63,7 @@ class _CardHeaderState extends State<CardHeader> {
                 InkWell(
                     onTap: () {
                       HapticFeedback.vibrate();
+                      widget.uploadImages();
                     },
                     child: IconoHeader(
                         icono: Icons.print, iconoText: 'Imprimir Ticket')),
