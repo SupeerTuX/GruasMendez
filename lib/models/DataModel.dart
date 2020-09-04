@@ -1,7 +1,6 @@
 //Modelos de datos para el screen cliente
 import 'package:flutter/material.dart';
 import 'package:mrd_interfaz/models/Temas.dart';
-import 'package:mrd_interfaz/widget/MainScreenWidgets/Info.dart';
 
 class FormController {
   List<TextEditingController> controller = List(17);

@@ -48,6 +48,12 @@ final cardBodyThemeOk = CardBodyTheme(
   icono: Icons.check_circle,
 );
 
+final cardBodyThemeLock = CardBodyTheme(
+  cardColor: Colors.blue[200],
+  iconoColor: Colors.grey,
+  icono: Icons.lock,
+);
+
 //********************************************* */
 
 class TextInputTheme {
