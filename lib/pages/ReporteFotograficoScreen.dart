@@ -253,7 +253,8 @@ class _CardBodyState extends State<CardBody> {
   }
 
   Future getImage() async {
-    final pickedFile = await picker.getImage(source: ImageSource.camera);
+    final pickedFile = await picker.getImage(
+        source: ImageSource.camera, imageQuality: 80, maxHeight: 1200);
 
     if (pickedFile != null) {
       print(pickedFile.path);

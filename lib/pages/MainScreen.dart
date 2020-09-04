@@ -1,30 +1,49 @@
+import 'package:blue_thermal_printer/blue_thermal_printer.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'dart:async';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
+import 'dart:io';
 import 'package:mrd_interfaz/models/DataModel.dart';
 import 'package:mrd_interfaz/models/Temas.dart';
+import 'package:mrd_interfaz/pages/Ticket.dart';
+import 'package:mrd_interfaz/servicios/Servicios.dart';
 import 'package:mrd_interfaz/widget/MainScreenWidgets/CardHeader.dart';
 import 'package:mrd_interfaz/widget/MainScreenWidgets/CuerpoReporte.dart';
 import 'package:mrd_interfaz/widget/MainScreenWidgets/HeaderText.dart';
 import 'package:mrd_interfaz/widget/MainScreenWidgets/Info.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 Future<ResponseReporte> uploadReporte(Map data) async {
-  final http.Response response = await http.post(
-    'https://consulta.ustgm.net/mrd/public/api/reporte',
-    headers: <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-    },
-    body: jsonEncode(data),
-  );
-  if (response.statusCode == 201) {
-    // If the server did return a 201 CREATED response,
-    // then parse the JSON.
-    return ResponseReporte.fromJson(json.decode(response.body));
+  //Checamos el mapa de validacion
+  var datos, fotos;
+
+  //subiendo datos
+  if (!validacionReporte['Datos']) {
+    datos = await sendData(data);
+  }
+
+  //si los datos se subieron correctamente, enviamos las fotos
+  if (!validacionReporte['Fotos']) {
+    fotos = await sendImages(rutas: mapReporteFotografico, data: mapCliente);
+  }
+
+  //check si los datos y fotos se subieron correctamente
+  if (validacionReporte['Datos'] && validacionReporte['Fotos']) {
+    //Si los datos y fotos fueron subidos correctamente devolvemos
+    //una instancia de la clase ResponseReporte
+    ResponseReporte response = new ResponseReporte(
+        code: 201, error: false, msg: 'Reporte enviado correctamente');
+    return response;
   } else {
-    // If the server did not return a 201 CREATED response,
-    // then throw an exception.
-    throw Exception('Failed to load album');
+    //Si algun servicio fallo, salimos y damos el mensaje de error para
+    //que el usuario lo intente nuevamente
+    ResponseReporte response = new ResponseReporte(
+        code: 401,
+        error: true,
+        msg: 'Ha ocurrido un error, Intentelo nuevamente');
+    return response;
   }
 }
 
@@ -46,7 +65,7 @@ class _MainScreenState extends State<MainScreen> {
             actions: <Widget>[
               FlatButton(
                 onPressed: () {
-                  Navigator.of(context).pop(true);
+                  SystemChannels.platform.invokeMethod('SystemNavigator.pop');
                 },
                 child: Text('Salir'),
               ),
@@ -88,6 +107,18 @@ class MainBody extends StatefulWidget {
 }
 
 class _MainBodyState extends State<MainBody> {
+  BlueThermalPrinter bluetooth;
+  String pathImage;
+  bool formularioBloqueado = false;
+  bool reporteEnviado = false;
+
+  @override
+  void initState() {
+    bluetooth = BlueThermalPrinter.instance;
+    initSavetoPath();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -100,39 +131,51 @@ class _MainBodyState extends State<MainBody> {
                 CardHeader(
                   uploadReporte: () {
                     //print(mapTest);
-                    print(checkValidacion());
                     if (checkValidacion()) {
                       Map mapReporte = new Map();
                       mapReporte.addAll(mapCliente);
                       mapReporte.addAll(mapExterior);
                       mapReporte.addAll(mapInterior);
                       mapReporte.addAll(mapMotor);
-
-                      /*
-                      mapTest.forEach((key, value) {
-                        print('$key: $value');
-                      });
-                      print('\n\n');
-                      */
-
-                      mapReporte.forEach((key, value) {
-                        print('$key: $value');
-                      });
-
-                      _showMaterialDialog(mapReporte);
+                      //print(mapReporte);
+                      if (!reporteEnviado) {
+                        _showMaterialDialog(mapReporte);
+                        print('test');
+                      } else {
+                        scaffoldState.currentState.showSnackBar(new SnackBar(
+                          content: Text('El reporte ha sido enviado '),
+                          action: SnackBarAction(
+                              label: 'Ver Reporte',
+                              onPressed: () async {
+                                String url =
+                                    'https://consulta.ustgm.net/mrd/web/reportes.php?Reportes[0][Folio]=${mapCliente['Folio']}&Region=${mapCliente['Region']}';
+                                print(url);
+                                if (await canLaunch(url)) {
+                                  await launch(url);
+                                }
+                              }),
+                        ));
+                      }
                     } else {
                       scaffoldState.currentState.showSnackBar(new SnackBar(
-                          content: Text('Debe llenar los todos los datos')));
+                          content: Text('Debe capturar todos los campos')));
                     }
-                    /*
-                    uploadReporte().then((value) {
-                      print('Code: ${value.code}');
-                      print('Error: ${value.error}');
-                      print('Msg: ${value.msg}');
-                    });*/
+                  },
+                  openReporte: () {},
+                  btConfig: () {
+                    Navigator.of(context).pushNamed('/btconfig');
+                  },
+                  printTicket: () {
+                    if (checkValidacion()) {
+                      _printTicket();
+                    } else {
+                      scaffoldState.currentState.showSnackBar(new SnackBar(
+                          content: Text('Debe capturar todos los campos')));
+                      return;
+                    }
                   },
                 ),
-                Info(),
+                Info(infoModel: infoModel),
               ],
             ),
           ),
@@ -152,7 +195,12 @@ class _MainBodyState extends State<MainBody> {
                   iconoColor: Colors.white,
                   theme: theme.bodyTheme[0],
                   accion: () {
-                    print('Card Cliente');
+                    if (formularioBloqueado) {
+                      scaffoldState.currentState.showSnackBar(new SnackBar(
+                          content: Text(
+                              'Reporte enviado o impreso, no se puede editar')));
+                      return;
+                    }
                     Navigator.of(context).pushNamed('/cliente').then((value) {
                       setState(() {
                         if (value == false || value == null) {
@@ -176,7 +224,12 @@ class _MainBodyState extends State<MainBody> {
                   iconoColor: Colors.white,
                   theme: theme.bodyTheme[1],
                   accion: () {
-                    print('Card Exterior');
+                    if (formularioBloqueado) {
+                      scaffoldState.currentState.showSnackBar(new SnackBar(
+                          content: Text(
+                              'Reporte enviado o impreso, no se puede editar')));
+                      return;
+                    }
                     Navigator.of(context).pushNamed('/exterior').then((value) {
                       setState(() {
                         if (value == false || value == null) {
@@ -200,7 +253,12 @@ class _MainBodyState extends State<MainBody> {
                   iconoColor: Colors.white,
                   theme: theme.bodyTheme[2],
                   accion: () {
-                    print('Card Interior');
+                    if (formularioBloqueado) {
+                      scaffoldState.currentState.showSnackBar(new SnackBar(
+                          content: Text(
+                              'Reporte enviado o impreso, no se puede editar')));
+                      return;
+                    }
                     Navigator.of(context).pushNamed('/interior').then((value) {
                       setState(() {
                         if (value == false || value == null) {
@@ -224,7 +282,12 @@ class _MainBodyState extends State<MainBody> {
                   iconoColor: Colors.white,
                   theme: theme.bodyTheme[3],
                   accion: () {
-                    print('Card Motor');
+                    if (formularioBloqueado) {
+                      scaffoldState.currentState.showSnackBar(new SnackBar(
+                          content: Text(
+                              'Reporte enviado o impreso, no se puede editar')));
+                      return;
+                    }
                     Navigator.of(context).pushNamed('/motor').then((value) {
                       setState(() {
                         if (value == false || value == null) {
@@ -248,7 +311,12 @@ class _MainBodyState extends State<MainBody> {
                   iconoColor: Colors.white,
                   theme: theme.bodyTheme[4],
                   accion: () {
-                    print('Captura de fotod');
+                    if (formularioBloqueado) {
+                      scaffoldState.currentState.showSnackBar(new SnackBar(
+                          content: Text(
+                              'Reporte enviado o impreso, no se puede editar')));
+                      return;
+                    }
                     Navigator.of(context).pushNamed('/fotos').then((value) {
                       setState(() {
                         if (value == false || value == null) {
@@ -270,7 +338,95 @@ class _MainBodyState extends State<MainBody> {
     );
   }
 
-  _showMaterialDialog(Map data) {
+  initSavetoPath() async {
+    //read and write
+    //image max 300px X 300px
+    final filename = 'logo_ticket.png';
+    var bytes = await rootBundle.load("assets/logo_ticket.png");
+    String dir = (await getApplicationDocumentsDirectory()).path;
+    writeToFile(bytes, '$dir/$filename');
+    setState(() {
+      pathImage = '$dir/$filename';
+    });
+  }
+
+  //write to app path
+  Future<void> writeToFile(ByteData data, String path) {
+    final buffer = data.buffer;
+    return new File(path).writeAsBytes(
+        buffer.asUint8List(data.offsetInBytes, data.lengthInBytes));
+  }
+
+  Future<bool> _printTicket() async {
+    bool impresionOK = false;
+    //SIZE
+    // 0- normal size text
+    // 1- only bold text
+    // 2- bold with medium text
+    // 3- bold with large text
+    //ALIGN
+    // 0- ESC_ALIGN_LEFT
+    // 1- ESC_ALIGN_CENTER
+    // 2- ESC_ALIGN_RIGHT
+    bluetooth.isConnected.then((isConnected) {
+      if (isConnected) {
+        Ticket ticket = new Ticket();
+        List<String> list = ticket.textHeader;
+
+        //Header
+        bluetooth.printCustom("TALLERES Y GRUAS MENDEZ", 3, 1);
+        //Impresion de logo
+
+        bluetooth.printImage(pathImage);
+        //Cliente
+        list.forEach((element) {
+          List<String> sublist = [];
+          sublist = ticket.format47Char(element);
+          sublist.forEach((e) {
+            bluetooth.printCustom(e, 0, 1);
+          });
+        });
+        //Body
+        list = ticket.textBody;
+        list.forEach((element) {
+          bluetooth.printCustom(element, 0, 0);
+        });
+
+        //Fotos
+        list = ticket.textFooter;
+        list.forEach((element) {
+          List<String> sublist = [];
+          sublist = ticket.format47Char(element);
+          sublist.forEach((e) {
+            bluetooth.printCustom(e, 0, 1);
+          });
+        });
+        bluetooth.printNewLine();
+        bluetooth.printNewLine();
+        bluetooth.printNewLine();
+        bluetooth.paperCut();
+
+        setState(() {
+          infoModel.tickets++;
+          //?Cambiando tema
+          for (int i = 0; i < theme.bodyTheme.length; i++) {
+            //theme.bodyTheme[i] = cardBodyThemeLock;
+            theme.bodyTheme[i] = cardBodyThemeLock;
+          }
+        });
+        impresionOK = true;
+      } else {
+        impresionOK = false;
+        scaffoldState.currentState.showSnackBar(
+            new SnackBar(content: Text('Impresora sin conexion')));
+      }
+
+      formularioBloqueado = true;
+    });
+    return impresionOK;
+  }
+
+  Future<bool> _showMaterialDialog(Map data) async {
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -278,16 +434,21 @@ class _MainBodyState extends State<MainBody> {
         onWillPop: () {},
         child: AlertDialog(
           title: Text("Subiendo Reporte"),
-          content: Text("Espere mientras se sube el reporte"),
+          content: Text("Subiendo reporte"),
           actions: <Widget>[
             FutureBuilder<ResponseReporte>(
               future: uploadReporte(data),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
+                  formularioBloqueado = true;
+                  reporteEnviado = true;
+                  infoModel.info = 'Reporte enviado';
                   return ReporteOK(
                     folio: snapshot.data.msg,
                   );
                 } else if (snapshot.hasError) {
+                  formularioBloqueado = true;
+                  reporteEnviado = false;
                   return ReporteFail(
                     error: snapshot.error.toString(),
                   );
@@ -300,14 +461,28 @@ class _MainBodyState extends State<MainBody> {
         ),
       ),
     );
+
+    setState(() {
+      infoModel.info = 'Reporte Enviado';
+      //?Cambiando tema
+      for (int i = 0; i < theme.bodyTheme.length; i++) {
+        theme.bodyTheme[i] = cardBodyThemeLock;
+      }
+    });
+    return reporteEnviado;
   }
 }
 
-class ReporteOK extends StatelessWidget {
+class ReporteOK extends StatefulWidget {
   final String folio;
 
   ReporteOK({this.folio});
 
+  @override
+  _ReporteOKState createState() => _ReporteOKState();
+}
+
+class _ReporteOKState extends State<ReporteOK> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -315,12 +490,8 @@ class ReporteOK extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Text(
-            'Reporte guardado correctamente',
-            style: TextStyle(fontSize: 16.0),
-          ),
-          Text(
-            this.folio,
-            style: TextStyle(color: Colors.green),
+            this.widget.folio,
+            style: TextStyle(color: Colors.green, fontSize: 16.0),
             textAlign: TextAlign.end,
           ),
           FlatButton(
@@ -346,10 +517,12 @@ class ReporteFail extends StatelessWidget {
         children: [
           Text('Se ha producido un error, intentelo nuevamente'),
           FlatButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text('Salir')),
+            onPressed: () {
+              infoModel.info = 'Error al enviar reporte';
+              Navigator.of(context).pop();
+            },
+            child: Text('Salir'),
+          ),
         ],
       ),
     );

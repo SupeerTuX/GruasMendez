@@ -40,7 +40,7 @@ class _GpsScreenState extends State<GpsScreen> {
           width: MediaQuery.of(context).size.width,
           child: GoogleMap(
             zoomControlsEnabled: true,
-            myLocationEnabled: true,
+            //myLocationEnabled: true,
             initialCameraPosition: GpsScreen.initialLocation,
             onMapCreated: (controller) {
               _googleMapController = controller;

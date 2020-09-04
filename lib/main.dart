@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mrd_interfaz/pages/BTConfig.dart';
 import 'package:mrd_interfaz/pages/InteriorScreen.dart';
 import 'package:mrd_interfaz/pages/LoginPage.dart';
 import 'package:mrd_interfaz/pages/MainScreen.dart';
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
         '/fotoScreen': (context) => FotoScreen(),
         '/gps': (context) => GpsScreen(),
         '/inventario': (context) => InventarioScreen(),
+        '/btconfig': (context) => BTConfigScreen(),
       },
       home: LoginPage(),
     );

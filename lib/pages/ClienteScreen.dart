@@ -145,7 +145,7 @@ class _ClienteBodyState extends State<ClienteBody> {
                               fechaHoraContenido.subtitulo =
                                   'Fecha: ${valueD.day}/${valueD.month}/${valueD.year} -- ${valueT.hour}:0${valueT.minute}:00 ';
                               mapCliente['Fecha'] =
-                                  '${valueD.year}-${valueD.month}-${valueD.year} ${valueT.hour}:0${valueT.minute}:00';
+                                  '${valueD.year}-${valueD.month}-${valueD.day} ${valueT.hour}:0${valueT.minute}:00';
                             } else {
                               fechaHoraContenido.subtitulo =
                                   'Fecha: ${valueD.day}/${valueD.month}/${valueD.year} -- ${valueT.hour}:${valueT.minute}:00 ';
@@ -457,6 +457,10 @@ class _TextAutoCompleteMarcaState extends State<TextAutoCompleteMarca> {
       padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
       child: TypeAheadField(
         textFieldConfiguration: TextFieldConfiguration(
+          onChanged: (value) {
+            widget.accion();
+          },
+          textCapitalization: TextCapitalization.sentences,
           decoration: InputDecoration(
             border: OutlineInputBorder(),
             labelText: this.widget.hint,
@@ -529,6 +533,10 @@ class _TextAutocompleteModeloState extends State<TextAutocompleteModelo> {
       padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
       child: TypeAheadField(
         textFieldConfiguration: TextFieldConfiguration(
+          onChanged: (value) {
+            widget.accion();
+          },
+          textCapitalization: TextCapitalization.sentences,
           decoration: InputDecoration(
             border: OutlineInputBorder(),
             labelText: this.widget.hint,

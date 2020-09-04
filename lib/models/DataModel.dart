@@ -88,12 +88,38 @@ class ResponseReporte {
   }
 }
 
+class InfoModel {
+  String _reporte;
+  String _info;
+  int _tickets;
+
+  InfoModel({reporte, info, tickets}) {
+    this._reporte = reporte;
+    this._info = info;
+    this._tickets = tickets;
+  }
+
+  String get reporte => _reporte;
+  set reporte(String reporte) => this._reporte = reporte;
+
+  String get info => _info;
+  set info(String info) => this._info = info;
+
+  int get tickets => _tickets;
+  set tickets(int tickets) => this._tickets = tickets;
+}
+
+InfoModel infoModel =
+    new InfoModel(reporte: 'XXXX', info: 'En Captura', tickets: 0);
+
+Map<String, bool> validacionReporte = {'Datos': false, 'Fotos': false};
+
 Map<String, bool> mapValidacion = {
-  'Cliente': true,
-  'Exterior': true,
-  'Interior': true,
-  'Motor': true,
-  'Fotos': true,
+  'Cliente': false,
+  'Exterior': false,
+  'Interior': false,
+  'Motor': false,
+  'Fotos': false,
 };
 
 //ClienteDataModel clienteDataModel = new ClienteDataModel();
@@ -280,3 +306,5 @@ Map<String, dynamic> mapTest = {
   "NombreDeOficial": "Jose Perez",
   "NombreOperador": "Pedro Perez"
 };
+
+Map<String, String> ticket = {};

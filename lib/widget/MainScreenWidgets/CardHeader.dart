@@ -3,7 +3,11 @@ import 'package:flutter/services.dart';
 
 class CardHeader extends StatefulWidget {
   final Function uploadReporte;
-  CardHeader({this.uploadReporte});
+  final Function openReporte;
+  final Function btConfig;
+  final Function printTicket;
+  CardHeader(
+      {this.uploadReporte, this.openReporte, this.btConfig, this.printTicket});
   @override
   _CardHeaderState createState() => _CardHeaderState();
 }
@@ -49,10 +53,14 @@ class _CardHeaderState extends State<CardHeader> {
                 InkWell(
                     onTap: () {
                       HapticFeedback.vibrate();
+                      widget.btConfig();
                     },
                     child: IconoHeader(
                         icono: Icons.bluetooth, iconoText: 'Bluetooth')),
                 InkWell(
+                    onLongPress: () {
+                      widget.openReporte();
+                    },
                     onTap: () {
                       HapticFeedback.vibrate();
                       widget.uploadReporte();
@@ -62,6 +70,7 @@ class _CardHeaderState extends State<CardHeader> {
                 InkWell(
                     onTap: () {
                       HapticFeedback.vibrate();
+                      widget.printTicket();
                     },
                     child: IconoHeader(
                         icono: Icons.print, iconoText: 'Imprimir Ticket')),
