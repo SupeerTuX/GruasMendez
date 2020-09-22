@@ -127,7 +127,7 @@ class _ClienteBodyState extends State<ClienteBody> {
                   subtitulo: 'Capture los datos del cliente solicitados.',
                 ),
                 NumeroReporte(),
-                CardData(
+                CardDataCliente(
                   contenido: fechaHoraContenido,
                   accion: () {
                     print('Captura de hora y fecha');
@@ -163,7 +163,7 @@ class _ClienteBodyState extends State<ClienteBody> {
                   },
                 ),
                 //Captura de direccion por gps
-                CardData(
+                CardDataCliente(
                   contenido: direccionContenido,
                   accion: () {
                     print('Captura de direccion por gps');
@@ -187,7 +187,7 @@ class _ClienteBodyState extends State<ClienteBody> {
                   },
                 ),
                 //Captura de motivo de inventario
-                CardData(
+                CardDataCliente(
                   contenido: inventarioContenido,
                   accion: () {
                     Navigator.of(context)
@@ -329,7 +329,7 @@ class _ClienteBodyState extends State<ClienteBody> {
                 ),
                 Llaves(),
                 InputText(
-                  hint: 'Telfono',
+                  hint: 'Telefono',
                   controller: formController.controller[5],
                   theme: formController.theme[5],
                   capitalization: TextCapitalization.sentences,

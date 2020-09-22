@@ -18,7 +18,13 @@ class CardCustomTheme {
 final themeFail = CardCustomTheme(
   icon: Icons.error,
   iconColor: Colors.red,
-  cardBackground: Colors.grey[200],
+  cardBackground: Colors.red[100],
+);
+
+final themeWarning = CardCustomTheme(
+  icon: Icons.error,
+  iconColor: Colors.red,
+  cardBackground: Colors.orange[100],
 );
 
 final themeOk = CardCustomTheme(

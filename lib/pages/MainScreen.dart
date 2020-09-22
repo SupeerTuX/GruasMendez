@@ -140,7 +140,7 @@ class _MainBodyState extends State<MainBody> {
                       //print(mapReporte);
                       if (!reporteEnviado) {
                         _showMaterialDialog(mapReporte);
-                        print('test');
+                        print(mapExterior);
                       } else {
                         scaffoldState.currentState.showSnackBar(new SnackBar(
                           content: Text('El reporte ha sido enviado '),

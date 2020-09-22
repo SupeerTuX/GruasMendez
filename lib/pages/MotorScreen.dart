@@ -101,149 +101,17 @@ class _MotorBodyState extends State<MotorBody> {
           titulo: 'Motor',
           subtitulo: 'Capture la informacion solicitada',
         ),
-        CardData(
-            contenido: radiador,
-            accion: () {
-              Navigator.of(context)
-                  .pushNamed(routeName, arguments: radiador.titulo)
-                  .then((value) {
-                setState(() {
-                  radiador.theme = themeOk;
-                  radiador.subtitulo = value;
-                  mapMotor['Radiador'] = value;
-                });
-              });
-            }),
-        CardData(
-            contenido: motoventilador,
-            accion: () {
-              Navigator.of(context)
-                  .pushNamed(routeName, arguments: motoventilador.titulo)
-                  .then((value) {
-                setState(() {
-                  motoventilador.theme = themeOk;
-                  motoventilador.subtitulo = value;
-                  mapMotor['Motoventilador'] = value;
-                });
-              });
-            }),
-        CardData(
-            contenido: alternador,
-            accion: () {
-              Navigator.of(context)
-                  .pushNamed(routeName, arguments: alternador.titulo)
-                  .then((value) {
-                setState(() {
-                  alternador.theme = themeOk;
-                  alternador.subtitulo = value;
-                  mapMotor['Alternador'] = value;
-                });
-              });
-            }),
-        CardData(
-            contenido: cableDeBujias,
-            accion: () {
-              Navigator.of(context)
-                  .pushNamed(routeName, arguments: cableDeBujias.titulo)
-                  .then((value) {
-                setState(() {
-                  cableDeBujias.theme = themeOk;
-                  cableDeBujias.subtitulo = value;
-                  mapMotor['CableDeBujias'] = value;
-                });
-              });
-            }),
-        CardData(
-            contenido: depurador,
-            accion: () {
-              Navigator.of(context)
-                  .pushNamed(routeName, arguments: depurador.titulo)
-                  .then((value) {
-                setState(() {
-                  depurador.theme = themeOk;
-                  depurador.subtitulo = value;
-                  mapMotor['Depurador'] = value;
-                });
-              });
-            }),
-        CardData(
-            contenido: carburador,
-            accion: () {
-              Navigator.of(context)
-                  .pushNamed(routeName, arguments: carburador.titulo)
-                  .then((value) {
-                setState(() {
-                  carburador.theme = themeOk;
-                  carburador.subtitulo = value;
-                  mapMotor['Carburador'] = value;
-                });
-              });
-            }),
-        CardData(
-            contenido: filtroDeAire,
-            accion: () {
-              Navigator.of(context)
-                  .pushNamed(routeName, arguments: filtroDeAire.titulo)
-                  .then((value) {
-                setState(() {
-                  filtroDeAire.theme = themeOk;
-                  filtroDeAire.subtitulo = value;
-                  mapMotor['FiltroAire'] = value;
-                });
-              });
-            }),
-        CardData(
-            contenido: inyectores,
-            accion: () {
-              Navigator.of(context)
-                  .pushNamed(routeName, arguments: inyectores.titulo)
-                  .then((value) {
-                setState(() {
-                  inyectores.theme = themeOk;
-                  inyectores.subtitulo = value;
-                  mapMotor['Inyectores'] = value;
-                });
-              });
-            }),
-        CardData(
-            contenido: compresor,
-            accion: () {
-              Navigator.of(context)
-                  .pushNamed(routeName, arguments: compresor.titulo)
-                  .then((value) {
-                setState(() {
-                  compresor.theme = themeOk;
-                  compresor.subtitulo = value;
-                  mapMotor['Compresor'] = value;
-                });
-              });
-            }),
-        CardData(
-            contenido: computadora,
-            accion: () {
-              Navigator.of(context)
-                  .pushNamed(routeName, arguments: computadora.titulo)
-                  .then((value) {
-                setState(() {
-                  computadora.theme = themeOk;
-                  computadora.subtitulo = value;
-                  mapMotor['Computadora'] = value;
-                });
-              });
-            }),
-        CardData(
-            contenido: bateria,
-            accion: () {
-              Navigator.of(context)
-                  .pushNamed(routeName, arguments: bateria.titulo)
-                  .then((value) {
-                setState(() {
-                  bateria.theme = themeOk;
-                  bateria.subtitulo = value;
-                  mapMotor['Bateria'] = value;
-                });
-              });
-            }),
+        CardData(contenido: radiador),
+        CardData(contenido: motoventilador),
+        CardData(contenido: alternador),
+        CardData(contenido: cableDeBujias),
+        CardData(contenido: depurador),
+        CardData(contenido: carburador),
+        CardData(contenido: filtroDeAire),
+        CardData(contenido: inyectores),
+        CardData(contenido: compresor),
+        CardData(contenido: computadora),
+        CardData(contenido: bateria),
         Padding(
           padding: const EdgeInsets.only(left: 12.0, right: 12.0, top: 18.0),
           child: Text(
