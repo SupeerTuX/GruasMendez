@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:dropdownfield/dropdownfield.dart';
 import 'package:mrd_interfaz/models/Temas.dart';
 import 'package:mrd_interfaz/models/Contenido.dart';
 import 'package:mrd_interfaz/models/DataModel.dart';
 import 'package:mrd_interfaz/widget/utils/HeaderLogo.dart';
 import 'package:mrd_interfaz/widget/utils/Input.dart';
 import 'package:mrd_interfaz/widget/ClienteScreenWidget/ClientData.dart';
+import 'package:mrd_interfaz/models/autocomplete_data.dart';
 
 const String routeName = '/seleccion';
 //Manejo del estado del las CardList
@@ -14,6 +16,8 @@ class InteriorScreen extends StatefulWidget {
   @override
   _InteriorScreenState createState() => _InteriorScreenState();
 }
+
+GlobalKey<ScaffoldState> scaffoldState = GlobalKey();
 
 class _InteriorScreenState extends State<InteriorScreen> {
   Future<bool> _onBackPressed() {
@@ -42,7 +46,6 @@ class _InteriorScreenState extends State<InteriorScreen> {
         false;
   }
 
-  GlobalKey<ScaffoldState> scaffoldState = GlobalKey();
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -56,7 +59,7 @@ class _InteriorScreenState extends State<InteriorScreen> {
         key: scaffoldState,
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            //print(mapInterior);
+            print(mapInterior);
             HapticFeedback.vibrate();
             bool validacion = true;
             mapInterior.forEach((key, value) {
@@ -99,23 +102,23 @@ class _InteriorBodyState extends State<InteriorBody> {
           titulo: 'Interior Del Vehiculo',
           subtitulo: 'Capture la informacion solicitada',
         ),
-        CardData(contenido: tablero),
-        CardData(contenido: volante),
-        CardData(contenido: radio),
-        CardData(contenido: equipoDeSonido),
-        CardData(contenido: encendedor),
-        CardData(contenido: espejo),
-        CardData(contenido: asientos),
-        CardData(contenido: tapetesDeAlfombra),
-        CardData(contenido: tapetesDeHule),
-        CardData(contenido: extintor),
-        CardData(contenido: gatoManeral),
-        CardData(contenido: trianguloDeSeguridad),
-        CardData(contenido: bocinas),
-        CardData(contenido: luces),
-        CardData(contenido: tag),
-        CardData(contenido: vialPass),
-        CardData(contenido: simCard),
+        CardDataInterior(contenido: tablero),
+        CardDataInterior(contenido: volante),
+        CardDataInterior(contenido: radio),
+        CardDataInterior(contenido: equipoDeSonido),
+        CardDataInterior(contenido: encendedor),
+        CardDataInterior(contenido: espejo),
+        CardDataInterior(contenido: asientos),
+        CardDataInterior(contenido: tapetesDeAlfombra),
+        CardDataInterior(contenido: tapetesDeHule),
+        CardDataInterior(contenido: extintor),
+        CardDataInterior(contenido: gatoManeral),
+        CardDataInterior(contenido: trianguloDeSeguridad),
+        CardDataInterior(contenido: bocinas),
+        CardDataInterior(contenido: luces),
+        CardDataInterior(contenido: tag),
+        CardDataInterior(contenido: vialPass),
+        CardDataInterior(contenido: simCard),
         Padding(
           padding: const EdgeInsets.all(12.0),
           child: Card(
@@ -134,44 +137,64 @@ class _InteriorBodyState extends State<InteriorBody> {
             ),
           ),
         ),
-        InputText(
-          hint: 'Marca',
-          controller: formController.controller[11],
-          theme: formController.theme[11],
-          capitalization: TextCapitalization.sentences,
-          accion: () {
-            print('Marca: ${formController.controller[11].text}');
-            mapInterior['MarcaLlantas'] = formController.controller[11].text;
-            setState(() {
-              formController.controller[11].text.isEmpty
-                  ? formController.theme[11] = inputThemeFail
-                  : formController.theme[11] = inputThemeOK;
-            });
-          },
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: DropDownField(
+            value: formData['MarcaLlantas'],
+            icon: Icon(Icons.lens_rounded),
+            required: true,
+            hintText: 'Elije La Marca',
+            labelText: 'Marca Llanta',
+            items: marcaLLantas,
+            strict: false,
+            onValueChanged: (value) {
+              mapInterior['MarcaLlantas'] = value;
+              print('Marca de llanta ${mapCliente['MarcaLlantas']}');
+              setState(() {
+                formData['MarcaLlantas'] = value;
+              });
+            },
+          ),
         ),
-        InputText(
-          hint: 'Medida',
-          controller: formController.controller[12],
-          theme: formController.theme[12],
-          capitalization: TextCapitalization.sentences,
-          accion: () {
-            print('Medida: ${formController.controller[12].text}');
-            mapInterior['MedidaLlantas'] = formController.controller[12].text;
-            setState(() {
-              formController.controller[12].text.isEmpty
-                  ? formController.theme[12] = inputThemeFail
-                  : formController.theme[12] = inputThemeOK;
-            });
-          },
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: DropDownField(
+            value: formData['MedidaLlantas'],
+            icon: Icon(Icons.space_bar),
+            required: true,
+            hintText: 'Elije La Rodada',
+            labelText: 'Rodada',
+            items: medidaLLantas,
+            strict: false,
+            onValueChanged: (value) {
+              mapInterior['MedidaLlantas'] = value;
+              print('Rodada ${mapCliente['MedidaLlantas']}');
+              setState(() {
+                formData['MedidaLlantas'] = value;
+              });
+            },
+          ),
         ),
         InputText(
           hint: 'Cantidad',
           controller: formController.controller[13],
           theme: formController.theme[13],
           capitalization: TextCapitalization.sentences,
+          inputType: TextInputType.number,
           accion: () {
             print('Cantidad: ${formController.controller[13].text}');
-            mapInterior['CantidadLlantas'] = formController.controller[13].text;
+
+            if (isNumeric(formController.controller[13].text)) {
+              mapInterior['CantidadLlantas'] =
+                  formController.controller[13].text;
+            } else {
+              formController.controller[13].text = '';
+              mapInterior['CantidadLlantas'] =
+                  formController.controller[13].text;
+              scaffoldState.currentState.showSnackBar(
+                  new SnackBar(content: Text('Debe ingresar un numero')));
+            }
+
             setState(() {
               formController.controller[13].text.isEmpty
                   ? formController.theme[13] = inputThemeFail
@@ -184,5 +207,10 @@ class _InteriorBodyState extends State<InteriorBody> {
         ),
       ],
     );
+  }
+
+  bool isNumeric(String s) {
+    if (s == null) return false;
+    return int.tryParse(s) != null;
   }
 }

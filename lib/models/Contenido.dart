@@ -1,12 +1,13 @@
 import 'package:mrd_interfaz/models/Temas.dart';
 
-enum SingingCharacter { bien, mal, na }
+enum SingingCharacter { si, no }
 
 class CardCustomContent {
   String _titulo;
   String _subtitulo;
   String _tooltip;
   String _key;
+  bool _fieldNumeric;
   SingingCharacter _opcion;
 
   CardCustomTheme _theme;
@@ -17,6 +18,7 @@ class CardCustomContent {
     String tooltip,
     String key,
     SingingCharacter opcion,
+    bool fieldNumeric,
     CardCustomTheme theme,
   }) {
     this._titulo = titulo;
@@ -24,6 +26,7 @@ class CardCustomContent {
     this._tooltip = tooltip;
     this._key = key;
     this._opcion = opcion;
+    this._fieldNumeric = fieldNumeric;
 
     this._theme = theme;
   }
@@ -42,6 +45,9 @@ class CardCustomContent {
 
   SingingCharacter get opcion => _opcion;
   set opcion(SingingCharacter opcion) => this._opcion = opcion;
+
+  bool get fieldNumeric => _fieldNumeric;
+  set fieldNumeric(bool fieldNumeric) => this._fieldNumeric = fieldNumeric;
 
   CardCustomTheme get theme => _theme;
   set theme(CardCustomTheme theme) => this._theme = theme;
@@ -79,7 +85,8 @@ CardCustomContent defensaDelantera = CardCustomContent(
   subtitulo: 'Seleccione una opcion',
   key: 'DefensaDelantera',
   tooltip: '',
-  opcion: SingingCharacter.bien,
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
   theme: themeOk,
 );
 
@@ -88,7 +95,8 @@ CardCustomContent carroceriaSinGolpes = CardCustomContent(
   subtitulo: 'Seleccione una opcion',
   key: 'CarroceriaSinGolpes',
   tooltip: '',
-  opcion: SingingCharacter.bien,
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
   theme: themeOk,
 );
 
@@ -97,16 +105,8 @@ CardCustomContent parrilla = CardCustomContent(
   subtitulo: 'Seleccione una opcion',
   key: 'Parrilla',
   tooltip: '',
-  opcion: SingingCharacter.bien,
-  theme: themeOk,
-);
-
-CardCustomContent faros = CardCustomContent(
-  titulo: 'Faros',
-  subtitulo: 'Seleccione una opcion',
-  key: 'Faros',
-  tooltip: '',
-  opcion: SingingCharacter.bien,
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
   theme: themeOk,
 );
 
@@ -115,7 +115,8 @@ CardCustomContent cofre = CardCustomContent(
   subtitulo: 'Seleccione una opcion',
   key: 'Cofre',
   tooltip: '',
-  opcion: SingingCharacter.bien,
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
   theme: themeOk,
 );
 
@@ -124,7 +125,8 @@ CardCustomContent parabrisas = CardCustomContent(
   subtitulo: 'Seleccione una opcion',
   key: 'Parabrisas',
   tooltip: '',
-  opcion: SingingCharacter.bien,
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
   theme: themeOk,
 );
 
@@ -133,6 +135,8 @@ CardCustomContent limpiadores = CardCustomContent(
   subtitulo: 'Seleccione una opcion',
   key: 'Limpiadores',
   tooltip: '',
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
   theme: themeOk,
 );
 
@@ -141,25 +145,28 @@ CardCustomContent emblemas = CardCustomContent(
   subtitulo: 'Seleccione una opcion',
   key: 'Emblemas',
   tooltip: '',
-  opcion: SingingCharacter.bien,
+  opcion: SingingCharacter.si,
+  fieldNumeric: true,
   theme: themeOk,
 );
 
 CardCustomContent portezuelaIzquierda = CardCustomContent(
-  titulo: 'Portesuela Izquierda',
+  titulo: 'Puerta Delantera Izquierda',
   subtitulo: 'Seleccione una opcion',
   key: 'PortezuelaIzq',
   tooltip: '',
-  opcion: SingingCharacter.bien,
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
   theme: themeOk,
 );
 
 CardCustomContent cristalLatIzquierda = CardCustomContent(
-  titulo: 'Cristal Lat Izquierdo',
+  titulo: 'Retrovisor Lat Izquierdo',
   subtitulo: 'Seleccione una opcion',
   key: 'CristalLatIzq',
   tooltip: '',
-  opcion: SingingCharacter.bien,
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
   theme: themeOk,
 );
 
@@ -168,7 +175,8 @@ CardCustomContent medallon = CardCustomContent(
   subtitulo: 'Seleccione una opcion',
   key: 'Medallon',
   tooltip: '',
-  opcion: SingingCharacter.bien,
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
   theme: themeOk,
 );
 
@@ -177,7 +185,8 @@ CardCustomContent cajuela = CardCustomContent(
   subtitulo: 'Seleccione una opcion',
   key: 'Cajuela',
   tooltip: '',
-  opcion: SingingCharacter.bien,
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
   theme: themeOk,
 );
 
@@ -186,25 +195,28 @@ CardCustomContent defensaTrasera = CardCustomContent(
   subtitulo: 'Seleccione una opcion',
   key: 'DefensaTrasera',
   tooltip: '',
-  opcion: SingingCharacter.bien,
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
   theme: themeOk,
 );
 
 CardCustomContent portezuelaDerecha = CardCustomContent(
-  titulo: 'Portezuela Derecha',
+  titulo: 'Puerta Delantera Derecha.',
   subtitulo: 'Seleccione una opcion',
   key: 'PortezuelaDer',
   tooltip: '',
-  opcion: SingingCharacter.bien,
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
   theme: themeOk,
 );
 
 CardCustomContent cristalLatDerecho = CardCustomContent(
-  titulo: 'Cristal Lat Derecho',
+  titulo: 'Retrovisor Lat Derecho',
   subtitulo: 'Seleccione una opcion',
   key: 'CristalLatDer',
   tooltip: '',
-  opcion: SingingCharacter.bien,
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
   theme: themeOk,
 );
 
@@ -213,7 +225,8 @@ CardCustomContent antenas = CardCustomContent(
   subtitulo: 'Seleccione una opcion',
   key: 'Antenas',
   tooltip: '',
-  opcion: SingingCharacter.bien,
+  opcion: SingingCharacter.si,
+  fieldNumeric: true,
   theme: themeOk,
 );
 
@@ -222,16 +235,18 @@ CardCustomContent espejos = CardCustomContent(
   subtitulo: 'Seleccione una opcion',
   key: 'Espejos',
   tooltip: '',
-  opcion: SingingCharacter.bien,
+  opcion: SingingCharacter.si,
+  fieldNumeric: true,
   theme: themeOk,
 );
 
 CardCustomContent taponesRuedas = CardCustomContent(
-  titulo: 'Tapones Ruedas',
+  titulo: 'Tapones De Ruedas',
   subtitulo: 'Seleccione una opcion',
   key: 'TaponesRuedas',
   tooltip: '',
-  opcion: SingingCharacter.bien,
+  opcion: SingingCharacter.si,
+  fieldNumeric: true,
   theme: themeOk,
 );
 
@@ -240,7 +255,8 @@ CardCustomContent taponGasolina = CardCustomContent(
   subtitulo: 'Seleccione una opcion',
   key: 'TaponGasolina',
   tooltip: '',
-  opcion: SingingCharacter.bien,
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
   theme: themeOk,
 );
 
@@ -249,7 +265,8 @@ CardCustomContent salpicaderaDerecha = CardCustomContent(
   subtitulo: 'Seleccione una opcion',
   key: 'SalpicaderaDer',
   tooltip: '',
-  opcion: SingingCharacter.bien,
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
   theme: themeOk,
 );
 
@@ -258,10 +275,80 @@ CardCustomContent salpicaderaIzquierda = CardCustomContent(
   subtitulo: 'Seleccione una opcion',
   key: 'SalpicaderaIzq',
   tooltip: '',
-  opcion: SingingCharacter.bien,
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
   theme: themeOk,
 );
 
+CardCustomContent puertaTraseraDer = CardCustomContent(
+  titulo: 'Puerta Trasera Derecha',
+  subtitulo: 'Seleccione una opcion',
+  key: 'PuertaTraseraDer',
+  tooltip: '',
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
+  theme: themeOk,
+);
+
+CardCustomContent puertaTraseraIzq = CardCustomContent(
+  titulo: 'Puerta Trasera Izquierda',
+  subtitulo: 'Seleccione una opcion',
+  key: 'PuertaTraseraIzq',
+  tooltip: '',
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
+  theme: themeOk,
+);
+
+CardCustomContent faroDerecho = CardCustomContent(
+  titulo: 'Faro Derecho',
+  subtitulo: 'Seleccione una opcion',
+  key: 'FaroDerecho',
+  tooltip: '',
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
+  theme: themeOk,
+);
+
+CardCustomContent faroIzquierdo = CardCustomContent(
+  titulo: 'Faro Izquierdo',
+  subtitulo: 'Seleccione una opcion',
+  key: 'FaroIzquierdo',
+  tooltip: '',
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
+  theme: themeOk,
+);
+
+CardCustomContent calaveraDerecha = CardCustomContent(
+  titulo: 'Calavera Derecha',
+  subtitulo: 'Seleccione una opcion',
+  key: 'CalaveraDerecha',
+  tooltip: '',
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
+  theme: themeOk,
+);
+
+CardCustomContent calaveraIzquierda = CardCustomContent(
+  titulo: 'Calavera Izquierda',
+  subtitulo: 'Seleccione una opcion',
+  key: 'CalaveraIzquierda',
+  tooltip: '',
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
+  theme: themeOk,
+);
+
+CardCustomContent reflejantes = CardCustomContent(
+  titulo: 'Reflejantes',
+  subtitulo: 'Seleccione una opcion',
+  key: 'Reflejantes',
+  tooltip: '',
+  opcion: SingingCharacter.si,
+  fieldNumeric: true,
+  theme: themeOk,
+);
 //#########################################
 //Contenido para las tarjetas de interioir
 //#########################################
@@ -271,7 +358,8 @@ CardCustomContent tablero = CardCustomContent(
   subtitulo: 'Seleccione una opcion',
   key: 'Tablero',
   tooltip: '',
-  opcion: SingingCharacter.bien,
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
   theme: themeOk,
 );
 
@@ -280,7 +368,8 @@ CardCustomContent volante = CardCustomContent(
   subtitulo: 'Seleccione una opcion',
   key: 'Volante',
   tooltip: '',
-  opcion: SingingCharacter.bien,
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
   theme: themeOk,
 );
 
@@ -289,7 +378,8 @@ CardCustomContent radio = CardCustomContent(
   subtitulo: 'Seleccione una opcion',
   key: 'Radio',
   tooltip: '',
-  opcion: SingingCharacter.bien,
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
   theme: themeOk,
 );
 
@@ -298,7 +388,8 @@ CardCustomContent equipoDeSonido = CardCustomContent(
   subtitulo: 'Seleccione una opcion',
   key: 'EquipoSonido',
   tooltip: '',
-  opcion: SingingCharacter.bien,
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
   theme: themeOk,
 );
 
@@ -307,16 +398,18 @@ CardCustomContent encendedor = CardCustomContent(
   subtitulo: 'Seleccione una opcion',
   key: 'Encendedor',
   tooltip: '',
-  opcion: SingingCharacter.bien,
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
   theme: themeOk,
 );
 
 CardCustomContent espejo = CardCustomContent(
-  titulo: 'Espejo',
+  titulo: 'Espejo Retrovisor',
   subtitulo: 'Seleccione una opcion',
   key: 'Espejo',
   tooltip: '',
-  opcion: SingingCharacter.bien,
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
   theme: themeOk,
 );
 
@@ -325,7 +418,8 @@ CardCustomContent asientos = CardCustomContent(
   subtitulo: 'Seleccione una opcion',
   key: 'Asientos',
   tooltip: '',
-  opcion: SingingCharacter.bien,
+  opcion: SingingCharacter.si,
+  fieldNumeric: true,
   theme: themeOk,
 );
 
@@ -334,7 +428,8 @@ CardCustomContent tapetesDeAlfombra = CardCustomContent(
   subtitulo: 'Seleccione una opcion',
   key: 'TapetesAlfombra',
   tooltip: '',
-  opcion: SingingCharacter.bien,
+  opcion: SingingCharacter.si,
+  fieldNumeric: true,
   theme: themeOk,
 );
 
@@ -343,7 +438,8 @@ CardCustomContent tapetesDeHule = CardCustomContent(
   subtitulo: 'Seleccione una opcion',
   key: 'TapetesHule',
   tooltip: '',
-  opcion: SingingCharacter.bien,
+  opcion: SingingCharacter.si,
+  fieldNumeric: true,
   theme: themeOk,
 );
 
@@ -352,7 +448,8 @@ CardCustomContent extintor = CardCustomContent(
   subtitulo: 'Seleccione una opcion',
   key: 'Extintor',
   tooltip: '',
-  opcion: SingingCharacter.bien,
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
   theme: themeOk,
 );
 
@@ -361,7 +458,8 @@ CardCustomContent gatoManeral = CardCustomContent(
   subtitulo: 'Seleccione una opcion',
   key: 'GatoYManeral',
   tooltip: '',
-  opcion: SingingCharacter.bien,
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
   theme: themeOk,
 );
 
@@ -370,7 +468,8 @@ CardCustomContent trianguloDeSeguridad = CardCustomContent(
   subtitulo: 'Seleccione una opcion',
   key: 'TrianguloDeSeguridad',
   tooltip: '',
-  opcion: SingingCharacter.bien,
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
   theme: themeOk,
 );
 
@@ -379,7 +478,8 @@ CardCustomContent bocinas = CardCustomContent(
   subtitulo: 'Seleccione una opcion',
   key: 'Bocinas',
   tooltip: '',
-  opcion: SingingCharacter.bien,
+  opcion: SingingCharacter.si,
+  fieldNumeric: true,
   theme: themeOk,
 );
 
@@ -388,7 +488,8 @@ CardCustomContent luces = CardCustomContent(
   subtitulo: 'Seleccione una opcion',
   key: 'Luces',
   tooltip: '',
-  opcion: SingingCharacter.bien,
+  opcion: SingingCharacter.si,
+  fieldNumeric: true,
   theme: themeOk,
 );
 
@@ -397,7 +498,8 @@ CardCustomContent tag = CardCustomContent(
   subtitulo: 'Seleccione una opcion',
   key: 'Tag',
   tooltip: '',
-  opcion: SingingCharacter.bien,
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
   theme: themeOk,
 );
 
@@ -406,7 +508,8 @@ CardCustomContent vialPass = CardCustomContent(
   subtitulo: 'Seleccione una opcion',
   key: 'VialPass',
   tooltip: '',
-  opcion: SingingCharacter.bien,
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
   theme: themeOk,
 );
 
@@ -415,7 +518,8 @@ CardCustomContent simCard = CardCustomContent(
   subtitulo: 'Seleccione una opcion',
   key: 'SimCard',
   tooltip: '',
-  opcion: SingingCharacter.bien,
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
   theme: themeOk,
 );
 
@@ -427,7 +531,8 @@ CardCustomContent radiador = CardCustomContent(
   subtitulo: 'Seleccione una opcion',
   key: 'Radiador',
   tooltip: '',
-  opcion: SingingCharacter.bien,
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
   theme: themeOk,
 );
 
@@ -436,7 +541,8 @@ CardCustomContent motoventilador = CardCustomContent(
   subtitulo: 'Seleccione una opcion',
   key: 'Motoventilador',
   tooltip: '',
-  opcion: SingingCharacter.bien,
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
   theme: themeOk,
 );
 
@@ -445,7 +551,8 @@ CardCustomContent alternador = CardCustomContent(
   subtitulo: 'Seleccione una opcion',
   key: 'Alternador',
   tooltip: '',
-  opcion: SingingCharacter.bien,
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
   theme: themeOk,
 );
 
@@ -454,7 +561,8 @@ CardCustomContent cableDeBujias = CardCustomContent(
   subtitulo: 'Seleccione una opcion',
   key: 'CableDeBujias',
   tooltip: '',
-  opcion: SingingCharacter.bien,
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
   theme: themeOk,
 );
 
@@ -463,7 +571,8 @@ CardCustomContent depurador = CardCustomContent(
   subtitulo: 'Seleccione una opcion',
   key: 'Depurador',
   tooltip: '',
-  opcion: SingingCharacter.bien,
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
   theme: themeOk,
 );
 
@@ -472,7 +581,8 @@ CardCustomContent carburador = CardCustomContent(
   subtitulo: 'Seleccione una opcion',
   key: 'Carburador',
   tooltip: '',
-  opcion: SingingCharacter.bien,
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
   theme: themeOk,
 );
 
@@ -481,7 +591,8 @@ CardCustomContent filtroDeAire = CardCustomContent(
   subtitulo: 'Seleccione una opcion',
   key: 'FiltroAire',
   tooltip: '',
-  opcion: SingingCharacter.bien,
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
   theme: themeOk,
 );
 
@@ -490,7 +601,8 @@ CardCustomContent inyectores = CardCustomContent(
   subtitulo: 'Seleccione una opcion',
   key: 'Inyectores',
   tooltip: '',
-  opcion: SingingCharacter.bien,
+  opcion: SingingCharacter.si,
+  fieldNumeric: true,
   theme: themeOk,
 );
 
@@ -499,7 +611,8 @@ CardCustomContent compresor = CardCustomContent(
   subtitulo: 'Seleccione una opcion',
   key: 'Compresor',
   tooltip: '',
-  opcion: SingingCharacter.bien,
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
   theme: themeOk,
 );
 
@@ -508,7 +621,8 @@ CardCustomContent computadora = CardCustomContent(
   subtitulo: 'Seleccione una opcion',
   key: 'Computadora',
   tooltip: '',
-  opcion: SingingCharacter.bien,
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
   theme: themeOk,
 );
 
@@ -517,6 +631,7 @@ CardCustomContent bateria = CardCustomContent(
   subtitulo: 'Seleccione una opcion',
   key: 'Bateria',
   tooltip: '',
-  opcion: SingingCharacter.bien,
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
   theme: themeOk,
 );

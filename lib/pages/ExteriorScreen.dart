@@ -53,7 +53,7 @@ class _ExteriorScreenState extends State<ExteriorScreen> {
         key: scaffoldState,
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            //print(mapExterior);
+            print(mapExterior);
             bool validacion = true;
             mapExterior.forEach((key, value) {
               if (value == '') {
@@ -104,27 +104,35 @@ class _ExteriorBodyState extends State<ExteriorBody> {
           titulo: 'Exterior Del Vehiculo',
           subtitulo: 'Capture la informacion solicitada',
         ),
-        CardData(contenido: defensaDelantera),
+
         CardData(contenido: carroceriaSinGolpes),
+        CardData(contenido: defensaDelantera),
+        CardData(contenido: defensaTrasera),
         CardData(contenido: parrilla),
-        CardData(contenido: faros),
+        CardData(contenido: portezuelaDerecha),
+        CardData(contenido: portezuelaIzquierda),
+        CardData(contenido: puertaTraseraDer),
+        CardData(contenido: puertaTraseraIzq),
+        CardData(contenido: cristalLatDerecho),
+        CardData(contenido: cristalLatIzquierda),
+        CardData(contenido: salpicaderaDerecha),
+        CardData(contenido: salpicaderaIzquierda),
+        //CardData(contenido: faros),
         CardData(contenido: cofre),
         CardData(contenido: parabrisas),
         CardData(contenido: limpiadores),
         CardData(contenido: emblemas),
-        CardData(contenido: portezuelaIzquierda),
-        CardData(contenido: cristalLatIzquierda),
         CardData(contenido: medallon),
         CardData(contenido: cajuela),
-        CardData(contenido: defensaTrasera),
-        CardData(contenido: portezuelaDerecha),
-        CardData(contenido: cristalLatDerecho),
         CardData(contenido: antenas),
         CardData(contenido: espejos),
         CardData(contenido: taponesRuedas),
         CardData(contenido: taponGasolina),
-        CardData(contenido: salpicaderaDerecha),
-        CardData(contenido: salpicaderaIzquierda),
+        CardData(contenido: faroDerecho),
+        CardData(contenido: faroIzquierdo),
+        CardData(contenido: calaveraDerecha),
+        CardData(contenido: calaveraIzquierda),
+        CardData(contenido: reflejantes),
         SizedBox(
           height: 50,
         ),

@@ -7,12 +7,14 @@ class InputText extends StatelessWidget {
   final Function accion;
   final TextInputTheme theme;
   final TextCapitalization capitalization;
+  final TextInputType inputType;
 
   InputText({
     this.hint,
     this.controller,
     this.accion,
     this.theme,
+    this.inputType,
     this.capitalization,
   });
   @override
@@ -20,6 +22,7 @@ class InputText extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
       child: TextField(
+        keyboardType: inputType,
         textCapitalization: capitalization,
         style: TextStyle(color: this.theme.textInputColor),
         decoration: InputDecoration(

@@ -21,11 +21,23 @@ class CardData extends StatefulWidget {
 
 class _CardDataState extends State<CardData> {
   SingingCharacter _character;
+  bool campoNumerico = true;
+  Color labelColor = Colors.red;
+  TextEditingController _controller = TextEditingController();
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     _character = widget.contenido.opcion;
+
+    if (widget.contenido.fieldNumeric) {
+      if (isNumeric(mapExterior[widget.contenido.key])) {
+        _controller.text = mapExterior[widget.contenido.key];
+        labelColor = Colors.green;
+      } else {
+        mapExterior[widget.contenido.key] = '';
+      }
+    }
   }
 
   @override
@@ -39,7 +51,7 @@ class _CardDataState extends State<CardData> {
           borderRadius: BorderRadius.circular(10),
         ),
         child: Container(
-          height: 100,
+          height: 120,
           child: Padding(
             padding: const EdgeInsets.all(4.0),
             child: Column(
@@ -67,20 +79,25 @@ class _CardDataState extends State<CardData> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Radio(
-                            value: SingingCharacter.bien,
+                            value: SingingCharacter.si,
                             groupValue: _character,
                             onChanged: (SingingCharacter value) {
                               HapticFeedback.vibrate();
                               setState(() {
                                 _character = value;
-                                mapExterior[widget.key] = 'Bien';
+                                if (widget.contenido.fieldNumeric) {
+                                  mapExterior[widget.contenido.key] = '';
+                                } else {
+                                  mapExterior[widget.contenido.key] = 'Si';
+                                }
                                 widget.contenido.opcion = value;
                                 widget.contenido.theme = themeOk;
+                                campoNumerico = true;
                                 //_colorCard = Colors.greenAccent[100];
                               });
                             },
                           ),
-                          Text('Bien'),
+                          Text('Si'),
                         ],
                       ),
                     ),
@@ -88,41 +105,60 @@ class _CardDataState extends State<CardData> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Radio(
-                          value: SingingCharacter.mal,
+                          value: SingingCharacter.no,
                           groupValue: _character,
                           onChanged: (SingingCharacter value) {
                             HapticFeedback.vibrate();
                             setState(() {
                               _character = value;
-                              mapExterior[widget.key] = 'Mal';
+                              mapExterior[widget.contenido.key] = 'No';
                               widget.contenido.opcion = value;
                               widget.contenido.theme = themeWarning;
+                              campoNumerico = false;
                               //_colorCard = Colors.orange[100];
                             });
                           },
                         ),
-                        Text('Mal'),
+                        Text('No'),
                       ],
                     ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Radio(
-                          value: SingingCharacter.na,
-                          groupValue: _character,
-                          onChanged: (SingingCharacter value) {
-                            HapticFeedback.vibrate();
-                            setState(() {
-                              _character = value;
-                              mapExterior[widget.key] = 'No Trae';
-                              widget.contenido.opcion = value;
-                              widget.contenido.theme = themeFail;
-                              //_colorCard = Colors.red[100];
-                            });
-                          },
-                        ),
-                        Text('No Trae'),
-                      ],
+                    Container(
+                      width: 70,
+                      child: widget.contenido.fieldNumeric
+                          ? campoNumerico
+                              ? TextField(
+                                  textAlign: TextAlign.center,
+                                  maxLength: 1,
+                                  controller: _controller,
+                                  decoration: InputDecoration(
+                                    labelText: 'Cantidad',
+                                    labelStyle: TextStyle(color: labelColor),
+                                  ),
+                                  keyboardType: TextInputType.number,
+                                  onSubmitted: (value) {
+                                    print(_controller.text);
+                                    if (isNumeric(value)) {
+                                      setState(() {
+                                        labelColor = Colors.green;
+                                        mapExterior[widget.contenido.key] =
+                                            value;
+                                      });
+                                    } else {
+                                      setState(() {
+                                        labelColor = Colors.red;
+                                        _controller.text = '';
+                                      });
+                                      final snackBar = SnackBar(
+                                        content:
+                                            Text('Debe ingresar un numero'),
+                                      );
+                                      Scaffold.of(context)
+                                          .showSnackBar(snackBar);
+                                    }
+                                  },
+                                )
+                              : null
+                          : null,
                     ),
                   ],
                 ),
@@ -132,6 +168,357 @@ class _CardDataState extends State<CardData> {
         ),
       ),
     );
+  }
+
+  bool isNumeric(String s) {
+    if (s == null) return false;
+
+    return int.tryParse(s) != null;
+  }
+}
+
+//?##############################################
+//?Card data Interior
+//?##############################################
+
+class CardDataInterior extends StatefulWidget {
+  final CardCustomContent contenido;
+
+  CardDataInterior({
+    @required this.contenido,
+  });
+
+  @override
+  _CardDataInteriorState createState() => _CardDataInteriorState();
+}
+
+class _CardDataInteriorState extends State<CardDataInterior> {
+  SingingCharacter _character;
+  bool campoNumerico = true;
+  Color labelColor = Colors.red;
+  TextEditingController _controller = TextEditingController();
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _character = widget.contenido.opcion;
+
+    if (widget.contenido.fieldNumeric) {
+      if (isNumeric(mapInterior[widget.contenido.key])) {
+        _controller.text = mapInterior[widget.contenido.key];
+        labelColor = Colors.green;
+      } else {
+        mapInterior[widget.contenido.key] = '';
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
+      child: Card(
+        color: widget.contenido.theme.cardBackground,
+        elevation: 10.0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Container(
+          height: 120,
+          child: Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    Text(
+                      widget.contenido.titulo,
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black38,
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                      //color: Colors.greenAccent[100],
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Radio(
+                            value: SingingCharacter.si,
+                            groupValue: _character,
+                            onChanged: (SingingCharacter value) {
+                              HapticFeedback.vibrate();
+                              setState(() {
+                                _character = value;
+                                if (widget.contenido.fieldNumeric) {
+                                  mapInterior[widget.contenido.key] = '';
+                                } else {
+                                  mapInterior[widget.contenido.key] = 'Si';
+                                }
+                                widget.contenido.opcion = value;
+                                widget.contenido.theme = themeOk;
+                                campoNumerico = true;
+                                //_colorCard = Colors.greenAccent[100];
+                              });
+                            },
+                          ),
+                          Text('Si'),
+                        ],
+                      ),
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Radio(
+                          value: SingingCharacter.no,
+                          groupValue: _character,
+                          onChanged: (SingingCharacter value) {
+                            HapticFeedback.vibrate();
+                            setState(() {
+                              _character = value;
+                              mapInterior[widget.contenido.key] = 'No';
+                              widget.contenido.opcion = value;
+                              widget.contenido.theme = themeWarning;
+                              campoNumerico = false;
+                              //_colorCard = Colors.orange[100];
+                            });
+                          },
+                        ),
+                        Text('No'),
+                      ],
+                    ),
+                    Container(
+                      width: 70,
+                      child: widget.contenido.fieldNumeric
+                          ? campoNumerico
+                              ? TextField(
+                                  textAlign: TextAlign.center,
+                                  maxLength: 1,
+                                  controller: _controller,
+                                  decoration: InputDecoration(
+                                    labelText: 'Cantidad',
+                                    labelStyle: TextStyle(color: labelColor),
+                                  ),
+                                  keyboardType: TextInputType.number,
+                                  onSubmitted: (value) {
+                                    print(_controller.text);
+                                    if (isNumeric(value)) {
+                                      setState(() {
+                                        labelColor = Colors.green;
+                                        mapInterior[widget.contenido.key] =
+                                            value;
+                                      });
+                                    } else {
+                                      setState(() {
+                                        labelColor = Colors.red;
+                                        _controller.text = '';
+                                      });
+                                      final snackBar = SnackBar(
+                                        content:
+                                            Text('Debe ingresar un numero'),
+                                      );
+                                      Scaffold.of(context)
+                                          .showSnackBar(snackBar);
+                                    }
+                                  },
+                                )
+                              : null
+                          : null,
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  bool isNumeric(String s) {
+    if (s == null) return false;
+
+    return int.tryParse(s) != null;
+  }
+}
+
+//?##############################################
+//?Card data Motor
+//?##############################################
+
+class CardDataMotor extends StatefulWidget {
+  final CardCustomContent contenido;
+
+  CardDataMotor({
+    @required this.contenido,
+  });
+
+  @override
+  _CardDataMotorState createState() => _CardDataMotorState();
+}
+
+class _CardDataMotorState extends State<CardDataMotor> {
+  SingingCharacter _character;
+  bool campoNumerico = true;
+  Color labelColor = Colors.red;
+  TextEditingController _controller = TextEditingController();
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _character = widget.contenido.opcion;
+
+    if (widget.contenido.fieldNumeric) {
+      if (isNumeric(mapMotor[widget.contenido.key])) {
+        _controller.text = mapMotor[widget.contenido.key];
+        labelColor = Colors.green;
+      } else {
+        mapMotor[widget.contenido.key] = '';
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
+      child: Card(
+        color: widget.contenido.theme.cardBackground,
+        elevation: 10.0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Container(
+          height: 120,
+          child: Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    Text(
+                      widget.contenido.titulo,
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black38,
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                      //color: Colors.greenAccent[100],
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Radio(
+                            value: SingingCharacter.si,
+                            groupValue: _character,
+                            onChanged: (SingingCharacter value) {
+                              HapticFeedback.vibrate();
+                              setState(() {
+                                _character = value;
+                                if (widget.contenido.fieldNumeric) {
+                                  mapMotor[widget.contenido.key] = '';
+                                } else {
+                                  mapMotor[widget.contenido.key] = 'Si';
+                                }
+                                widget.contenido.opcion = value;
+                                widget.contenido.theme = themeOk;
+                                campoNumerico = true;
+                                //_colorCard = Colors.greenAccent[100];
+                              });
+                            },
+                          ),
+                          Text('Si'),
+                        ],
+                      ),
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Radio(
+                          value: SingingCharacter.no,
+                          groupValue: _character,
+                          onChanged: (SingingCharacter value) {
+                            HapticFeedback.vibrate();
+                            setState(() {
+                              _character = value;
+                              mapMotor[widget.contenido.key] = 'No';
+                              widget.contenido.opcion = value;
+                              widget.contenido.theme = themeWarning;
+                              campoNumerico = false;
+                              //_colorCard = Colors.orange[100];
+                            });
+                          },
+                        ),
+                        Text('No'),
+                      ],
+                    ),
+                    Container(
+                      width: 70,
+                      child: widget.contenido.fieldNumeric
+                          ? campoNumerico
+                              ? TextField(
+                                  textAlign: TextAlign.center,
+                                  maxLength: 1,
+                                  controller: _controller,
+                                  decoration: InputDecoration(
+                                    labelText: 'Cantidad',
+                                    labelStyle: TextStyle(color: labelColor),
+                                  ),
+                                  keyboardType: TextInputType.number,
+                                  onSubmitted: (value) {
+                                    print(_controller.text);
+                                    if (isNumeric(value)) {
+                                      setState(() {
+                                        labelColor = Colors.green;
+                                        mapMotor[widget.contenido.key] = value;
+                                      });
+                                    } else {
+                                      setState(() {
+                                        labelColor = Colors.red;
+                                        _controller.text = '';
+                                      });
+                                      final snackBar = SnackBar(
+                                        content:
+                                            Text('Debe ingresar un numero'),
+                                      );
+                                      Scaffold.of(context)
+                                          .showSnackBar(snackBar);
+                                    }
+                                  },
+                                )
+                              : null
+                          : null,
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  bool isNumeric(String s) {
+    if (s == null) return false;
+
+    return int.tryParse(s) != null;
   }
 }
 
