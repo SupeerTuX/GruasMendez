@@ -1,11 +1,15 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:dropdownfield/dropdownfield.dart';
 import 'package:mrd_interfaz/models/DataModel.dart';
 import 'package:mrd_interfaz/models/Temas.dart';
 import 'package:mrd_interfaz/models/Contenido.dart';
 import 'package:mrd_interfaz/widget/utils/HeaderLogo.dart';
 import 'package:mrd_interfaz/widget/utils/Input.dart';
 import 'package:mrd_interfaz/widget/ClienteScreenWidget/ClientData.dart';
+import 'package:mrd_interfaz/models/autocomplete_data.dart';
 
 //Rura de la pagina de seleccion
 const String routeName = '/seleccion';
@@ -153,21 +157,7 @@ class _MotorBodyState extends State<MotorBody> {
             },
           ),
         ),
-        InputText(
-          hint: 'Marca De Motor',
-          controller: formController.controller[14],
-          theme: formController.theme[14],
-          capitalization: TextCapitalization.sentences,
-          accion: () {
-            print('Marca de motor: ${formController.controller[14].text}');
-            mapMotor['MarcaMotor'] = formController.controller[14].text;
-            setState(() {
-              formController.controller[14].text.isEmpty
-                  ? formController.theme[14] = inputThemeFail
-                  : formController.theme[14] = inputThemeOK;
-            });
-          },
-        ),
+        MarcaField(),
         InputText(
           hint: 'Carga Consiste En',
           controller: formController.controller[15],
@@ -242,5 +232,60 @@ class _ClientFormState extends State<ClientForm> {
         ),
       ),
     );
+  }
+}
+
+class MarcaField extends StatefulWidget {
+  @override
+  _MarcaFieldState createState() => _MarcaFieldState();
+}
+
+class _MarcaFieldState extends State<MarcaField> {
+  //String inputText = '';
+  List<String> marcas = [];
+  Map<String, dynamic> data;
+
+  @override
+  void initState() {
+    parseJsonFromAssets('assets/json/modelo.json').then((value) => {
+          data = value,
+          //print(data),
+          data['marca'].forEach((key, value) {
+            marcas.add(key);
+          }),
+          //print(marcas)
+        });
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: DropDownField(
+        value: formData['MarcaMotor'],
+        icon: Icon(Icons.car_repair),
+        required: true,
+        hintText: 'Motor',
+        labelText: 'Marca de motor',
+        items: marcas,
+        strict: false,
+        onValueChanged: (value) {
+          mapMotor['MarcaMotor'] = value;
+          print('Marca de auto ${mapMotor['MarcaMotor']}');
+          setState(() {
+            formData['MarcaMotor'] = value;
+            //print(formData);
+          });
+        },
+      ),
+    );
+  }
+
+  Future<Map<String, dynamic>> parseJsonFromAssets(String assetsPath) async {
+    //print('--- Parse json from: $assetsPath');
+    return rootBundle
+        .loadString(assetsPath)
+        .then((jsonStr) => jsonDecode(jsonStr));
   }
 }

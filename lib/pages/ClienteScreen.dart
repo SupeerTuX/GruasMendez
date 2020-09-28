@@ -14,6 +14,7 @@ import 'package:mrd_interfaz/widget/utils/Input.dart';
 List<String> modelos = [];
 String modeloSelected;
 String modeloVehiculo;
+TextEditingController _fieldController = new TextEditingController();
 
 class ClienteScreen extends StatefulWidget {
   @override
@@ -213,41 +214,28 @@ class _ClienteBodyState extends State<ClienteBody> {
                 MarcaField(),
                 ModeloField(),
 
-                /*
-                TextAutoCompleteMarca(
-                  hint: 'Marca Vehiculo',
-                  controller: formController.controller[9],
-                  theme: formController.theme[9],
-                  accion: () {
-                    print('Marca: ${formController.controller[9].text}');
-                    mapCliente['VahiculoMarca'] =
-                        formController.controller[9].text;
-                    setState(() {
-                      formController.controller[9].text.isEmpty
-                          ? formController.theme[9] = inputThemeFail
-                          : formController.theme[9] = inputThemeOK;
+                //? Año del vehiculo
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: DropDownField(
+                    value: formData['ModeloYear'],
+                    icon: Icon(Icons.calendar_today),
+                    required: true,
+                    hintText: 'Año',
+                    labelText: 'Año del vehiculo',
+                    items: modeloYear,
+                    strict: false,
+                    onValueChanged: (value) {
+                      mapCliente['Year'] = value;
+                      print('Modelo year ${mapCliente['Year']}');
+                      setState(() {
+                        formData['ModeloYear'] = value;
+                      });
+                    },
+                  ),
+                ),
 
-                      if (formController.controller[9].text.isEmpty)
-                        formController.controller[10].text = '';
-                    });
-                  },
-                ),
-                TextAutocompleteModelo(
-                  hint: 'Modelo',
-                  controller: formController.controller[10],
-                  marca: modeloVehiculo,
-                  theme: formController.theme[10],
-                  accion: () {
-                    print('Modelo: ${formController.controller[10].text}');
-                    mapCliente['Modelo'] = formController.controller[10].text;
-                    setState(() {
-                      formController.controller[10].text.isEmpty
-                          ? formController.theme[10] = inputThemeFail
-                          : formController.theme[10] = inputThemeOK;
-                    });
-                  },
-                ),
-*/
+                //? Tipo de auto
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: DropDownField(
@@ -270,6 +258,7 @@ class _ClienteBodyState extends State<ClienteBody> {
                     },
                   ),
                 ),
+                //? Color de vehiculo
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: DropDownField(
@@ -289,18 +278,19 @@ class _ClienteBodyState extends State<ClienteBody> {
                     },
                   ),
                 ),
-
+                //?Autoridad
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: DropDownField(
                     value: formData['Autoridad'],
                     icon: Icon(Icons.policy),
-                    required: true,
+                    required: false,
                     hintText: 'Elije autoridad o solicitante',
                     labelText: 'Autoridad/Solicitante',
-                    items: listaColores,
-                    strict: false,
+                    items: listaClientes,
+                    strict: true,
                     onValueChanged: (value) {
+                      print('Valor cambiado');
                       mapCliente['Solicitante'] = value;
                       print('Solicitante ${mapCliente['Solicitante']}');
                       setState(() {
@@ -639,7 +629,8 @@ class _MarcaFieldState extends State<MarcaField> {
           setState(() {
             formData['MarcaAuto'] = value;
             formData['ModeloAuto'] = '';
-            print(formData);
+            _fieldController.clear();
+            //print(formData);
           });
 
           if (formData['MarcaAuto'].isNotEmpty) {
@@ -680,6 +671,7 @@ class _ModeloFieldState extends State<ModeloField> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: DropDownField(
+        controller: _fieldController,
         value: formData['ModeloAuto'],
         icon: Icon(Icons.model_training),
         required: true,

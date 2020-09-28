@@ -132,6 +132,7 @@ Map mapCliente = {
   'MotivoInventario': '',
   'VahiculoMarca': '',
   'Modelo': '',
+  'Year': '',
   'Tipo': '',
   'Color': '',
   'Placas': '',

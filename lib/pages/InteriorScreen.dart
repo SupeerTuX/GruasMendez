@@ -59,7 +59,7 @@ class _InteriorScreenState extends State<InteriorScreen> {
         key: scaffoldState,
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            print(mapInterior);
+            //print(mapInterior);
             HapticFeedback.vibrate();
             bool validacion = true;
             mapInterior.forEach((key, value) {

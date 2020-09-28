@@ -53,7 +53,7 @@ class _ExteriorScreenState extends State<ExteriorScreen> {
         key: scaffoldState,
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            print(mapExterior);
+            //print(mapExterior);
             bool validacion = true;
             mapExterior.forEach((key, value) {
               if (value == '') {
