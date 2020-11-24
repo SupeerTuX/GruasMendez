@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:mrd_interfaz/pages/BTConfig.dart';
+import 'package:mrd_interfaz/pages/CheckListFotos.dart';
+import 'package:mrd_interfaz/pages/CheckListMoto.dart';
+import 'package:mrd_interfaz/pages/ClienteMotoScreen.dart';
 import 'package:mrd_interfaz/pages/InteriorScreen.dart';
 import 'package:mrd_interfaz/pages/LoginPage.dart';
 import 'package:mrd_interfaz/pages/MainScreen.dart';
 import 'package:mrd_interfaz/pages/ClienteScreen.dart';
 import 'package:mrd_interfaz/pages/ExteriorScreen.dart';
+import 'package:mrd_interfaz/pages/MainScreenMotos.dart';
 import 'package:mrd_interfaz/pages/ReporteFotograficoScreen.dart';
 import 'package:mrd_interfaz/pages/SelectionScreen.dart';
 import 'package:mrd_interfaz/pages/MotorScreen.dart';
@@ -29,11 +33,15 @@ class MyApp extends StatelessWidget {
       routes: {
         '/login': (context) => LoginPage(),
         '/main': (context) => MainScreen(),
+        '/mainMotos': (context) => MainScreenMotos(),
         '/cliente': (context) => ClienteScreen(),
+        '/clienteMoto': (context) => ClienteMotoScreen(),
         '/exterior': (context) => ExteriorScreen(),
         '/interior': (context) => InteriorScreen(),
         '/motor': (context) => MotorScreen(),
         '/fotos': (context) => ReporteFotograficoScreen(),
+        '/fotosMoto': (context) => CheckListFotosSceen(),
+        '/checkListMoto': (context) => CheckListMoto(),
         '/seleccion': (context) => SelectionScreen(),
         '/fotoScreen': (context) => FotoScreen(),
         '/gps': (context) => GpsScreen(),

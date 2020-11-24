@@ -1,11 +1,51 @@
 {
     "marca": {
-        "ACURA": ["MDX", "RDX", "RL", "TL", "TSX", "ZDX", "ILX"],
-        "ALFA ROMEO": ["145", "147", "156", "159", "166", "BRERA", "GT", "GTV", "SPIDER"],
-        "ASTON MARTIN": ["DB9", "DBS", "VANQUISH", "VANTAGE"],
-        "AUDI": ["A1", "A3", "A3 CABRIOLET", "A4"],
-        "AVIONES": ["CESSNA", "DOUGLAS", "KING AIR", "MAIN AIR BLADE", "PIPER", "RAYTHEON BECHCRAFT", "SABRELINER"],
-        "BENTLEY": ["ARNAGE", "CONTINENTAL FLYING SPUR", "CONTINENTAL GT"],
+        "ACURA": [
+            "MDX",
+            "RDX",
+            "RL",
+            "TL",
+            "TSX",
+            "ZDX",
+            "ILX"
+        ],
+        "ALFA ROMEO": [
+            "145",
+            "147",
+            "156",
+            "159",
+            "166",
+            "BRERA",
+            "GT",
+            "GTV",
+            "SPIDER"
+        ],
+        "ASTON MARTIN": [
+            "DB9",
+            "DBS",
+            "VANQUISH",
+            "VANTAGE"
+        ],
+        "AUDI": [
+            "A1",
+            "A3",
+            "A3 CABRIOLET",
+            "A4"
+        ],
+        "AVIONES": [
+            "CESSNA",
+            "DOUGLAS",
+            "KING AIR",
+            "MAIN AIR BLADE",
+            "PIPER",
+            "RAYTHEON BECHCRAFT",
+            "SABRELINER"
+        ],
+        "BENTLEY": [
+            "ARNAGE",
+            "CONTINENTAL FLYING SPUR",
+            "CONTINENTAL GT"
+        ],
         "BMW": [
             "1600",
             "2800",
@@ -44,8 +84,17 @@
             "SERIE 4",
             "DYNAMIC"
         ],
-        "BORGWARD": ["ISABELLA"],
-        "BUICK": ["ENCLAVE", "LACROSSE", "REGAL", "CENTURY", "ENCORE", "VERANO"],
+        "BORGWARD": [
+            "ISABELLA"
+        ],
+        "BUICK": [
+            "ENCLAVE",
+            "LACROSSE",
+            "REGAL",
+            "CENTURY",
+            "ENCORE",
+            "VERANO"
+        ],
         "CADILLAC": [
             "BLS",
             "CATERA",
@@ -89,7 +138,14 @@
             "VOLKSWAGEN",
             "VOLVO"
         ],
-        "CARROS DE GOLF": ["BESTMOTORS", "CLUB CAR", "CUSHMAN", "EZ-GO", "GEMCAR", "YAMAHA"],
+        "CARROS DE GOLF": [
+            "BESTMOTORS",
+            "CLUB CAR",
+            "CUSHMAN",
+            "EZ-GO",
+            "GEMCAR",
+            "YAMAHA"
+        ],
         "CASAS RODANTES": [
             "ALLEGRO",
             "ARTIC FOX",
@@ -116,7 +172,10 @@
             "WEEKENDER",
             "ZEPPELING"
         ],
-        "CBO": ["CAMIONES", "PICK UP"],
+        "CBO": [
+            "CAMIONES",
+            "PICK UP"
+        ],
         "CHEVROLET": [
             "210",
             "APACHE",
@@ -283,9 +342,23 @@
             "PITY CRUSSIER",
             "CRUISER"
         ],
-        "CITRöEN": ["C2", "C3"],
-        "DFM SPARTAK": ["MINI TRUCK"],
-        "DINA": ["861", "9400", "AUTOBUS", "CAMION DISEL", "CHASIS CABINA", "MINUBUS", "TRACTOCAMION", "VOLTEO"],
+        "CITRöEN": [
+            "C2",
+            "C3"
+        ],
+        "DFM SPARTAK": [
+            "MINI TRUCK"
+        ],
+        "DINA": [
+            "861",
+            "9400",
+            "AUTOBUS",
+            "CAMION DISEL",
+            "CHASIS CABINA",
+            "MINUBUS",
+            "TRACTOCAMION",
+            "VOLTEO"
+        ],
         "DODGE": [
             "ACAPULCO",
             "ATOS",
@@ -346,8 +419,957 @@
             "PROMASTER VAN 2500",
             "1.6 SXT+AT"
         ],
-        "ESPECIALES": ["REMOLQUE"],
-        "FAW": ["F1", "F4", "F5", "GHYA PICK UP", "GS900", "GF900"],
-        "FERRARI": ["308", "350", "360", "430", "456", "550", "275", "599", "612", "ENZO", "F355"]
+        "ESPECIALES": [
+            "REMOLQUE"
+        ],
+        "FAW": [
+            "F1",
+            "F4",
+            "F5",
+            "GHYA PICK UP",
+            "GS900",
+            "GF900"
+        ],
+        "FERRARI": [
+            "308",
+            "350",
+            "360",
+            "430",
+            "456",
+            "550",
+            "275",
+            "599",
+            "612",
+            "ENZO",
+            "F355"
+        ],
+        "FIAT": [
+            "500",
+            "600",
+            "ABARTH",
+            "ALBEA",
+            "BERTONE",
+            "BRAVO",
+            "DUCATO CARGO VAN",
+            "DUCATO VAN",
+            "GRANDE PUNTO",
+            "IDEA ADVENTURER",
+            "PALIO",
+            "PANDA",
+            "STILO",
+            "STRADA PCK-UP",
+            "TOPOLINO",
+            "LEON",
+            "F900",
+            "LINEA DYNAMIC",
+            "1",
+            "UNO VIVANCE",
+            "ESTRADA VENTURE",
+            "MOBI"
+        ],
+        "FORD": [
+            "AEROSTAR",
+            "B-200",
+            "BIG JOB",
+            "BRONCO",
+            "BRONCO II",
+            "CLUB WAGON",
+            "CONTOUR",
+            "COUGAR",
+            "COUPE 28",
+            "COURIER PICKUP",
+            "CROWN VICTORIA",
+            "DE LUXE",
+            "ECO SPORT",
+            "ECONOLINE CARGA",
+            "ECONOLINE WAGON",
+            "EDGE",
+            "ESCAPE",
+            "ESCORT",
+            "EXCURSION",
+            "EXPEDITION",
+            "EXPLORER",
+            "EXPLORER SPORT TRAC",
+            "F 100",
+            "F 150",
+            "F 200",
+            "F 250",
+            "F 350",
+            "F 450",
+            "F 550",
+            "F 600",
+            "F 800",
+            "FAIRLANE",
+            "FAIRMONT",
+            "FALCON",
+            "FALCON 200 COUPE",
+            "FIESTA",
+            "FIESTA IKON",
+            "FIVE HUNDRED",
+            "FOCUS",
+            "FORD GT",
+            "FREESTAR",
+            "FUSION",
+            "GALAXIE",
+            "GALAXIE GUAYIN",
+            "GHIA",
+            "GRAND MARQUIS",
+            "GUAYIN",
+            "KA",
+            "LOBO",
+            "LTD",
+            "MAVERICK",
+            "MICROBUS",
+            "MONDEO",
+            "MUSTANG",
+            "MYSTIQUE",
+            "P 350",
+            "PROBE",
+            "RANGER",
+            "SABLE",
+            "SEDANETA",
+            "T",
+            "TAURUS",
+            "THUNDERBIRD",
+            "TOPAZ",
+            "TRANSIT CARGA",
+            "TRANSIT PASAJEROS",
+            "VINTAGE",
+            "WINDSTAR",
+            "MARINER",
+            "VOLVO",
+            "VOLVO",
+            "MISTIC MERCURY",
+            "ICON",
+            "PLATAFORMA",
+            "VILLAGER",
+            "COURIER",
+            "TRANSIT 1.6 TON",
+            "FUTURA",
+            "MILAN",
+            "NP 300",
+            "MOUNTAINEER",
+            "SUPER DUTY F-3500 WAGON",
+            "POLICE INTERCEPTOR",
+            "PICK UP",
+            "FIGO",
+            "RIGO",
+            "INTERSEPTOR",
+            "SUPER DUTY",
+            "SCORD",
+            "ROVER"
+        ],
+        "FREIGHTLINER": [
+            "TORTON",
+            "TRACTO CAMIóN 5A RUEDA",
+            "TRACTOCAMION",
+            "FL-CL120-58K-13",
+            "COLOMBIA",
+            "M2"
+        ],
+        "GIANT": [
+            "GF-3600",
+            "GF-6000",
+            "GF-8",
+            "GF-900"
+        ],
+        "GMC": [
+            "ACADIA",
+            "CANYON",
+            "SAFFARI",
+            "SIERRA",
+            "YUKON",
+            "PICK UP",
+            "CHEVY",
+            "TERRAIN",
+            "JYMMY",
+            "CHEVELLE",
+            "SABANA",
+            "VENTURE",
+            "S 10"
+        ],
+        "GO KART / A. DE CARRERAS": [
+            "CRG",
+            "REYNARD",
+            "SHIFTER"
+        ],
+        "HONDA": [
+            "ACCORD",
+            "CITY",
+            "CIVIC",
+            "CROSSTOUR",
+            "CRV",
+            "FIT",
+            "ODYSSEY",
+            "PASSPORT",
+            "PILOT",
+            "RIDGELINE",
+            "EX",
+            "HIACE",
+            "ECON",
+            "ELEMENT",
+            "CGL125",
+            "HRV"
+        ],
+        "HUMMER": [
+            "H1",
+            "H2",
+            "H3",
+            "VICTORY RED H2"
+        ],
+        "INFINITI": [
+            "L 30",
+            "L 35",
+            "Q 45",
+            "0",
+            "QX60",
+            "Q50"
+        ],
+        "INTERNATIONAL": [
+            "F-9200",
+            "4900 6X4",
+            "4700 SCD",
+            "CF-600",
+            "TORTON",
+            "TRACTOCAMION",
+            "CAMION",
+            "4400",
+            "PROSTAR",
+            "4300"
+        ],
+        "ISUZU": [
+            "ELF",
+            "PICK UP",
+            "RODEO",
+            "ELF 450",
+            "ELF 300",
+            "ELF 600",
+            "ELF 500",
+            "400",
+            "ELF 400"
+        ],
+        "JAGUAR": [
+            "MK2",
+            "S-TYPE",
+            "X-TYPE",
+            "XF",
+            "XJ",
+            "XK",
+            "F-TYPE"
+        ],
+        "JEEP": [
+            "CHEROKEE",
+            "CJ5",
+            "CJ7",
+            "COMANCHE",
+            "COMMANDER",
+            "COMPASS",
+            "GRAND CHEROKEE",
+            "GRAND WAGONEER",
+            "LIBERTY",
+            "PATRIOT",
+            "RENEGADO",
+            "WAGONEER",
+            "WRANGLER",
+            "LIMITED",
+            "RANGER",
+            "LAREDO",
+            "COUNTRY",
+            "SAHARA"
+        ],
+        "KENWORTH": [
+            "T 300",
+            "T 600 B",
+            "TRAILER",
+            "TRACTOCAMION",
+            "T660",
+            "T800B",
+            "REVOLVEDORA",
+            "T-680",
+            "T-370"
+        ],
+        "LAMBORGHINI": [
+            "GALLARDO",
+            "MURCIELAGO"
+        ],
+        "LANCHAS": [
+            "AIRNAUTIQUE",
+            "BAY LINER",
+            "DONZI CRUISER",
+            "GLASTRON",
+            "MASTERCRAFT",
+            "MAXUM",
+            "MONTEREY",
+            "SEARAY",
+            "WELLCRAFT"
+        ],
+        "LANCIA": [
+            "FLAMINIA",
+            "THESIS"
+        ],
+        "LAND ROVER": [
+            "DISCOVERY",
+            "FREELANDER",
+            "LR2",
+            "LR3",
+            "LR4",
+            "RANGE ROVER"
+        ],
+        "LINCOLN": [
+            "AVIATOR",
+            "BACKWOOD",
+            "CONTINENTAL",
+            "LS",
+            "MARK LT",
+            "MARK VIII",
+            "MKS",
+            "MKX",
+            "NAVIGATOR",
+            "TOWN CAR",
+            "ZEPHYR MKZ",
+            "MKZ"
+        ],
+        "LOTUS": [
+            "ELISE",
+            "ELISE EXIGE"
+        ],
+        "MAQUINARIA": [
+            "BAREDORA",
+            "BULDOZER",
+            "CARGADOR FRONTAL",
+            "CARRETILLA ELéCTRICA",
+            "CLARK",
+            "COMPACTADOR",
+            "CRIBA",
+            "DUMPER ARTICULADO",
+            "EXCAVADORA",
+            "GRúA",
+            "HYSTER",
+            "COMATSU",
+            "MOFFET",
+            "MONTACARGAS",
+            "MOTOCONFORMADORA",
+            "MOTOESCREPA",
+            "NEW HOLLAND",
+            "PAVIMENTADORA",
+            "PATROLIZADORA",
+            "PLANTA DE LUZ",
+            "QUEBRADORA PARA PIEDRA",
+            "RETROEXCAVADORA",
+            "TOPADOR FRONTAL",
+            "TRACK DRILL",
+            "TRACTOR DE ARRASTRE",
+            "ZANJADORA",
+            "TANQUE"
+        ],
+        "MASA": [
+            "CAMION"
+        ],
+        "MASERATI": [
+            "3200 GT",
+            "4200 COUPE",
+            "GRAN SPORT",
+            "GRAN TURISMO",
+            "QUATTROPORTE",
+            "SPYDER"
+        ],
+        "MAYBACH": [
+            "MAYBACH"
+        ],
+        "MAZDA": [
+            "3",
+            "5",
+            "6",
+            "CX7",
+            "CX5",
+            "CX9",
+            "MX5",
+            "PICK-UP",
+            "CX5",
+            "2",
+            "3 SPORT",
+            "GRAND TOURING"
+        ],
+        "MERCEDES BENZ": [
+            "220",
+            "220 S",
+            "230",
+            "250",
+            "280 SE",
+            "300 D",
+            "400 SEL",
+            "450",
+            "450 SLC",
+            "500",
+            "500 SL V8 SEDAN",
+            "500 SEL",
+            "A CLASS",
+            "B CLASS",
+            "C CLASS",
+            "CAMIONES",
+            "CL CLASS",
+            "CLK CLASS",
+            "CLS CLASS",
+            "E CLASS",
+            "G CLASS",
+            "GL CLASS",
+            "GLK CLASS",
+            "ML CLASS",
+            "R CLASS",
+            "S CLASS",
+            "SL CLASS",
+            "SLK CLASS",
+            "SLR MCLAREN",
+            "SLS",
+            "SPRINTER",
+            "UNIMOG",
+            "VITOR",
+            "CLASS 160 A",
+            "SMART ROADSTER CONVERTIBLE",
+            "AUTOBUS",
+            "C200 K",
+            "RABON",
+            "C180",
+            "C230",
+            "A 200",
+            "SMART PURE",
+            "ML350",
+            "TORTON",
+            "G500",
+            "CLS 350",
+            "CLASE CLA",
+            "325",
+            "GLK 350",
+            "F1114-52",
+            "E250",
+            "E350",
+            "FRAINLINDER DG CLASS M2",
+            "BOXER",
+            "CLASE A 180 CGI",
+            "GLA 250",
+            "A180",
+            "C-300",
+            "A 250 CGI SPORT",
+            "L80"
+        ],
+        "MERCURY": [
+            "MARINER",
+            "MILAN",
+            "MONTEGO",
+            "VILAGER",
+            "0",
+            "GRAND MARQUIS",
+            "MYSTIC",
+            "SABLE",
+            "MOUNTAINEER"
+        ],
+        "MG": [
+            "MAGNETT",
+            "MG",
+            "MGA",
+            "MGB",
+            "TF",
+            "TRIUMPH",
+            "ZR",
+            "ZT"
+        ],
+        "MINI": [
+            "COOPER",
+            "MORRIS"
+        ],
+        "MITSUBISHI": [
+            "ECLIPSE",
+            "ENDEAVOR",
+            "GALANT",
+            "GRANDIS",
+            "L200",
+            "LANCER",
+            "MONTERO",
+            "OUTLANDER",
+            "SPACE STAR",
+            "ASX",
+            "L200 DIESEL 4X2",
+            "MIRAGE",
+            "FUSO",
+            "GRAND VITARA"
+        ],
+        "MONTACARGAS": [
+            "CATERPILLAR",
+            "CLARK",
+            "CROWN",
+            "HYSTER",
+            "MITSUBISHI",
+            "TOYOTA",
+            "DOLLY"
+        ],
+        "NISSAN": [
+            "240SX",
+            "280Z",
+            "300ZX",
+            "350Z",
+            "370Z",
+            "ADVANCE",
+            "ALMERA",
+            "ALTIMA",
+            "APRIO",
+            "ARMADA",
+            "ATTITUDE",
+            "BEGAGNADE",
+            "CABSTAR",
+            "CHASIS CABINA",
+            "CHASIS LARGO",
+            "D21",
+            "DATSUN",
+            "DOBLE CABINA",
+            "ESTACAS",
+            "ESTAQUITAS",
+            "FRONTIER",
+            "GT-R",
+            "HIKARI",
+            "ICHI VAN",
+            "IEAF",
+            "IESA",
+            "JUKE",
+            "KICKS",
+            "KING CAB",
+            "LEAF",
+            "LUCINO",
+            "MARCH",
+            "MAXIMA",
+            "MICRA",
+            "MURANO",
+            "NITRA",
+            "NOTE",
+            "NP300",
+            "NV300",
+            "NV350",
+            "PATHFINDER",
+            "PCK UP",
+            "PLATINA",
+            "QUEST",
+            "ROGUE",
+            "SAKURA",
+            "SAMURAIO",
+            "SENTRA",
+            "TIGUAN",
+            "TIIDA",
+            "TILDA",
+            "TITAN",
+            "TSUBAME",
+            "TSURU",
+            "URBAN",
+            "URVAN PASAJEROS",
+            "VERSA",
+            "VILLAGER",
+            "X TERRA",
+            "X TRAIL"
+        ],
+        "OLDSMOBILE": [
+            "BRAVADA",
+            "XXXXXXXXX"
+        ],
+        "OPEL": [
+            "MANTA A",
+            "REKORD"
+        ],
+        "PEUGEOT": [
+            "206",
+            "207",
+            "208",
+            "301",
+            "306",
+            "307",
+            "308",
+            "405",
+            "406",
+            "407",
+            "508",
+            "607",
+            "3008",
+            "COMPACT",
+            "EXPERT",
+            "GRAND RAID",
+            "LEON",
+            "MANAGER",
+            "PARTNER VU"
+        ],
+        "PIAGGIO": [
+            "PIAGGIO LTA"
+        ],
+        "PONTIAC": [
+            "AZTEK",
+            "BONNEVILLE",
+            "FIERO",
+            "FIREBIRD TRANS AM",
+            "G3",
+            "G4",
+            "G5",
+            "G6",
+            "GRAND AM",
+            "GRAND PRIX",
+            "MATIZ",
+            "MATIZ/G2",
+            "MONTANA",
+            "MONTAVA SV6",
+            "MUNDAY",
+            "SOLSTICE",
+            "SUNFIRE",
+            "TEMPEST",
+            "TORRENT",
+            "TRANS SPORT"
+        ],
+        "PORSCHE": [
+            "358",
+            "550",
+            "911",
+            "914",
+            "924",
+            "928",
+            "BOXSTER",
+            "CARRERA GT",
+            "CAYENNE",
+            "CAYMAN",
+            "GT3 CUP",
+            "PANAMERA",
+            "PORSHE"
+        ],
+        "RAMBLER": [
+            "AMERICAN",
+            "JAVELIN",
+            "MATADOR"
+        ],
+        "REMOLQUES": [
+            "AMERICAN TRAVEL",
+            "CAJA CERRADA",
+            "CHEVROLET RV'S",
+            "DODGE RV'S",
+            "DOLLY",
+            "GREAT DANE",
+            "HAULMARK",
+            "HOLLIDAY RAMBLER",
+            "MOVILE TRAVELER",
+            "PORTACONTENEDORES",
+            "REMOLQUES CASTILLO",
+            "SPORT TRAILERS INC",
+            "TOLVA"
+        ],
+        "RENAULT": [
+            "ALLIANCE",
+            "CANGO",
+            "CAPTUR",
+            "CLIO",
+            "DINALPIN",
+            "DUSTER",
+            "ENCORE",
+            "FLUENCE",
+            "KANGOO",
+            "KOLEOS",
+            "LAGUNA",
+            "LOGAN",
+            "MEGANE",
+            "R 18",
+            "R 8 S",
+            "R10",
+            "R-12",
+            "R-18",
+            "R18 GTX 2 LITROS",
+            "R5",
+            "R5 MIRAGE LS",
+            "R5 TX MIRAGE",
+            "RENAULT 5 GT",
+            "SAFRANE",
+            "SANDERO",
+            "SCALA",
+            "SCENIC",
+            "STEPWAY",
+            "TRAFIC"
+        ],
+        "ROLLS ROYCE": [
+            "CORNICHE",
+            "PHANTOM LLL",
+            "SILVER SHADOW"
+        ],
+        "ROVER": [
+            "45",
+            "75",
+            "LAND"
+        ],
+        "SAAB": [
+            "09-mar",
+            "09-may"
+        ],
+        "SATURN": [
+            "SL2",
+            "VUE"
+        ],
+        "SEAT": [
+            "ALHAMBRA",
+            "ALTEA",
+            "ARONA",
+            "ATECA",
+            "CORDOBA.",
+            "FREETRACK",
+            "IBIZA",
+            "LEON",
+            "TOLEDO"
+        ],
+        "SHELBY": [
+            "COBRA"
+        ],
+        "SMART": [
+            "CROSSBLADE",
+            "FORFOUR",
+            "FORTWO",
+            "ROADSTER",
+            "ROADSTER COUPE"
+        ],
+        "SSANGYONG MOTOR": [
+            "REXTON"
+        ],
+        "SUBARU": [
+            "FORESTER",
+            "IMPREZA",
+            "LEGACY",
+            "OUTBACK",
+            "TRIBECA"
+        ],
+        "SUNBEAM": [
+            "ALPINE"
+        ],
+        "SUZUKI": [
+            "AERIO",
+            "CIAZ",
+            "CROSS OVER",
+            "GRAND VITARA",
+            "KIZASHI",
+            "S CROSS",
+            "SWIFT",
+            "SX4",
+            "X OVER",
+            "XL7"
+        ],
+        "TOYOTA": [
+            "4RUNNER",
+            "AVANZA",
+            "CAMRY",
+            "COROLLA",
+            "F J CRUISER",
+            "HIACE",
+            "HIGLANDER",
+            "HILUX",
+            "IRUS",
+            "LAND CRUISER",
+            "LUV",
+            "MATRIX",
+            "MR2 SPYDER",
+            "PANTHER",
+            "PICK UP TOYOTA",
+            "PRIUS",
+            "RAV 4",
+            "RUNNER",
+            "RUSH",
+            "SEQUOIA",
+            "SIENNA",
+            "SOLARA",
+            "SR5 4X4",
+            "T100",
+            "TACOMA",
+            "TAHOE",
+            "TUNDRA",
+            "YARIS"
+        ],
+        "VOLKSWAGEN": [
+            "0",
+            "118 I",
+            "3 NOTCHBACK",
+            "8-150",
+            "9-150 CASI",
+            "AEROVAN",
+            "AMAROK",
+            "ATLANTIC",
+            "BEETLE",
+            "BORA",
+            "BRASILIA",
+            "BUGGY",
+            "CADDY",
+            "CARGO VAN 200",
+            "CARIBE",
+            "CLÁSICO",
+            "COMBI",
+            "CORSAR",
+            "CRAFTER",
+            "CROSS UP",
+            "CROSSFOX",
+            "DERBY",
+            "EOS",
+            "EUROVAN",
+            "FOURET",
+            "GOL",
+            "GOLF",
+            "JETTA",
+            "KARMANN GHIA",
+            "LUPO",
+            "PANEL",
+            "PASSAT",
+            "PICK UP",
+            "POINTER",
+            "POLO",
+            "ROUTAN",
+            "SAFARI",
+            "SAVEIRO",
+            "SC",
+            "SEDAN",
+            "SEDANETA",
+            "SHARAN",
+            "SPORTVAN",
+            "TERAMONT",
+            "TIGUAN",
+            "TOUAREG",
+            "TRANSPORTER",
+            "TUBULAR",
+            "UP",
+            "VAN",
+            "VENTO",
+            "WORKER",
+            "WRKEE"
+        ],
+        "VOLVO": [
+            "122-S",
+            "C30",
+            "C70",
+            "F40",
+            "P1800",
+            "S40",
+            "S60",
+            "S70",
+            "S80",
+            "TRACTO",
+            "TRACTOCAMION",
+            "TRACTOCAMION",
+            "V40",
+            "V50",
+            "V70",
+            "XC60",
+            "XC70",
+            "XC90"
+        ],
+        "TESLA": [
+            "ELECTRICO"
+        ],
+        "HYUNDAI": [
+            "ACCENT",
+            "ATOS",
+            "CAJA SECA",
+            "ELANTRA",
+            "H100",
+            "H100",
+            "H100",
+            "HYUNDAI",
+            "I 10",
+            "IX35",
+            "SONATA",
+            "TUCSON"
+        ],
+        "SCANIA": [
+            "TOLVA"
+        ],
+        "MACK": [
+            "MACK TRACTOCAMION"
+        ],
+        "DINAMO": [
+            "SCORPION"
+        ],
+        "BOBCAT": [
+            "750",
+            "S250"
+        ],
+        "FOTON": [
+            "TA704"
+        ],
+        "RAM": [
+            "DAKOTA",
+            "2500",
+            "1500",
+            "VAGONETTA",
+            "4000",
+            "700"
+        ],
+        "FRUEHAUF": [
+            "TANQUE"
+        ],
+        "HINO": [
+            "SERIE 300",
+            "SERIE 616"
+        ],
+        "STERLING": [
+            "TRACTO",
+            "CAMIONETA"
+        ],
+        "AUTOTRADER": [
+            "VAN"
+        ],
+        "IRIZAR": [
+            "SCANIA"
+        ],
+        "KIA": [
+            "FORTE",
+            "OPTIMA",
+            "RIO",
+            "SHEPIA",
+            "SIGNAL REI",
+            "SORENTO",
+            "SOUL",
+            "SPORTAGE EX"
+        ],
+        "TORTON": [
+            "3,5"
+        ],
+        "TANQUE": [
+            "TANQUE"
+        ],
+        "VARIOS": [
+            "CAJA",
+            "CAT",
+            "CHATARRA",
+            "MONTACARGAS",
+            "PIPA",
+            "PLATAFORMA",
+            "SEMAFOROS",
+            "SEMIREMOLQUE",
+            "TANQUE",
+            "TARIMAS",
+            "TUBOS DE ACERO",
+            "VITRINA"
+        ],
+        "CENTURY": [
+            "BUICK"
+        ],
+        "STYLE": [
+            "OLDS MOBIL"
+        ],
+        "CARRITO": [
+            "BASURA"
+        ],
+        "DUTSON": [
+            "SEDAN"
+        ],
+        "TRACTOR": [
+            "S1"
+        ],
+        "TRIUMPH": [
+            "SCRAMBLER"
+        ],
+        "IMPORTADO": [
+            "MOTOCARRO"
+        ],
+        "BAIC": [
+            "X25"
+        ],
+        "KODIAK": [
+            "RABON"
+        ],
+        "WAW": [
+            "CAMION"
+        ]
     }
 }

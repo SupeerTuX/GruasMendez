@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
-import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:dropdownfield/dropdownfield.dart';
 import 'package:mrd_interfaz/models/Temas.dart';
 import 'package:mrd_interfaz/models/Contenido.dart';
@@ -17,12 +16,12 @@ String modeloSelected;
 String modeloVehiculo;
 TextEditingController _fieldController = new TextEditingController();
 
-class ClienteScreen extends StatefulWidget {
+class ClienteMotoScreen extends StatefulWidget {
   @override
-  _ClienteScreenState createState() => _ClienteScreenState();
+  _ClienteMotoScreenState createState() => _ClienteMotoScreenState();
 }
 
-class _ClienteScreenState extends State<ClienteScreen> {
+class _ClienteMotoScreenState extends State<ClienteMotoScreen> {
   Future<bool> _onBackPressed() {
     return showDialog(
           context: context,
@@ -60,21 +59,20 @@ class _ClienteScreenState extends State<ClienteScreen> {
           title: Text('Datos Del Cliente'),
           backgroundColor: Colors.orange,
         ),
-        body: ClienteBody(),
+        body: ClienteMotoBody(),
         key: scaffoldState,
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             //print(mapCliente);
-            printMap(map: mapCliente);
+            printMap(map: mapClienteMoto);
             bool validacion = true;
-            mapCliente.forEach((key, value) {
+            mapClienteMoto.forEach((key, value) {
               if (value == '') {
                 print('Valor $key: $value');
                 print('Validacion = $validacion');
                 validacion = false;
               }
             });
-
             if (validacion) {
               scaffoldState.currentState.showSnackBar(
                   new SnackBar(content: Text('Datos guardados correctamente')));
@@ -91,23 +89,16 @@ class _ClienteScreenState extends State<ClienteScreen> {
       ),
     );
   }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
 }
 
-class ClienteBody extends StatefulWidget {
+class ClienteMotoBody extends StatefulWidget {
   @override
-  _ClienteBodyState createState() => _ClienteBodyState();
+  _ClienteMotoBodyState createState() => _ClienteMotoBodyState();
 }
 
-class _ClienteBodyState extends State<ClienteBody> {
+class _ClienteMotoBodyState extends State<ClienteMotoBody> {
   DateTime pickedDate;
   TimeOfDay time;
-  //CardCustomTheme tema = themeFail;
-  //List<CardCustomTheme> themeList = List.filled(3, themeFail);
 
   @override
   void initState() {
@@ -116,7 +107,6 @@ class _ClienteBodyState extends State<ClienteBody> {
     time = TimeOfDay.now();
   }
 
-  //Mapa para contener el json de las marcas y modelos
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -143,17 +133,17 @@ class _ClienteBodyState extends State<ClienteBody> {
                             fechaHoraContenido.subtitulo =
                                 'No se ha ingresado la fecha y hora';
                             fechaHoraContenido.theme = themeFail;
-                            mapCliente['Fecha'] = '';
+                            mapClienteMoto['Fecha'] = '';
                           } else {
                             if (valueT.minute < 10) {
                               fechaHoraContenido.subtitulo =
                                   'Fecha: ${valueD.day}/${valueD.month}/${valueD.year} -- ${valueT.hour}:0${valueT.minute}:00 ';
-                              mapCliente['Fecha'] =
+                              mapClienteMoto['Fecha'] =
                                   '${valueD.year}-${valueD.month}-${valueD.day} ${valueT.hour}:0${valueT.minute}:00';
                             } else {
                               fechaHoraContenido.subtitulo =
                                   'Fecha: ${valueD.day}/${valueD.month}/${valueD.year} -- ${valueT.hour}:${valueT.minute}:00 ';
-                              mapCliente['Fecha'] =
+                              mapClienteMoto['Fecha'] =
                                   '${valueD.year}-${valueD.month}-${valueD.day} ${valueT.hour}:${valueT.minute}:00';
                             }
                             fechaHoraContenido.theme = themeOk;
@@ -176,13 +166,13 @@ class _ClienteBodyState extends State<ClienteBody> {
                           direccionContenido.theme = themeOk;
                           direccionContenido.subtitulo = value;
                           //Carga de direccion en el modelo
-                          mapCliente['Direccion'] = value;
+                          mapClienteMoto['Direccion'] = value;
                         } else {
                           direccionContenido.subtitulo =
                               'Capture la direccion del arrastre';
                           direccionContenido.theme = themeFail;
                           //Carga de direccion en el modelo
-                          mapCliente['Direccion'] = '';
+                          mapClienteMoto['Direccion'] = '';
                         }
                       });
                     });
@@ -200,11 +190,11 @@ class _ClienteBodyState extends State<ClienteBody> {
                           inventarioContenido.theme = themeOk;
                           inventarioContenido.subtitulo = value;
                           //Carga de direccion en el modelo
-                          mapCliente['MotivoInventario'] = value;
+                          mapClienteMoto['MotivoInventario'] = value;
                         } else {
                           inventarioContenido.theme = themeFail;
                           //Carga de direccion en el modelo
-                          mapCliente['MotivoInventario'] = '';
+                          mapClienteMoto['MotivoInventario'] = '';
                         }
                       });
                     });
@@ -229,8 +219,8 @@ class _ClienteBodyState extends State<ClienteBody> {
                     items: modeloYear,
                     strict: false,
                     onValueChanged: (value) {
-                      mapCliente['Year'] = value;
-                      print('Modelo year ${mapCliente['Year']}');
+                      mapClienteMoto['Year'] = value;
+                      print('Modelo year ${mapClienteMoto['Year']}');
                       setState(() {
                         formData['ModeloYear'] = value;
                       });
@@ -238,23 +228,23 @@ class _ClienteBodyState extends State<ClienteBody> {
                   ),
                 ),
 
-                //? Tipo de auto
+                //? Tipo de moto
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: DropDownField(
                     value: formData['Tipo'],
-                    icon: Icon(Icons.car_rental),
+                    icon: Icon(Icons.sports_motorsports),
                     required: true,
-                    hintText: 'Elije el tipo de auto',
+                    hintText: 'Elije el tipo de moto',
                     labelText: 'Tipo',
-                    items: tipoVehiculo,
+                    items: tipoMoto,
                     strict: false,
                     setter: (newValue) {
                       formData['Tipo'] = newValue;
                     },
                     onValueChanged: (value) {
-                      mapCliente['Tipo'] = value;
-                      print('Tipo de auto ${mapCliente['Tipo']}');
+                      mapClienteMoto['Tipo'] = value;
+                      print('Tipo de moto ${mapClienteMoto['Tipo']}');
                       setState(() {
                         formData['Tipo'] = value;
                       });
@@ -273,8 +263,8 @@ class _ClienteBodyState extends State<ClienteBody> {
                     items: listaColores,
                     strict: false,
                     onValueChanged: (value) {
-                      mapCliente['Color'] = value;
-                      print('Color de auto ${mapCliente['Color']}');
+                      mapClienteMoto['Color'] = value;
+                      print('Color de auto ${mapClienteMoto['Color']}');
                       setState(() {
                         formData['Color'] = value;
                       });
@@ -294,15 +284,15 @@ class _ClienteBodyState extends State<ClienteBody> {
                     strict: true,
                     onValueChanged: (value) {
                       print('Valor cambiado');
-                      mapCliente['Solicitante'] = value;
-                      print('Solicitante ${mapCliente['Solicitante']}');
+                      mapClienteMoto['Solicitante'] = value;
+                      print('Solicitante ${mapClienteMoto['Solicitante']}');
                       setState(() {
                         formData['Autoridad'] = value;
                       });
                     },
                   ),
                 ),
-                //? Coductor o Propietario
+                //? Conductor o Propietario
                 InputText(
                   hint: 'Conductor o Propiertario',
                   controller: formController.controller[4],
@@ -311,7 +301,7 @@ class _ClienteBodyState extends State<ClienteBody> {
                   clearDefault: () {
                     formController.controller[4].clear();
                     print('Serie: ${formController.controller[4].text}');
-                    mapCliente['NombreConductor'] =
+                    mapClienteMoto['NombreConductor'] =
                         formController.controller[4].text;
                     setState(() {
                       formController.controller[4].text.isEmpty
@@ -321,7 +311,7 @@ class _ClienteBodyState extends State<ClienteBody> {
                   },
                   accion: () {
                     print('Serie: ${formController.controller[4].text}');
-                    mapCliente['NombreConductor'] =
+                    mapClienteMoto['NombreConductor'] =
                         formController.controller[4].text;
                     setState(() {
                       formController.controller[4].text.isEmpty
@@ -349,7 +339,8 @@ class _ClienteBodyState extends State<ClienteBody> {
                   clearDefault: () {
                     formController.controller[2].clear();
                     print('Placas: ${formController.controller[2].text}');
-                    mapCliente['Placas'] = formController.controller[2].text;
+                    mapClienteMoto['Placas'] =
+                        formController.controller[2].text;
                     setState(() {
                       formController.controller[2].text.isEmpty
                           ? formController.theme[2] = inputThemeFail
@@ -358,7 +349,8 @@ class _ClienteBodyState extends State<ClienteBody> {
                   },
                   accion: () {
                     print('Placas: ${formController.controller[2].text}');
-                    mapCliente['Placas'] = formController.controller[2].text;
+                    mapClienteMoto['Placas'] =
+                        formController.controller[2].text;
                     setState(() {
                       formController.controller[2].text.isEmpty
                           ? formController.theme[2] = inputThemeFail
@@ -375,7 +367,8 @@ class _ClienteBodyState extends State<ClienteBody> {
                   clearDefault: () {
                     formController.controller[3].text = 'No Aplica';
                     print('Serie: ${formController.controller[3].text}');
-                    mapCliente['NoSerie'] = formController.controller[3].text;
+                    mapClienteMoto['NoSerie'] =
+                        formController.controller[3].text;
                     setState(() {
                       formController.controller[3].text.isEmpty
                           ? formController.theme[3] = inputThemeFail
@@ -384,7 +377,8 @@ class _ClienteBodyState extends State<ClienteBody> {
                   },
                   accion: () {
                     print('Serie: ${formController.controller[3].text}');
-                    mapCliente['NoSerie'] = formController.controller[3].text;
+                    mapClienteMoto['NoSerie'] =
+                        formController.controller[3].text;
                     setState(() {
                       formController.controller[3].text.isEmpty
                           ? formController.theme[3] = inputThemeFail
@@ -403,7 +397,8 @@ class _ClienteBodyState extends State<ClienteBody> {
                   clearDefault: () {
                     formController.controller[5].text = 'No Aplica';
                     print('Telefono: ${formController.controller[5].text}');
-                    mapCliente['Telefono'] = formController.controller[5].text;
+                    mapClienteMoto['Telefono'] =
+                        formController.controller[5].text;
                     setState(() {
                       formController.controller[5].text.isEmpty
                           ? formController.theme[5] = inputThemeFail
@@ -412,7 +407,8 @@ class _ClienteBodyState extends State<ClienteBody> {
                   },
                   accion: () {
                     print('Telefono: ${formController.controller[5].text}');
-                    mapCliente['Telefono'] = formController.controller[5].text;
+                    mapClienteMoto['Telefono'] =
+                        formController.controller[5].text;
                     setState(() {
                       formController.controller[5].text.isEmpty
                           ? formController.theme[5] = inputThemeFail
@@ -429,7 +425,7 @@ class _ClienteBodyState extends State<ClienteBody> {
                   clearDefault: () {
                     formController.controller[6].clear();
                     print('Grua: ${formController.controller[6].text}');
-                    mapCliente['Grua'] = formController.controller[6].text;
+                    mapClienteMoto['Grua'] = formController.controller[6].text;
                     setState(() {
                       formController.controller[6].text.isEmpty
                           ? formController.theme[6] = inputThemeFail
@@ -438,7 +434,7 @@ class _ClienteBodyState extends State<ClienteBody> {
                   },
                   accion: () {
                     print('Grua: ${formController.controller[6].text}');
-                    mapCliente['Grua'] = formController.controller[6].text;
+                    mapClienteMoto['Grua'] = formController.controller[6].text;
                     setState(() {
                       formController.controller[6].text.isEmpty
                           ? formController.theme[6] = inputThemeFail
@@ -446,7 +442,7 @@ class _ClienteBodyState extends State<ClienteBody> {
                     });
                   },
                 ),
-                //? Clave Operador
+                //? Clave
                 InputText(
                   hint: 'Clave Operador',
                   controller: formController.controller[7],
@@ -454,10 +450,18 @@ class _ClienteBodyState extends State<ClienteBody> {
                   capitalization: TextCapitalization.characters,
                   clearDefault: () {
                     formController.controller[7].clear();
+                    print('Grua: ${formController.controller[7].text}');
+                    mapClienteMoto['ClaveOperador'] =
+                        formController.controller[7].text;
+                    setState(() {
+                      formController.controller[7].text.isEmpty
+                          ? formController.theme[7] = inputThemeFail
+                          : formController.theme[7] = inputThemeOK;
+                    });
                   },
                   accion: () {
                     print('Grua: ${formController.controller[7].text}');
-                    mapCliente['ClaveOperador'] =
+                    mapClienteMoto['ClaveOperador'] =
                         formController.controller[7].text;
                     setState(() {
                       formController.controller[7].text.isEmpty
@@ -500,158 +504,7 @@ class _ClienteBodyState extends State<ClienteBody> {
   }
 }
 
-//TextField autocompletado MARCA
-class TextAutoCompleteMarca extends StatefulWidget {
-  final String hint;
-  final TextEditingController controller;
-  final TextInputTheme theme;
-  final Function accion;
-
-  TextAutoCompleteMarca({
-    @required this.hint,
-    @required this.controller,
-    @required this.theme,
-    @required this.accion,
-  });
-  @override
-  _TextAutoCompleteMarcaState createState() => _TextAutoCompleteMarcaState();
-}
-
-class _TextAutoCompleteMarcaState extends State<TextAutoCompleteMarca> {
-  String inputText = '';
-  List<String> marcas = [];
-  Map<String, dynamic> data;
-
-  @override
-  void initState() {
-    parseJsonFromAssets('assets/json/modelo.json').then((value) => {
-          data = value,
-          //print(data),
-          data['marca'].forEach((key, value) {
-            marcas.add(key);
-          }),
-          //print(marcas)
-        });
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
-      child: TypeAheadField(
-        textFieldConfiguration: TextFieldConfiguration(
-          onChanged: (value) {
-            //widget.accion();
-          },
-          textCapitalization: TextCapitalization.sentences,
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            labelText: this.widget.hint,
-            labelStyle: TextStyle(
-              color: widget.theme.labelColor,
-            ),
-          ),
-          style: TextStyle(color: widget.theme.textInputColor),
-          controller: widget.controller,
-        ),
-        suggestionsCallback: (pattern) {
-          return MarcaService.getSuggestions(pattern, marcas);
-        },
-        itemBuilder: (context, suggestion) {
-          return ListTile(
-            title: Text(suggestion),
-          );
-        },
-        onSuggestionSelected: (suggestion) {
-          widget.controller.text = suggestion;
-          modeloSelected = widget.controller.text;
-          parseJsonFromAssets('assets/json/modelo.json').then((value) => {
-                data = value,
-                modelos.clear(),
-                data['marca'][modeloSelected].forEach((key) {
-                  modelos.add(key);
-                }),
-                print(modelos)
-              });
-          widget.accion();
-        },
-      ),
-    );
-  }
-
-  Future<Map<String, dynamic>> parseJsonFromAssets(String assetsPath) async {
-    //print('--- Parse json from: $assetsPath');
-    return rootBundle
-        .loadString(assetsPath)
-        .then((jsonStr) => jsonDecode(jsonStr));
-  }
-}
-
-//TextField Autocompletado Modelo
-class TextAutocompleteModelo extends StatefulWidget {
-  final String hint;
-  final TextEditingController controller;
-  final String marca;
-  final TextInputTheme theme;
-  final Function accion;
-
-  TextAutocompleteModelo({
-    @required this.hint,
-    @required this.controller,
-    @required this.marca,
-    @required this.theme,
-    @required this.accion,
-  });
-  @override
-  _TextAutocompleteModeloState createState() => _TextAutocompleteModeloState();
-}
-
-class _TextAutocompleteModeloState extends State<TextAutocompleteModelo> {
-  String inputText = '';
-  Map<String, dynamic> data;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
-      child: TypeAheadField(
-        textFieldConfiguration: TextFieldConfiguration(
-          onChanged: (value) {
-            //widget.accion();
-          },
-          textCapitalization: TextCapitalization.sentences,
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            labelText: this.widget.hint,
-            labelStyle: TextStyle(
-              color: widget.theme.labelColor,
-            ),
-          ),
-          style: TextStyle(color: widget.theme.textInputColor),
-          controller: widget.controller,
-          onTap: () {
-            widget.controller.text = '';
-          },
-        ),
-        suggestionsCallback: (pattern) {
-          //Borramos el contenido
-          return MarcaService.getSuggestions(pattern, modelos);
-        },
-        itemBuilder: (context, suggestion) {
-          return ListTile(
-            title: Text(suggestion),
-          );
-        },
-        onSuggestionSelected: (suggestion) {
-          widget.controller.text = suggestion;
-          widget.accion();
-        },
-      ),
-    );
-  }
-}
-
+//? DropDown field Marca de moto
 class MarcaField extends StatefulWidget {
   @override
   _MarcaFieldState createState() => _MarcaFieldState();
@@ -664,7 +517,7 @@ class _MarcaFieldState extends State<MarcaField> {
 
   @override
   void initState() {
-    parseJsonFromAssets('assets/json/modelo.json').then((value) => {
+    parseJsonFromAssets('assets/json/modelosMoto.json').then((value) => {
           data = value,
           //print(data),
           data['marca'].forEach((key, value) {
@@ -681,15 +534,15 @@ class _MarcaFieldState extends State<MarcaField> {
       padding: const EdgeInsets.all(8.0),
       child: DropDownField(
         value: formData['MarcaAuto'],
-        icon: Icon(Icons.car_repair),
+        icon: Icon(Icons.motorcycle),
         required: true,
-        hintText: 'Marca del auto',
+        hintText: 'Marca de moto',
         labelText: 'Marca',
         items: marcas,
         strict: false,
         onValueChanged: (value) {
-          mapCliente['VahiculoMarca'] = value;
-          print('Marca de auto ${mapCliente['VahiculoMarca']}');
+          mapClienteMoto['VahiculoMarca'] = value;
+          print('Marca de moto ${mapClienteMoto['VahiculoMarca']}');
           setState(() {
             formData['MarcaAuto'] = value;
             formData['ModeloAuto'] = '';
@@ -698,15 +551,16 @@ class _MarcaFieldState extends State<MarcaField> {
           });
 
           if (formData['MarcaAuto'].isNotEmpty) {
-            parseJsonFromAssets('assets/json/modelo.json').then((value) => {
-                  data = value,
-                  modelos.clear(),
-                  data['marca'][formData['MarcaAuto']].forEach((key) {
-                    modelos.add(key);
-                    print(key);
-                  }),
-                  print(modelos)
-                });
+            parseJsonFromAssets('assets/json/modelosMoto.json')
+                .then((value) => {
+                      data = value,
+                      modelos.clear(),
+                      data['marca'][formData['MarcaAuto']].forEach((key) {
+                        modelos.add(key);
+                        print(key);
+                      }),
+                      print(modelos)
+                    });
           }
         },
       ),
@@ -721,6 +575,7 @@ class _MarcaFieldState extends State<MarcaField> {
   }
 }
 
+//? DropDown field Modelo de moto
 class ModeloField extends StatefulWidget {
   @override
   _ModeloFieldState createState() => _ModeloFieldState();
@@ -739,13 +594,13 @@ class _ModeloFieldState extends State<ModeloField> {
         value: formData['ModeloAuto'],
         icon: Icon(Icons.model_training),
         required: true,
-        hintText: 'Modelo de auto',
+        hintText: 'Modelo de moto',
         labelText: 'Modelo',
         items: modelos,
         strict: false,
         onValueChanged: (value) {
-          mapCliente['Modelo'] = value;
-          print('Modelo de auto ${mapCliente['Modelo']}');
+          mapClienteMoto['Modelo'] = value;
+          print('Modelo de moto ${mapClienteMoto['Modelo']}');
           setState(() {
             formData['ModeloAuto'] = value;
           });
@@ -789,7 +644,7 @@ class NumeroReporte extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Text(
-        'REPORTE #: ${mapCliente['Folio']}',
+        'REPORTE #: ${mapClienteMoto['Folio']}',
         style: TextStyle(
             fontSize: 18, fontWeight: FontWeight.w500, color: Colors.redAccent),
       ),

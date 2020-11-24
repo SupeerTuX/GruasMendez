@@ -5,6 +5,7 @@ class InputText extends StatelessWidget {
   final String hint;
   final TextEditingController controller;
   final Function accion;
+  final Function clearDefault;
   final TextInputTheme theme;
   final TextCapitalization capitalization;
   final TextInputType inputType;
@@ -16,6 +17,7 @@ class InputText extends StatelessWidget {
     this.theme,
     this.inputType,
     this.capitalization,
+    this.clearDefault,
   });
   @override
   Widget build(BuildContext context) {
@@ -30,6 +32,12 @@ class InputText extends StatelessWidget {
           labelText: this.hint,
           labelStyle: TextStyle(
             color: this.theme.labelColor,
+          ),
+          suffixIcon: IconButton(
+            icon: Icon(Icons.clear),
+            onPressed: () {
+              clearDefault();
+            },
           ),
         ),
         controller: controller,

@@ -162,3 +162,149 @@ class Ticket {
     return list;
   }
 }
+
+class TicketMoto {
+  //Lista de strings del ticket
+  List<String> list = [];
+  List<String> listBody = [];
+  List<String> listFooter = [];
+
+  TicketMoto() {
+    list.add('-----------------------------------------------');
+    list.add('INVENTARIO DEL VEHICULO Y ACUSE DE RECIBO');
+    list.add('-----------------------------------------------');
+    list.add(
+        'REPORTE: ${mapClienteMoto['Folio']} - ${mapClienteMoto['Fecha']}');
+    list.add('DIRECCION DE RECEPCION: ${mapClienteMoto['Direccion']}');
+    list.add('MOTIVO INVENTARIO: ${mapClienteMoto['MotivoInventario']}');
+    list.add(
+        'Marca Vehiculo: ${mapClienteMoto['VahiculoMarca']} - Tipo: ${mapClienteMoto['Tipo']}');
+    list.add(
+        'Modelo: ${mapClienteMoto['Modelo']} - Color: ${mapClienteMoto['Color']}');
+    list.add(
+        'Placas: ${mapClienteMoto['Placas']} - NoSerie: ${mapClienteMoto['NoSerie']}');
+    list.add('Conductor/Propietario: ${mapClienteMoto['NombreConductor']}');
+    list.add(
+        'Llaves: ${mapClienteMoto['Llaves']} - Tel: ${mapClienteMoto['Telefono']}');
+    list.add(
+        'Grua: ${mapClienteMoto['Grua']} - Clave Operador: ${mapClienteMoto['ClaveOperador']}');
+    list.add('Autoridad/Solicitante: ${mapClienteMoto['Solicitante']}');
+    list.add('-----------------------------------------------');
+    list.add('ESTADO EN EL QUE SE RECIVE EL VEHICULO');
+    list.add('-----------------------------------------------');
+
+    //Lista contenido del ticket
+    listBody.add('   <-------------- CHECKLIST -------------->   ');
+    listBody
+        .add('Antenas                -----> ${mapCheckListMoto['Antenas']}');
+    listBody
+        .add('Asiento                -----> ${mapCheckListMoto['Asiento']}');
+    listBody
+        .add('Bateria                -----> ${mapCheckListMoto['Bateria']}');
+    listBody.add(
+        'Cadena De Transmision  -----> ${mapCheckListMoto['CadenaTransmision']}');
+    listBody.add(
+        'Deposito De Gasolina   -----> ${mapCheckListMoto['DepositoDeGasolina']}');
+    listBody
+        .add('Emblemas               -----> ${mapCheckListMoto['Emblemas']}');
+    listBody.add(
+        'Equipo De Sonido       -----> ${mapCheckListMoto['EquipoDeSonido']}');
+    listBody.add('Faro                   -----> ${mapCheckListMoto['Faro']}');
+    listBody.add(
+        'Frenos Delanteros      -----> ${mapCheckListMoto['FrenosDelanteros']}');
+    listBody.add(
+        'Frenos Traseros        -----> ${mapCheckListMoto['FrenosTraseros']}');
+    listBody.add(
+        'Luces Traseras         -----> ${mapCheckListMoto['LucesTraseras']}');
+    listBody
+        .add('Manubrio               -----> ${mapCheckListMoto['Manubrio']}');
+    listBody.add('Motor                  -----> ${mapCheckListMoto['Motor']}');
+    listBody.add(
+        'Palanca De Cambios     -----> ${mapCheckListMoto['PalancaDeCambios']}');
+    listBody
+        .add('Parabrisas             -----> ${mapCheckListMoto['Parabrisas']}');
+    listBody.add(
+        'Pata Lateral           -----> ${mapCheckListMoto['PataLateral']}');
+    listBody.add(
+        'Pedal De Clutch        -----> ${mapCheckListMoto['PedalDeClutch']}');
+    listBody.add(
+        'Pedal Freno Delantero  -----> ${mapCheckListMoto['PedalFrenoDelantero']}');
+    listBody.add(
+        'Pedal Freno Trasero    -----> ${mapCheckListMoto['PedalFrenoTrasero']}');
+    listBody.add(
+        'Reflejantes            -----> ${mapCheckListMoto['Reflejantes']}');
+
+    listBody.add(
+        'Retrovisor Derecho     -----> ${mapCheckListMoto['RetrovisorDerecho']}');
+    listBody.add(
+        'Retrovisor Izquierdo   -----> ${mapCheckListMoto['RetrovisorIzquierdo']}');
+    listBody.add(
+        'Salpicadera Delantera  -----> ${mapCheckListMoto['SalpicaderaDelantera']}');
+    listBody.add(
+        'SalpicaderaTrasera     -----> ${mapCheckListMoto['SalpicaderaTrasera']}');
+    listBody.add(
+        'Tapon De Gasolina      -----> ${mapCheckListMoto['TaponGasolina']}');
+    listBody.add(
+        'Tubo De Escape         -----> ${mapCheckListMoto['TuboDeEscape']}');
+    list.add('-----------------------------------------------');
+
+    //Footer
+    listFooter.add('LLANTAS MARCA: ${mapCheckListMoto['MarcaLlantas']}');
+    listFooter.add(
+        'MEDIDA: ${mapCheckListMoto['MedidaLlantas']} - CANTIDAD: ${mapCheckListMoto['CantidadLlantas']}');
+
+    listFooter
+        .add('TANQUE DE GASOLINA: ${mapCheckListMoto['CantidadDeGasoliona']}%');
+    listFooter.add(
+        'ATENCION: Porfavor recoja sus objetos personales que se encuentren en el vehiculo ya que la empresa no se hace responsable de ellos');
+    listFooter
+        .add('CARGA CONSISTE EN: ${mapCheckListMoto['CargaConsistente']}');
+    listFooter.add('OBSERVACIONES: ${mapCheckListMoto['Observaciones']}');
+    listFooter.add(' ');
+    listFooter.add('_______________________________________________');
+    listFooter.add(
+        'NOMBRE Y FIRMA DE LA PERSONA QUE ENTREGA VEHICULO DE CONFORMIDAD');
+    listFooter.add(' ');
+    listFooter.add('_______________________________________________');
+    listFooter.add('NOMBRE Y FIRMA DEL OFICIAL QUE INTERVINO');
+    listFooter.add(' ');
+    listFooter.add('_______________________________________________');
+    listFooter
+        .add('NOMBRE Y FIRMA DE OPERADOR QUE RECIBE VEHICULO DE CONFORMIDAD');
+  }
+
+  List<String> get textHeader => list;
+  List<String> get textBody => listBody;
+  List<String> get textFooter => listFooter;
+
+  testString() {
+    print('-----------------------------------------------');
+    list.forEach((element) {
+      //print(center(element, 47, ' '));
+      //print(format47Char(element));
+      List sublist = [];
+      sublist = format47Char(element);
+      sublist.forEach((e) {
+        print(e);
+      });
+    });
+  }
+
+  List<String> format47Char(String str) {
+    List<String> list = new List();
+    bool next = false;
+
+    list.add(str);
+
+    if (str.length <= MAXCHAR_80MM) return list;
+
+    while (!next) {
+      String buffer = list.last;
+      int bk = buffer.lastIndexOf(' ', MAXCHAR_80MM);
+      list.last = buffer.substring(0, bk);
+      list.add(buffer.substring(bk));
+      if (list.last.length < MAXCHAR_80MM) next = true;
+    }
+    return list;
+  }
+}

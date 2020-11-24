@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:mrd_interfaz/models/Temas.dart';
 
 class FormController {
-  List<TextEditingController> controller = List(17);
-  List<TextInputTheme> theme = List(17);
+  List<TextEditingController> controller = List(20);
+  List<TextInputTheme> theme = List(20);
 
   FormController() {
     for (var i = 0; i < controller.length; i++) {
@@ -122,6 +122,12 @@ Map<String, bool> mapValidacion = {
   'Fotos': false,
 };
 
+Map<String, bool> mapValidacionMoto = {
+  'Cliente': false,
+  'Checklist': false,
+  'Fotos': false,
+};
+
 //ClienteDataModel clienteDataModel = new ClienteDataModel();
 
 Map mapCliente = {
@@ -136,10 +142,10 @@ Map mapCliente = {
   'Tipo': '',
   'Color': '',
   'Placas': '',
-  'NoSerie': '',
+  'NoSerie': 'No Aplica',
   'NombreConductor': '',
   'Llaves': 'No',
-  'Telefono': '',
+  'Telefono': 'No Aplica',
   'Grua': '',
   'ClaveOperador': '',
   'Solicitante': '',
@@ -212,7 +218,7 @@ Map mapMotor = {
   'Depurador': 'Si',
   'Carburador': 'Si',
   'FiltroAire': 'Si',
-  'Inyectores': '',
+  'Inyectores': 'Si',
   'Compresor': 'Si',
   'Computadora': 'Si',
   'Bateria': 'Si',
@@ -220,9 +226,9 @@ Map mapMotor = {
   'TanqueGasolina': '0.0',
   'CargaConsistente': '',
   'Observaciones': '',
-  "NombreEntrega": "Juan Perez",
-  "NombreDeOficial": "Jose Perez",
-  "NombreOperador": "Pedro Perez"
+  "NombreEntrega": "No Aplica",
+  "NombreDeOficial": "No Aplica",
+  "NombreOperador": "No Aplica"
 };
 
 //Mapa de datos motor
@@ -235,6 +241,88 @@ Map mapReporteFotografico = {
   'img6': '',
   'img7': '',
   'img8': '',
+  'img9': '',
+  'img10': '',
+  'img11': '',
+  'img12': '',
+  'img13': '',
+  'img14': '',
+};
+
+//Map Cliente Moto
+
+Map mapClienteMoto = {
+  'Region': '',
+  'Folio': 'XXXX',
+  'Fecha': '',
+  'Direccion': '',
+  'MotivoInventario': '',
+  'VahiculoMarca': '',
+  'Modelo': '',
+  'Year': '',
+  'Tipo': '',
+  'Color': '',
+  'Placas': '',
+  'NoSerie': 'No Aplica',
+  'NombreConductor': '',
+  'Llaves': 'No',
+  'Telefono': 'No Aplica',
+  'Grua': '',
+  'ClaveOperador': '',
+  'Solicitante': '',
+};
+
+//Mapa Checklist
+Map mapCheckListMoto = {
+  'Antenas': '',
+  'Asiento': 'Si',
+  'Bateria': 'Si',
+  'CadenaTransmision': 'Si',
+  'CantidadDeGasoliona': 'Si',
+  'DepositoDeGasolina': 'Si',
+  'Emblemas': '',
+  'EquipoDeSonido': 'Si',
+  'Faro': 'Si',
+  'FrenosDelanteros': 'Si',
+  'FrenosTraseros': 'Si',
+  'LucesTraseras': '',
+  'Manubrio': 'Si',
+  'Motor': 'Si',
+  'PalancaDeCambios': 'Si',
+  'Parabrisas': 'Si',
+  'PataLateral': 'Si',
+  'PedalDeClutch': 'Si',
+  'PedalFrenoDelantero': 'Si',
+  'PedalFrenoTrasero': 'Si',
+  'Reflejantes': '',
+  'RetrovisorDerecho': 'Si',
+  'RetrovisorIzquierdo': 'Si',
+  'SalpicaderaDelantera': 'Si',
+  'SalpicaderaTrasera': 'Si',
+  'TaponGasolina': 'Si',
+  'TuboDeEscape': 'Si',
+  'MarcaLlantas': '',
+  'MedidaLlantas': '',
+  'CantidadLlantas': '',
+  'CargaConsistente': '',
+  'Observaciones': '',
+  "NombreEntrega": "No Aplica",
+  "NombreDeOficial": "No Aplica",
+  "NombreOperador": "No Aplica"
+};
+
+//Reporte Fotografico Motos
+Map mapFotosCheckList = {
+  'img1': '',
+  'img2': '',
+  'img3': '',
+  'img4': '',
+  'img5': '',
+  'img6': '',
+  'img7': '',
+  'img8': '',
+  'img9': '',
+  'img10': '',
 };
 
 Map<String, dynamic> mapTest = {

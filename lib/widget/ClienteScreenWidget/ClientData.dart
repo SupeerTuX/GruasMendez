@@ -8,6 +8,7 @@ import 'package:mrd_interfaz/models/Temas.dart';
 //Valores de los radio buttons
 //enum SingingCharacter { bien, mal, na }
 
+//? Data Externo
 class CardData extends StatefulWidget {
   final CardCustomContent contenido;
 
@@ -21,7 +22,6 @@ class CardData extends StatefulWidget {
 
 class _CardDataState extends State<CardData> {
   SingingCharacter _character;
-  bool campoNumerico = true;
   Color labelColor = Colors.red;
   TextEditingController _controller = TextEditingController();
 
@@ -35,7 +35,7 @@ class _CardDataState extends State<CardData> {
         _controller.text = mapExterior[widget.contenido.key];
         labelColor = Colors.green;
       } else {
-        mapExterior[widget.contenido.key] = '';
+        //mapExterior[widget.contenido.key] = '';
       }
     }
   }
@@ -92,8 +92,10 @@ class _CardDataState extends State<CardData> {
                                 }
                                 widget.contenido.opcion = value;
                                 widget.contenido.theme = themeOk;
-                                campoNumerico = true;
+                                widget.contenido.showTextField = true;
                                 //_colorCard = Colors.greenAccent[100];
+                                print(
+                                    '${widget.contenido.key}: ${mapExterior[widget.contenido.key]} ');
                               });
                             },
                           ),
@@ -114,7 +116,9 @@ class _CardDataState extends State<CardData> {
                               mapExterior[widget.contenido.key] = 'No';
                               widget.contenido.opcion = value;
                               widget.contenido.theme = themeWarning;
-                              campoNumerico = false;
+                              widget.contenido.showTextField = false;
+                              print(
+                                  '${widget.contenido.key}: ${mapExterior[widget.contenido.key]} ');
                               //_colorCard = Colors.orange[100];
                             });
                           },
@@ -125,7 +129,7 @@ class _CardDataState extends State<CardData> {
                     Container(
                       width: 70,
                       child: widget.contenido.fieldNumeric
-                          ? campoNumerico
+                          ? widget.contenido.showTextField
                               ? TextField(
                                   textAlign: TextAlign.center,
                                   maxLength: 1,
@@ -135,18 +139,47 @@ class _CardDataState extends State<CardData> {
                                     labelStyle: TextStyle(color: labelColor),
                                   ),
                                   keyboardType: TextInputType.number,
-                                  onSubmitted: (value) {
-                                    print(_controller.text);
+                                  onChanged: (value) {
                                     if (isNumeric(value)) {
                                       setState(() {
                                         labelColor = Colors.green;
                                         mapExterior[widget.contenido.key] =
                                             value;
+                                        print(
+                                            '${widget.contenido.key}: ${mapExterior[widget.contenido.key]} ');
                                       });
                                     } else {
                                       setState(() {
                                         labelColor = Colors.red;
                                         _controller.text = '';
+                                        mapExterior[widget.contenido.key] = '';
+                                        print(
+                                            '${widget.contenido.key}: ${mapExterior[widget.contenido.key]} ');
+                                      });
+                                      final snackBar = SnackBar(
+                                        content:
+                                            Text('Debe ingresar un numero'),
+                                      );
+                                      Scaffold.of(context)
+                                          .showSnackBar(snackBar);
+                                    }
+                                  },
+                                  onSubmitted: (value) {
+                                    if (isNumeric(value)) {
+                                      setState(() {
+                                        labelColor = Colors.green;
+                                        mapExterior[widget.contenido.key] =
+                                            value;
+                                        print(
+                                            '${widget.contenido.key}: ${mapExterior[widget.contenido.key]} ');
+                                      });
+                                    } else {
+                                      setState(() {
+                                        labelColor = Colors.red;
+                                        _controller.text = '';
+                                        mapExterior[widget.contenido.key] = '';
+                                        print(
+                                            '${widget.contenido.key}: ${mapExterior[widget.contenido.key]} ');
                                       });
                                       final snackBar = SnackBar(
                                         content:
@@ -194,7 +227,6 @@ class CardDataInterior extends StatefulWidget {
 
 class _CardDataInteriorState extends State<CardDataInterior> {
   SingingCharacter _character;
-  bool campoNumerico = true;
   Color labelColor = Colors.red;
   TextEditingController _controller = TextEditingController();
 
@@ -208,7 +240,7 @@ class _CardDataInteriorState extends State<CardDataInterior> {
         _controller.text = mapInterior[widget.contenido.key];
         labelColor = Colors.green;
       } else {
-        mapInterior[widget.contenido.key] = '';
+        //mapInterior[widget.contenido.key] = '';
       }
     }
   }
@@ -265,8 +297,10 @@ class _CardDataInteriorState extends State<CardDataInterior> {
                                 }
                                 widget.contenido.opcion = value;
                                 widget.contenido.theme = themeOk;
-                                campoNumerico = true;
+                                widget.contenido.showTextField = true;
                                 //_colorCard = Colors.greenAccent[100];
+                                print(
+                                    '${widget.contenido.key}: ${mapInterior[widget.contenido.key]} ');
                               });
                             },
                           ),
@@ -287,8 +321,10 @@ class _CardDataInteriorState extends State<CardDataInterior> {
                               mapInterior[widget.contenido.key] = 'No';
                               widget.contenido.opcion = value;
                               widget.contenido.theme = themeWarning;
-                              campoNumerico = false;
+                              widget.contenido.showTextField = false;
                               //_colorCard = Colors.orange[100];
+                              print(
+                                  '${widget.contenido.key}: ${mapInterior[widget.contenido.key]} ');
                             });
                           },
                         ),
@@ -298,7 +334,7 @@ class _CardDataInteriorState extends State<CardDataInterior> {
                     Container(
                       width: 70,
                       child: widget.contenido.fieldNumeric
-                          ? campoNumerico
+                          ? widget.contenido.showTextField
                               ? TextField(
                                   textAlign: TextAlign.center,
                                   maxLength: 1,
@@ -308,6 +344,32 @@ class _CardDataInteriorState extends State<CardDataInterior> {
                                     labelStyle: TextStyle(color: labelColor),
                                   ),
                                   keyboardType: TextInputType.number,
+                                  onChanged: (value) {
+                                    print(_controller.text);
+                                    if (isNumeric(value)) {
+                                      setState(() {
+                                        labelColor = Colors.green;
+                                        mapInterior[widget.contenido.key] =
+                                            value;
+                                        print(
+                                            '${widget.contenido.key}: ${mapInterior[widget.contenido.key]} ');
+                                      });
+                                    } else {
+                                      setState(() {
+                                        labelColor = Colors.red;
+                                        _controller.text = '';
+                                        mapInterior[widget.contenido.key] = '';
+                                        print(
+                                            '${widget.contenido.key}: ${mapInterior[widget.contenido.key]} ');
+                                      });
+                                      final snackBar = SnackBar(
+                                        content:
+                                            Text('Debe ingresar un numero'),
+                                      );
+                                      Scaffold.of(context)
+                                          .showSnackBar(snackBar);
+                                    }
+                                  },
                                   onSubmitted: (value) {
                                     print(_controller.text);
                                     if (isNumeric(value)) {
@@ -320,6 +382,7 @@ class _CardDataInteriorState extends State<CardDataInterior> {
                                       setState(() {
                                         labelColor = Colors.red;
                                         _controller.text = '';
+                                        mapInterior[widget.contenido.key] = '';
                                       });
                                       final snackBar = SnackBar(
                                         content:
@@ -367,7 +430,6 @@ class CardDataMotor extends StatefulWidget {
 
 class _CardDataMotorState extends State<CardDataMotor> {
   SingingCharacter _character;
-  bool campoNumerico = true;
   Color labelColor = Colors.red;
   TextEditingController _controller = TextEditingController();
 
@@ -381,7 +443,7 @@ class _CardDataMotorState extends State<CardDataMotor> {
         _controller.text = mapMotor[widget.contenido.key];
         labelColor = Colors.green;
       } else {
-        mapMotor[widget.contenido.key] = '';
+        //mapMotor[widget.contenido.key] = '';
       }
     }
   }
@@ -438,8 +500,10 @@ class _CardDataMotorState extends State<CardDataMotor> {
                                 }
                                 widget.contenido.opcion = value;
                                 widget.contenido.theme = themeOk;
-                                campoNumerico = true;
+                                widget.contenido.showTextField = true;
                                 //_colorCard = Colors.greenAccent[100];
+                                print(
+                                    '${widget.contenido.key}: ${mapMotor[widget.contenido.key]} ');
                               });
                             },
                           ),
@@ -460,8 +524,10 @@ class _CardDataMotorState extends State<CardDataMotor> {
                               mapMotor[widget.contenido.key] = 'No';
                               widget.contenido.opcion = value;
                               widget.contenido.theme = themeWarning;
-                              campoNumerico = false;
+                              widget.contenido.showTextField = false;
                               //_colorCard = Colors.orange[100];
+                              print(
+                                  '${widget.contenido.key}: ${mapMotor[widget.contenido.key]} ');
                             });
                           },
                         ),
@@ -470,8 +536,8 @@ class _CardDataMotorState extends State<CardDataMotor> {
                     ),
                     Container(
                       width: 70,
-                      child: widget.contenido.fieldNumeric
-                          ? campoNumerico
+                      child: widget.contenido.showTextField
+                          ? widget.contenido.fieldNumeric
                               ? TextField(
                                   textAlign: TextAlign.center,
                                   maxLength: 1,
@@ -481,6 +547,31 @@ class _CardDataMotorState extends State<CardDataMotor> {
                                     labelStyle: TextStyle(color: labelColor),
                                   ),
                                   keyboardType: TextInputType.number,
+                                  onChanged: (value) {
+                                    print(_controller.text);
+                                    if (isNumeric(value)) {
+                                      setState(() {
+                                        labelColor = Colors.green;
+                                        mapMotor[widget.contenido.key] = value;
+                                        print(
+                                            '${widget.contenido.key}: ${mapMotor[widget.contenido.key]} ');
+                                      });
+                                    } else {
+                                      setState(() {
+                                        labelColor = Colors.red;
+                                        _controller.text = '';
+                                        mapMotor[widget.contenido.key] = '';
+                                        print(
+                                            '${widget.contenido.key}: ${mapMotor[widget.contenido.key]} ');
+                                      });
+                                      final snackBar = SnackBar(
+                                        content:
+                                            Text('Debe ingresar un numero'),
+                                      );
+                                      Scaffold.of(context)
+                                          .showSnackBar(snackBar);
+                                    }
+                                  },
                                   onSubmitted: (value) {
                                     print(_controller.text);
                                     if (isNumeric(value)) {
@@ -492,6 +583,7 @@ class _CardDataMotorState extends State<CardDataMotor> {
                                       setState(() {
                                         labelColor = Colors.red;
                                         _controller.text = '';
+                                        mapMotor[widget.contenido.key] = '';
                                       });
                                       final snackBar = SnackBar(
                                         content:
@@ -521,6 +613,213 @@ class _CardDataMotorState extends State<CardDataMotor> {
     return int.tryParse(s) != null;
   }
 }
+
+//?##############################################
+//?Card data CheckList Motos
+//?##############################################
+
+class CardDataMotos extends StatefulWidget {
+  final CardCustomContent contenido;
+
+  CardDataMotos({
+    @required this.contenido,
+  });
+
+  @override
+  _CardDataMotosState createState() => _CardDataMotosState();
+}
+
+class _CardDataMotosState extends State<CardDataMotos> {
+  SingingCharacter _character;
+  Color labelColor = Colors.red;
+  TextEditingController _controller = TextEditingController();
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _character = widget.contenido.opcion;
+
+    if (widget.contenido.fieldNumeric) {
+      if (isNumeric(mapCheckListMoto[widget.contenido.key])) {
+        _controller.text = mapCheckListMoto[widget.contenido.key];
+        labelColor = Colors.green;
+      } else {
+        //mapMotor[widget.contenido.key] = '';
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
+      child: Card(
+        color: widget.contenido.theme.cardBackground,
+        elevation: 10.0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Container(
+          height: 120,
+          child: Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    Text(
+                      widget.contenido.titulo,
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black38,
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                      //color: Colors.greenAccent[100],
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Radio(
+                            value: SingingCharacter.si,
+                            groupValue: _character,
+                            onChanged: (SingingCharacter value) {
+                              HapticFeedback.vibrate();
+                              setState(() {
+                                _character = value;
+                                if (widget.contenido.fieldNumeric) {
+                                  mapCheckListMoto[widget.contenido.key] = '';
+                                } else {
+                                  mapCheckListMoto[widget.contenido.key] = 'Si';
+                                }
+                                widget.contenido.opcion = value;
+                                widget.contenido.theme = themeOk;
+                                widget.contenido.showTextField = true;
+                                //_colorCard = Colors.greenAccent[100];
+                                print(
+                                    '${widget.contenido.key}: ${mapCheckListMoto[widget.contenido.key]} ');
+                              });
+                            },
+                          ),
+                          Text('Si'),
+                        ],
+                      ),
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Radio(
+                          value: SingingCharacter.no,
+                          groupValue: _character,
+                          onChanged: (SingingCharacter value) {
+                            HapticFeedback.vibrate();
+                            setState(() {
+                              _character = value;
+                              mapCheckListMoto[widget.contenido.key] = 'No';
+                              widget.contenido.opcion = value;
+                              widget.contenido.theme = themeWarning;
+                              widget.contenido.showTextField = false;
+                              //_colorCard = Colors.orange[100];
+                              print(
+                                  '${widget.contenido.key}: ${mapCheckListMoto[widget.contenido.key]} ');
+                            });
+                          },
+                        ),
+                        Text('No'),
+                      ],
+                    ),
+                    Container(
+                      width: 70,
+                      child: widget.contenido.showTextField
+                          ? widget.contenido.fieldNumeric
+                              ? TextField(
+                                  textAlign: TextAlign.center,
+                                  maxLength: 1,
+                                  controller: _controller,
+                                  decoration: InputDecoration(
+                                    labelText: 'Cantidad',
+                                    labelStyle: TextStyle(color: labelColor),
+                                  ),
+                                  keyboardType: TextInputType.number,
+                                  onChanged: (value) {
+                                    print(_controller.text);
+                                    if (isNumeric(value)) {
+                                      setState(() {
+                                        labelColor = Colors.green;
+                                        mapCheckListMoto[widget.contenido.key] =
+                                            value;
+                                        print(
+                                            '${widget.contenido.key}: ${mapCheckListMoto[widget.contenido.key]} ');
+                                      });
+                                    } else {
+                                      setState(() {
+                                        labelColor = Colors.red;
+                                        _controller.text = '';
+                                        mapCheckListMoto[widget.contenido.key] =
+                                            '';
+                                        print(
+                                            '${widget.contenido.key}: ${mapCheckListMoto[widget.contenido.key]} ');
+                                      });
+                                      final snackBar = SnackBar(
+                                        content:
+                                            Text('Debe ingresar un numero'),
+                                      );
+                                      Scaffold.of(context)
+                                          .showSnackBar(snackBar);
+                                    }
+                                  },
+                                  onSubmitted: (value) {
+                                    print(_controller.text);
+                                    if (isNumeric(value)) {
+                                      setState(() {
+                                        labelColor = Colors.green;
+                                        mapCheckListMoto[widget.contenido.key] =
+                                            value;
+                                      });
+                                    } else {
+                                      setState(() {
+                                        labelColor = Colors.red;
+                                        _controller.text = '';
+                                        mapCheckListMoto[widget.contenido.key] =
+                                            '';
+                                      });
+                                      final snackBar = SnackBar(
+                                        content:
+                                            Text('Debe ingresar un numero'),
+                                      );
+                                      Scaffold.of(context)
+                                          .showSnackBar(snackBar);
+                                    }
+                                  },
+                                )
+                              : null
+                          : null,
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  bool isNumeric(String s) {
+    if (s == null) return false;
+
+    return int.tryParse(s) != null;
+  }
+}
+
+//******************************** */
 
 class CardDataCliente extends StatefulWidget {
   final CardCustomContent contenido;

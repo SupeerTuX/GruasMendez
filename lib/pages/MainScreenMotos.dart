@@ -1,31 +1,35 @@
+//Main Screen para seccion de motos
+
+import 'dart:io';
 import 'package:blue_thermal_printer/blue_thermal_printer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'dart:async';
-import 'dart:io';
 import 'package:mrd_interfaz/models/DataModel.dart';
 import 'package:mrd_interfaz/models/Temas.dart';
 import 'package:mrd_interfaz/pages/Ticket.dart';
-import 'package:mrd_interfaz/servicios/Servicios.dart';
+import 'package:mrd_interfaz/utils/utils.dart';
 import 'package:mrd_interfaz/widget/MainScreenWidgets/CardHeader.dart';
 import 'package:mrd_interfaz/widget/MainScreenWidgets/CuerpoReporte.dart';
 import 'package:mrd_interfaz/widget/MainScreenWidgets/HeaderText.dart';
 import 'package:mrd_interfaz/widget/MainScreenWidgets/Info.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:mrd_interfaz/servicios/Servicios.dart';
 
+//? Funcion para subir el reporte
 Future<ResponseReporte> uploadReporte(Map data) async {
   //Checamos el mapa de validacion
   var datos, fotos;
 
   //subiendo datos
   if (!validacionReporte['Datos']) {
-    datos = await sendData(data);
+    datos = await sendDataMoto(data);
   }
 
   //si los datos se subieron correctamente, enviamos las fotos
   if (!validacionReporte['Fotos']) {
-    fotos = await sendImages(rutas: mapReporteFotografico, data: mapCliente);
+    fotos =
+        await sendImagesMoto(rutas: mapFotosCheckList, data: mapClienteMoto);
   }
 
   //check si los datos y fotos se subieron correctamente
@@ -46,20 +50,20 @@ Future<ResponseReporte> uploadReporte(Map data) async {
   }
 }
 
-GlobalKey<ScaffoldState> scaffoldState = GlobalKey();
-
-class MainScreen extends StatefulWidget {
+class MainScreenMotos extends StatefulWidget {
   @override
-  _MainScreenState createState() => _MainScreenState();
+  _MainScreenMotosState createState() => _MainScreenMotosState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+GlobalKey<ScaffoldState> scaffoldState2 = GlobalKey();
+
+class _MainScreenMotosState extends State<MainScreenMotos> {
   Future<bool> _onBackPressed() {
     return showDialog(
           context: context,
           builder: (context) => new AlertDialog(
-            title: new Text('Desea Salir De La Aplicacion?'),
-            content: new Text('Terminar app'),
+            title: Text('Desea Salir De La Aplicacion?'),
+            content: Text('Terminar app'),
             actions: <Widget>[
               FlatButton(
                 onPressed: () {
@@ -84,27 +88,27 @@ class _MainScreenState extends State<MainScreen> {
     return WillPopScope(
       onWillPop: _onBackPressed,
       child: Scaffold(
-        key: scaffoldState,
+        key: scaffoldState2,
         appBar: AppBar(
-          title: Text('Captura De Reporte'),
+          title: Text('Captura De Reporte Motos'),
           automaticallyImplyLeading: false,
           backgroundColor: Colors.green[400],
         ),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: MainBody(),
+          child: MainBodyMotos(),
         ),
       ),
     );
   }
 }
 
-class MainBody extends StatefulWidget {
+class MainBodyMotos extends StatefulWidget {
   @override
-  _MainBodyState createState() => _MainBodyState();
+  _MainBodyMotosState createState() => _MainBodyMotosState();
 }
 
-class _MainBodyState extends State<MainBody> {
+class _MainBodyMotosState extends State<MainBodyMotos> {
   BlueThermalPrinter bluetooth;
   String pathImage;
   bool formularioBloqueado = false;
@@ -127,47 +131,39 @@ class _MainBodyState extends State<MainBody> {
               [
                 HeaderText(),
                 CardHeader(
+                  //? Upload
                   uploadReporte: () {
-                    //print(mapTest);
+                    print('Upload report');
                     if (checkValidacion()) {
                       Map mapReporte = new Map();
-                      mapReporte.addAll(mapCliente);
-                      mapReporte.addAll(mapExterior);
-                      mapReporte.addAll(mapInterior);
-                      mapReporte.addAll(mapMotor);
-                      //print(mapReporte);
+                      mapReporte.addAll(mapClienteMoto);
+                      mapReporte.addAll(mapCheckListMoto);
+                      printMap(map: mapReporte);
                       if (!reporteEnviado) {
                         _showMaterialDialog(mapReporte);
                         //print(mapExterior);
                       } else {
-                        scaffoldState.currentState.showSnackBar(new SnackBar(
+                        scaffoldState2.currentState.showSnackBar(new SnackBar(
                           content: Text('El reporte ha sido enviado '),
-                          action: SnackBarAction(
-                              label: 'Ver Reporte',
-                              onPressed: () async {
-                                String url =
-                                    'https://consulta.ustgm.net/mrd/web/reportes.php?Reportes[0][Folio]=${mapCliente['Folio']}&Region=${mapCliente['Region']}';
-                                print(url);
-                                if (await canLaunch(url)) {
-                                  await launch(url);
-                                }
-                              }),
                         ));
                       }
                     } else {
-                      scaffoldState.currentState.showSnackBar(new SnackBar(
+                      scaffoldState2.currentState.showSnackBar(new SnackBar(
                           content: Text('Debe capturar todos los campos')));
                     }
                   },
+
                   openReporte: () {},
+                  //? BT Config
                   btConfig: () {
                     Navigator.of(context).pushNamed('/btconfig');
                   },
+                  //? Imprimir Ticket
                   printTicket: () {
                     if (checkValidacion()) {
                       _printTicket();
                     } else {
-                      scaffoldState.currentState.showSnackBar(new SnackBar(
+                      scaffoldState2.currentState.showSnackBar(new SnackBar(
                           content: Text('Debe capturar todos los campos')));
                       return;
                     }
@@ -194,19 +190,21 @@ class _MainBodyState extends State<MainBody> {
                   theme: theme.bodyTheme[0],
                   accion: () {
                     if (formularioBloqueado) {
-                      scaffoldState.currentState.showSnackBar(new SnackBar(
+                      scaffoldState2.currentState.showSnackBar(new SnackBar(
                           content: Text(
                               'Reporte enviado o impreso, no se puede editar')));
                       return;
                     }
-                    Navigator.of(context).pushNamed('/cliente').then((value) {
+                    Navigator.of(context)
+                        .pushNamed('/clienteMoto')
+                        .then((value) {
                       setState(() {
                         if (value == false || value == null) {
                           theme.bodyTheme[0] = cardBodyThemeFail;
-                          mapValidacion['Cliente'] = false;
+                          mapValidacionMoto['Cliente'] = false;
                         } else {
                           theme.bodyTheme[0] = cardBodyThemeOk;
-                          mapValidacion['Cliente'] = true;
+                          mapValidacionMoto['Cliente'] = true;
                         }
                       });
                     });
@@ -214,91 +212,36 @@ class _MainBodyState extends State<MainBody> {
                 ),
                 //Captura de Informacion del exterior del auto
                 CardBody(
-                  titulo: 'Exterior',
-                  subtitulo: 'Captura de datos\ndel exterior \ndel auto',
+                  titulo: 'CheckList',
+                  subtitulo: 'Check list de\n de la moto',
                   tooltip: 'Datos del exterior sin capturar',
-                  icono: Icons.directions_car,
+                  icono: Icons.motorcycle,
                   iconoFondo: Colors.greenAccent,
                   iconoColor: Colors.white,
                   theme: theme.bodyTheme[1],
                   accion: () {
                     if (formularioBloqueado) {
-                      scaffoldState.currentState.showSnackBar(new SnackBar(
+                      scaffoldState2.currentState.showSnackBar(new SnackBar(
                           content: Text(
                               'Reporte enviado o impreso, no se puede editar')));
                       return;
                     }
-                    Navigator.of(context).pushNamed('/exterior').then((value) {
+                    Navigator.of(context)
+                        .pushNamed('/checkListMoto')
+                        .then((value) {
                       setState(() {
                         if (value == false || value == null) {
                           theme.bodyTheme[1] = cardBodyThemeFail;
-                          mapValidacion['Exterior'] = false;
+                          mapValidacionMoto['Checklist'] = false;
                         } else {
                           theme.bodyTheme[1] = cardBodyThemeOk;
-                          mapValidacion['Exterior'] = true;
+                          mapValidacionMoto['Checklist'] = true;
                         }
                       });
                     });
                   },
                 ),
-                //Captura de Datos del interior del vehiculo
-                CardBody(
-                  titulo: 'Interior',
-                  subtitulo: 'Captura de datos\ndel interior del auto',
-                  tooltip: 'Datos del interior sin capturar',
-                  icono: Icons.directions_car,
-                  iconoFondo: Colors.cyan,
-                  iconoColor: Colors.white,
-                  theme: theme.bodyTheme[2],
-                  accion: () {
-                    if (formularioBloqueado) {
-                      scaffoldState.currentState.showSnackBar(new SnackBar(
-                          content: Text(
-                              'Reporte enviado o impreso, no se puede editar')));
-                      return;
-                    }
-                    Navigator.of(context).pushNamed('/interior').then((value) {
-                      setState(() {
-                        if (value == false || value == null) {
-                          theme.bodyTheme[2] = cardBodyThemeFail;
-                          mapValidacion['Interior'] = false;
-                        } else {
-                          theme.bodyTheme[2] = cardBodyThemeOk;
-                          mapValidacion['Interior'] = true;
-                        }
-                      });
-                    });
-                  },
-                ),
-                //Camputa de datos del Motor
-                CardBody(
-                  titulo: 'Motor',
-                  subtitulo: 'Captura de datos\ndel motor del auto',
-                  tooltip: 'Datos del interior sin capturar',
-                  icono: Icons.settings,
-                  iconoFondo: Colors.blueAccent,
-                  iconoColor: Colors.white,
-                  theme: theme.bodyTheme[3],
-                  accion: () {
-                    if (formularioBloqueado) {
-                      scaffoldState.currentState.showSnackBar(new SnackBar(
-                          content: Text(
-                              'Reporte enviado o impreso, no se puede editar')));
-                      return;
-                    }
-                    Navigator.of(context).pushNamed('/motor').then((value) {
-                      setState(() {
-                        if (value == false || value == null) {
-                          theme.bodyTheme[3] = cardBodyThemeFail;
-                          mapValidacion['Motor'] = false;
-                        } else {
-                          theme.bodyTheme[3] = cardBodyThemeOk;
-                          mapValidacion['Motor'] = true;
-                        }
-                      });
-                    });
-                  },
-                ),
+
                 //Reporte fotografico
                 CardBody(
                   titulo: 'Fotos',
@@ -310,19 +253,19 @@ class _MainBodyState extends State<MainBody> {
                   theme: theme.bodyTheme[4],
                   accion: () {
                     if (formularioBloqueado) {
-                      scaffoldState.currentState.showSnackBar(new SnackBar(
+                      scaffoldState2.currentState.showSnackBar(new SnackBar(
                           content: Text(
                               'Reporte enviado o impreso, no se puede editar')));
                       return;
                     }
-                    Navigator.of(context).pushNamed('/fotos').then((value) {
+                    Navigator.of(context).pushNamed('/fotosMoto').then((value) {
                       setState(() {
                         if (value == false || value == null) {
                           theme.bodyTheme[4] = cardBodyThemeFail;
-                          mapValidacion['Fotos'] = false;
+                          mapValidacionMoto['Fotos'] = false;
                         } else {
                           theme.bodyTheme[4] = cardBodyThemeOk;
-                          mapValidacion['Fotos'] = true;
+                          mapValidacionMoto['Fotos'] = true;
                         }
                       });
                     });
@@ -368,7 +311,7 @@ class _MainBodyState extends State<MainBody> {
     // 2- ESC_ALIGN_RIGHT
     bluetooth.isConnected.then((isConnected) {
       if (isConnected) {
-        Ticket ticket = new Ticket();
+        TicketMoto ticket = new TicketMoto();
         List<String> list = ticket.textHeader;
 
         //Header
@@ -381,13 +324,13 @@ class _MainBodyState extends State<MainBody> {
           List<String> sublist = [];
           sublist = ticket.format47Char(element);
           sublist.forEach((e) {
-            bluetooth.printCustom(e, 0, 1);
+            bluetooth.printCustom(e, 0, 1, charset: 'ISO-8859-1');
           });
         });
         //Body
         list = ticket.textBody;
         list.forEach((element) {
-          bluetooth.printCustom(element, 0, 0);
+          bluetooth.printCustom(element, 0, 0, charset: 'ISO-8859-1');
         });
 
         //Fotos
@@ -396,7 +339,7 @@ class _MainBodyState extends State<MainBody> {
           List<String> sublist = [];
           sublist = ticket.format47Char(element);
           sublist.forEach((e) {
-            bluetooth.printCustom(e, 0, 1);
+            bluetooth.printCustom(e, 0, 1, charset: 'ISO-8859-1');
           });
         });
         bluetooth.printNewLine();
@@ -415,10 +358,9 @@ class _MainBodyState extends State<MainBody> {
         impresionOK = true;
       } else {
         impresionOK = false;
-        scaffoldState.currentState.showSnackBar(
+        scaffoldState2.currentState.showSnackBar(
             new SnackBar(content: Text('Impresora sin conexion')));
       }
-
       formularioBloqueado = true;
     });
     return impresionOK;
@@ -530,7 +472,7 @@ class ReporteFail extends StatelessWidget {
 bool checkValidacion() {
   bool validacion = true;
 
-  mapValidacion.forEach((key, value) {
+  mapValidacionMoto.forEach((key, value) {
     if (value == false) {
       validacion = false;
     }

@@ -69,7 +69,7 @@ class _LoginPageState extends State<LoginPage> {
             InputMail(),
             PasswordInput(),
             Padding(
-              padding: const EdgeInsets.only(left: 50.0, top: 20.0),
+              padding: const EdgeInsets.only(left: 50.0, top: 10.0),
               child: Text(
                 'Seleccione El Corralon',
                 style: TextStyle(
@@ -79,11 +79,27 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             Corralon(),
+            Padding(
+              padding: const EdgeInsets.only(left: 50.0, top: 8.0),
+              child: Text(
+                'Tipo De Vehiculo',
+                style: TextStyle(
+                    color: Colors.amber,
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.w700),
+              ),
+            ),
+            TipoVehiculo(),
             ButtonLogin(
               accion: () {
-                if (dropdownValue == 'Seleccione' || dropdownValue.isEmpty) {
+                if (dropdownCorralon == 'Seleccione' ||
+                    dropdownCorralon.isEmpty) {
                   scaffoldState.currentState.showSnackBar(new SnackBar(
                       content: Text('Debe seleccionar un corralon')));
+                } else if (dropdownTipo == 'Seleccione' ||
+                    dropdownTipo.isEmpty) {
+                  scaffoldState.currentState.showSnackBar(new SnackBar(
+                      content: Text('Debe seleccionar un tipo de vehiculo')));
                 } else {
                   _showMaterialDialog();
                 }
@@ -103,11 +119,11 @@ class _LoginPageState extends State<LoginPage> {
       builder: (_) => WillPopScope(
         onWillPop: () {},
         child: AlertDialog(
-          title: Text("Solicitando Folio: $dropdownValue"),
+          title: Text("Solicitando Folio: $dropdownCorralon"),
           content: Text("Espere mientras se solicita el folio"),
           actions: <Widget>[
             FutureBuilder<Post>(
-              future: fetchPost(region: dropdownValue),
+              future: fetchPost(region: dropdownCorralon),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   return RequestOK(
@@ -156,13 +172,32 @@ class _RequestOKState extends State<RequestOK> {
           ),
           FlatButton(
               onPressed: () {
-                mapCliente['Folio'] = this.widget.folio;
-                mapCliente['Region'] = dropdownValue.toLowerCase();
                 setState(() {
                   infoModel.reporte = this.widget.folio;
                 });
                 Navigator.of(context).pop();
-                Navigator.of(context).pushNamed('/main');
+                if (dropdownTipo == 'Automovil') {
+                  //Guardar el folio y region en el mapa
+                  mapCliente['Folio'] = this.widget.folio;
+                  if(dropdownCorralon == 'Poza Rica'){
+                    mapCliente['Region'] = 'poza_rica';
+                  }else{
+                    mapCliente['Region'] = dropdownCorralon.toLowerCase();
+                  }
+                  
+                  Navigator.of(context).pushNamed('/main');
+                } else if (dropdownTipo == 'Motos') {
+                  //Guardar el folio y region en el mapa
+                  mapClienteMoto['Folio'] = this.widget.folio;
+
+                  if(dropdownCorralon == 'Poza Rica'){
+                    mapClienteMoto['Region'] = 'poza_rica_motos';
+                  }else{
+                    mapClienteMoto['Region'] =
+                      dropdownCorralon.toLowerCase() + '_motos';
+                  }
+                  Navigator.of(context).pushNamed('/mainMotos');
+                }
               },
               child: Text('Continuar')),
         ],
@@ -197,7 +232,7 @@ class Corralon extends StatefulWidget {
   _CorralonState createState() => _CorralonState();
 }
 
-String dropdownValue = 'Seleccione';
+String dropdownCorralon = 'Seleccione';
 
 class _CorralonState extends State<Corralon> {
   @override
@@ -205,7 +240,7 @@ class _CorralonState extends State<Corralon> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 50.0),
       child: DropdownButton<String>(
-        value: dropdownValue,
+        value: dropdownCorralon,
         icon: Icon(
           Icons.arrow_downward,
           color: Colors.white,
@@ -223,7 +258,7 @@ class _CorralonState extends State<Corralon> {
         ),
         onChanged: (String newValue) {
           setState(() {
-            dropdownValue = newValue;
+            dropdownCorralon = newValue;
           });
         },
         items: <String>[
@@ -236,6 +271,55 @@ class _CorralonState extends State<Corralon> {
           'Puebla',
           'Veracruz',
           'Xalapa'
+        ].map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Text(value),
+          );
+        }).toList(),
+      ),
+    );
+  }
+}
+
+String dropdownTipo = 'Seleccione';
+
+class TipoVehiculo extends StatefulWidget {
+  @override
+  _TipoVehiculoState createState() => _TipoVehiculoState();
+}
+
+class _TipoVehiculoState extends State<TipoVehiculo> {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 50.0),
+      child: DropdownButton<String>(
+        value: dropdownTipo,
+        icon: Icon(
+          Icons.arrow_downward,
+          color: Colors.white,
+        ),
+        iconSize: 28,
+        elevation: 16,
+        style: TextStyle(
+          color: Colors.grey,
+          fontSize: 18,
+          fontWeight: FontWeight.w600,
+        ),
+        underline: Container(
+          height: 2,
+          color: Colors.white,
+        ),
+        onChanged: (String newValue) {
+          setState(() {
+            dropdownTipo = newValue;
+          });
+        },
+        items: <String>[
+          'Seleccione',
+          'Automovil',
+          'Motos',
         ].map<DropdownMenuItem<String>>((String value) {
           return DropdownMenuItem<String>(
             value: value,

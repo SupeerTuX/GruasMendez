@@ -6,6 +6,7 @@ import 'package:dropdownfield/dropdownfield.dart';
 import 'package:mrd_interfaz/models/DataModel.dart';
 import 'package:mrd_interfaz/models/Temas.dart';
 import 'package:mrd_interfaz/models/Contenido.dart';
+import 'package:mrd_interfaz/utils/utils.dart';
 import 'package:mrd_interfaz/widget/utils/HeaderLogo.dart';
 import 'package:mrd_interfaz/widget/utils/Input.dart';
 import 'package:mrd_interfaz/widget/ClienteScreenWidget/ClientData.dart';
@@ -61,6 +62,7 @@ class _MotorScreenState extends State<MotorScreen> {
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             //print(mapMotor);
+            printMap(map: mapMotor);
             HapticFeedback.vibrate();
             bool validacion = true;
             mapMotor.forEach((key, value) {
@@ -158,11 +160,22 @@ class _MotorBodyState extends State<MotorBody> {
           ),
         ),
         MarcaField(),
+        //? Carga
         InputText(
           hint: 'Carga Consiste En',
           controller: formController.controller[15],
           theme: formController.theme[15],
           capitalization: TextCapitalization.sentences,
+          clearDefault: () {
+            formController.controller[15].clear();
+            print('Carga consite en: ${formController.controller[15].text}');
+            mapMotor['CargaConsistente'] = formController.controller[15].text;
+            setState(() {
+              formController.controller[15].text.isEmpty
+                  ? formController.theme[15] = inputThemeFail
+                  : formController.theme[15] = inputThemeOK;
+            });
+          },
           accion: () {
             print('Carga consite en: ${formController.controller[15].text}');
             mapMotor['CargaConsistente'] = formController.controller[15].text;
@@ -173,13 +186,24 @@ class _MotorBodyState extends State<MotorBody> {
             });
           },
         ),
+        //? Observaciones
         InputText(
           hint: 'Observaciones',
           controller: formController.controller[16],
           theme: formController.theme[16],
           capitalization: TextCapitalization.sentences,
+          clearDefault: () {
+            formController.controller[16].clear();
+            print('Observaciones: ${formController.controller[16].text}');
+            mapMotor['Observaciones'] = formController.controller[16].text;
+            setState(() {
+              formController.controller[16].text.isEmpty
+                  ? formController.theme[16] = inputThemeFail
+                  : formController.theme[16] = inputThemeOK;
+            });
+          },
           accion: () {
-            print('Carga consite en: ${formController.controller[16].text}');
+            print('Observaciones: ${formController.controller[16].text}');
             mapMotor['Observaciones'] = formController.controller[16].text;
             setState(() {
               formController.controller[16].text.isEmpty
@@ -188,6 +212,8 @@ class _MotorBodyState extends State<MotorBody> {
             });
           },
         ),
+        SizedBox(height: 20),
+        Divider(),
       ],
     );
   }

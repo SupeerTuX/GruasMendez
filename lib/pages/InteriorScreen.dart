@@ -4,6 +4,7 @@ import 'package:dropdownfield/dropdownfield.dart';
 import 'package:mrd_interfaz/models/Temas.dart';
 import 'package:mrd_interfaz/models/Contenido.dart';
 import 'package:mrd_interfaz/models/DataModel.dart';
+import 'package:mrd_interfaz/utils/utils.dart';
 import 'package:mrd_interfaz/widget/utils/HeaderLogo.dart';
 import 'package:mrd_interfaz/widget/utils/Input.dart';
 import 'package:mrd_interfaz/widget/ClienteScreenWidget/ClientData.dart';
@@ -60,6 +61,7 @@ class _InteriorScreenState extends State<InteriorScreen> {
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             //print(mapInterior);
+            printMap(map: mapInterior);
             HapticFeedback.vibrate();
             bool validacion = true;
             mapInterior.forEach((key, value) {
@@ -149,7 +151,7 @@ class _InteriorBodyState extends State<InteriorBody> {
             strict: false,
             onValueChanged: (value) {
               mapInterior['MarcaLlantas'] = value;
-              print('Marca de llanta ${mapCliente['MarcaLlantas']}');
+              print('Marca de llanta ${mapInterior['MarcaLlantas']}');
               setState(() {
                 formData['MarcaLlantas'] = value;
               });
@@ -168,7 +170,7 @@ class _InteriorBodyState extends State<InteriorBody> {
             strict: false,
             onValueChanged: (value) {
               mapInterior['MedidaLlantas'] = value;
-              print('Rodada ${mapCliente['MedidaLlantas']}');
+              print('Rodada ${mapInterior['MedidaLlantas']}');
               setState(() {
                 formData['MedidaLlantas'] = value;
               });

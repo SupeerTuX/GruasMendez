@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mrd_interfaz/models/DataModel.dart';
 import 'package:mrd_interfaz/models/Temas.dart';
 import 'package:mrd_interfaz/models/Contenido.dart';
+import 'package:mrd_interfaz/utils/utils.dart';
 import 'package:mrd_interfaz/widget/utils/HeaderLogo.dart';
 import 'package:mrd_interfaz/widget/ClienteScreenWidget/ClientData.dart';
 
@@ -40,6 +41,7 @@ class _ExteriorScreenState extends State<ExteriorScreen> {
   }
 
   GlobalKey<ScaffoldState> scaffoldState = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -54,6 +56,7 @@ class _ExteriorScreenState extends State<ExteriorScreen> {
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             //print(mapExterior);
+            printMap(map: mapExterior);
             bool validacion = true;
             mapExterior.forEach((key, value) {
               if (value == '') {

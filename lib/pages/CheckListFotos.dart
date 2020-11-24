@@ -6,13 +6,12 @@ import 'package:mrd_interfaz/models/DataModel.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mrd_interfaz/widget/utils/HeaderLogo.dart';
 
-class ReporteFotograficoScreen extends StatefulWidget {
+class CheckListFotosSceen extends StatefulWidget {
   @override
-  _ReporteFotograficoScreenState createState() =>
-      _ReporteFotograficoScreenState();
+  _CheckListFotosSceenState createState() => _CheckListFotosSceenState();
 }
 
-class _ReporteFotograficoScreenState extends State<ReporteFotograficoScreen> {
+class _CheckListFotosSceenState extends State<CheckListFotosSceen> {
   Future<bool> _onBackPressed() {
     return showDialog(
           context: context,
@@ -56,7 +55,7 @@ class _ReporteFotograficoScreenState extends State<ReporteFotograficoScreen> {
             //print(mapReporteFotografico);
             HapticFeedback.vibrate();
             bool validacion = true;
-            mapReporteFotografico.forEach((key, value) {
+            mapFotosCheckList.forEach((key, value) {
               if (value == '') {
                 print('Valor $key: $value');
                 print('Validacion = $validacion');
@@ -161,8 +160,8 @@ class _ReporteFBodyState extends State<ReporteFBody> {
                   mapKey: 'img5',
                 ),
                 CardBody(
-                  titulo: 'Auto Sobre Grua',
-                  subtitulo: 'Foto del vehiculo sobre la grua',
+                  titulo: 'Moto Sobre Grua',
+                  subtitulo: 'Foto de moro sobre la grua',
                   icono: Icons.photo_camera,
                   iconoFondo: Colors.grey[400],
                   iconoColor: Colors.purple,
@@ -191,7 +190,7 @@ class _ReporteFBodyState extends State<ReporteFBody> {
                   mapKey: 'img8',
                 ),
                 CardBody(
-                  titulo: 'Foto Interior 1',
+                  titulo: 'Foto Extra 1',
                   subtitulo: 'Interior del vehiculo',
                   icono: Icons.photo_camera,
                   iconoFondo: Colors.grey[400],
@@ -201,7 +200,7 @@ class _ReporteFBodyState extends State<ReporteFBody> {
                   mapKey: 'img9',
                 ),
                 CardBody(
-                  titulo: 'Foto Interior 2',
+                  titulo: 'Foto Extra 2',
                   subtitulo: 'Interior del vehiculo',
                   icono: Icons.photo_camera,
                   iconoFondo: Colors.grey[400],
@@ -210,47 +209,6 @@ class _ReporteFBodyState extends State<ReporteFBody> {
                   accion: () {},
                   mapKey: 'img10',
                 ),
-                CardBody(
-                  titulo: 'Foto Interior 3',
-                  subtitulo: 'Interior del vehiculo',
-                  icono: Icons.photo_camera,
-                  iconoFondo: Colors.grey[400],
-                  iconoColor: Colors.purple,
-                  cardColor: Colors.grey[200],
-                  accion: () {},
-                  mapKey: 'img11',
-                ),
-                CardBody(
-                  titulo: 'Foto Interior 4',
-                  subtitulo: 'Interior del vehiculo',
-                  icono: Icons.photo_camera,
-                  iconoFondo: Colors.grey[400],
-                  iconoColor: Colors.purple,
-                  cardColor: Colors.grey[200],
-                  accion: () {},
-                  mapKey: 'img12',
-                ),
-                CardBody(
-                  titulo: 'Foto Interior 5',
-                  subtitulo: 'Interior del vehiculo',
-                  icono: Icons.photo_camera,
-                  iconoFondo: Colors.grey[400],
-                  iconoColor: Colors.purple,
-                  cardColor: Colors.grey[200],
-                  accion: () {},
-                  mapKey: 'img13',
-                ),
-                CardBody(
-                  titulo: 'Foto Interior 6',
-                  subtitulo: 'Interior del vehiculo',
-                  icono: Icons.photo_camera,
-                  iconoFondo: Colors.grey[400],
-                  iconoColor: Colors.purple,
-                  cardColor: Colors.grey[200],
-                  accion: () {},
-                  mapKey: 'img14',
-                ),
-                //SizedBox(height: 10),
               ],
             ),
           ),
@@ -296,7 +254,7 @@ class _CardBodyState extends State<CardBody> {
   void initState() {
     super.initState();
 
-    if (mapReporteFotografico[widget.mapKey] == '') {
+    if (mapFotosCheckList[widget.mapKey] == '') {
       _fondo = new BoxDecoration(
         image: DecorationImage(
           image: AssetImage('assets/foto.png'),
@@ -306,7 +264,7 @@ class _CardBodyState extends State<CardBody> {
     } else {
       _fondo = new BoxDecoration(
         image: DecorationImage(
-          image: FileImage(File(mapReporteFotografico[widget.mapKey])),
+          image: FileImage(File(mapFotosCheckList[widget.mapKey])),
           fit: BoxFit.fill,
         ),
       );
@@ -321,10 +279,10 @@ class _CardBodyState extends State<CardBody> {
       print(pickedFile.path);
       setState(() {
         //_image = File(pickedFile.path);
-        mapReporteFotografico[widget.mapKey] = pickedFile.path;
+        mapFotosCheckList[widget.mapKey] = pickedFile.path;
         _fondo = new BoxDecoration(
           image: DecorationImage(
-            image: FileImage(File(mapReporteFotografico[widget.mapKey])),
+            image: FileImage(File(mapFotosCheckList[widget.mapKey])),
             fit: BoxFit.fill,
           ),
         );
@@ -368,11 +326,11 @@ class _CardBodyState extends State<CardBody> {
                     getImage();
                   },
                   onLongPress: () {
-                    if (mapReporteFotografico[widget.mapKey] != null) {
+                    if (mapFotosCheckList[widget.mapKey] != null) {
                       Navigator.of(context).pushNamed('/fotoScreen',
                           arguments: {
                             'titulo': this.widget.titulo,
-                            'ruta': mapReporteFotografico[widget.mapKey]
+                            'ruta': mapFotosCheckList[widget.mapKey]
                           });
                     }
                   },

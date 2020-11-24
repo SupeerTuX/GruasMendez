@@ -8,6 +8,7 @@ class CardCustomContent {
   String _tooltip;
   String _key;
   bool _fieldNumeric;
+  bool _showTextField;
   SingingCharacter _opcion;
 
   CardCustomTheme _theme;
@@ -19,6 +20,7 @@ class CardCustomContent {
     String key,
     SingingCharacter opcion,
     bool fieldNumeric,
+    bool showTextField,
     CardCustomTheme theme,
   }) {
     this._titulo = titulo;
@@ -27,6 +29,7 @@ class CardCustomContent {
     this._key = key;
     this._opcion = opcion;
     this._fieldNumeric = fieldNumeric;
+    this._showTextField = showTextField;
 
     this._theme = theme;
   }
@@ -48,6 +51,9 @@ class CardCustomContent {
 
   bool get fieldNumeric => _fieldNumeric;
   set fieldNumeric(bool fieldNumeric) => this._fieldNumeric = fieldNumeric;
+
+  bool get showTextField => _showTextField;
+  set showTextField(bool showTextField) => this._showTextField = showTextField;
 
   CardCustomTheme get theme => _theme;
   set theme(CardCustomTheme theme) => this._theme = theme;
@@ -87,6 +93,7 @@ CardCustomContent defensaDelantera = CardCustomContent(
   tooltip: '',
   opcion: SingingCharacter.si,
   fieldNumeric: false,
+  showTextField: true,
   theme: themeOk,
 );
 
@@ -97,6 +104,7 @@ CardCustomContent carroceriaSinGolpes = CardCustomContent(
   tooltip: '',
   opcion: SingingCharacter.si,
   fieldNumeric: false,
+  showTextField: true,
   theme: themeOk,
 );
 
@@ -107,6 +115,7 @@ CardCustomContent parrilla = CardCustomContent(
   tooltip: '',
   opcion: SingingCharacter.si,
   fieldNumeric: false,
+  showTextField: true,
   theme: themeOk,
 );
 
@@ -117,6 +126,7 @@ CardCustomContent cofre = CardCustomContent(
   tooltip: '',
   opcion: SingingCharacter.si,
   fieldNumeric: false,
+  showTextField: true,
   theme: themeOk,
 );
 
@@ -127,6 +137,7 @@ CardCustomContent parabrisas = CardCustomContent(
   tooltip: '',
   opcion: SingingCharacter.si,
   fieldNumeric: false,
+  showTextField: true,
   theme: themeOk,
 );
 
@@ -137,6 +148,7 @@ CardCustomContent limpiadores = CardCustomContent(
   tooltip: '',
   opcion: SingingCharacter.si,
   fieldNumeric: false,
+  showTextField: true,
   theme: themeOk,
 );
 
@@ -147,6 +159,7 @@ CardCustomContent emblemas = CardCustomContent(
   tooltip: '',
   opcion: SingingCharacter.si,
   fieldNumeric: true,
+  showTextField: true,
   theme: themeOk,
 );
 
@@ -157,6 +170,7 @@ CardCustomContent portezuelaIzquierda = CardCustomContent(
   tooltip: '',
   opcion: SingingCharacter.si,
   fieldNumeric: false,
+  showTextField: true,
   theme: themeOk,
 );
 
@@ -167,6 +181,7 @@ CardCustomContent cristalLatIzquierda = CardCustomContent(
   tooltip: '',
   opcion: SingingCharacter.si,
   fieldNumeric: false,
+  showTextField: true,
   theme: themeOk,
 );
 
@@ -177,6 +192,7 @@ CardCustomContent medallon = CardCustomContent(
   tooltip: '',
   opcion: SingingCharacter.si,
   fieldNumeric: false,
+  showTextField: true,
   theme: themeOk,
 );
 
@@ -187,6 +203,7 @@ CardCustomContent cajuela = CardCustomContent(
   tooltip: '',
   opcion: SingingCharacter.si,
   fieldNumeric: false,
+  showTextField: true,
   theme: themeOk,
 );
 
@@ -197,6 +214,7 @@ CardCustomContent defensaTrasera = CardCustomContent(
   tooltip: '',
   opcion: SingingCharacter.si,
   fieldNumeric: false,
+  showTextField: true,
   theme: themeOk,
 );
 
@@ -207,6 +225,7 @@ CardCustomContent portezuelaDerecha = CardCustomContent(
   tooltip: '',
   opcion: SingingCharacter.si,
   fieldNumeric: false,
+  showTextField: true,
   theme: themeOk,
 );
 
@@ -217,6 +236,7 @@ CardCustomContent cristalLatDerecho = CardCustomContent(
   tooltip: '',
   opcion: SingingCharacter.si,
   fieldNumeric: false,
+  showTextField: true,
   theme: themeOk,
 );
 
@@ -227,6 +247,7 @@ CardCustomContent antenas = CardCustomContent(
   tooltip: '',
   opcion: SingingCharacter.si,
   fieldNumeric: true,
+  showTextField: true,
   theme: themeOk,
 );
 
@@ -237,6 +258,7 @@ CardCustomContent espejos = CardCustomContent(
   tooltip: '',
   opcion: SingingCharacter.si,
   fieldNumeric: true,
+  showTextField: true,
   theme: themeOk,
 );
 
@@ -247,6 +269,7 @@ CardCustomContent taponesRuedas = CardCustomContent(
   tooltip: '',
   opcion: SingingCharacter.si,
   fieldNumeric: true,
+  showTextField: true,
   theme: themeOk,
 );
 
@@ -257,6 +280,7 @@ CardCustomContent taponGasolina = CardCustomContent(
   tooltip: '',
   opcion: SingingCharacter.si,
   fieldNumeric: false,
+  showTextField: true,
   theme: themeOk,
 );
 
@@ -267,6 +291,7 @@ CardCustomContent salpicaderaDerecha = CardCustomContent(
   tooltip: '',
   opcion: SingingCharacter.si,
   fieldNumeric: false,
+  showTextField: true,
   theme: themeOk,
 );
 
@@ -277,6 +302,7 @@ CardCustomContent salpicaderaIzquierda = CardCustomContent(
   tooltip: '',
   opcion: SingingCharacter.si,
   fieldNumeric: false,
+  showTextField: true,
   theme: themeOk,
 );
 
@@ -287,6 +313,7 @@ CardCustomContent puertaTraseraDer = CardCustomContent(
   tooltip: '',
   opcion: SingingCharacter.si,
   fieldNumeric: false,
+  showTextField: true,
   theme: themeOk,
 );
 
@@ -297,6 +324,7 @@ CardCustomContent puertaTraseraIzq = CardCustomContent(
   tooltip: '',
   opcion: SingingCharacter.si,
   fieldNumeric: false,
+  showTextField: true,
   theme: themeOk,
 );
 
@@ -307,6 +335,7 @@ CardCustomContent faroDerecho = CardCustomContent(
   tooltip: '',
   opcion: SingingCharacter.si,
   fieldNumeric: false,
+  showTextField: true,
   theme: themeOk,
 );
 
@@ -317,6 +346,7 @@ CardCustomContent faroIzquierdo = CardCustomContent(
   tooltip: '',
   opcion: SingingCharacter.si,
   fieldNumeric: false,
+  showTextField: true,
   theme: themeOk,
 );
 
@@ -327,6 +357,7 @@ CardCustomContent calaveraDerecha = CardCustomContent(
   tooltip: '',
   opcion: SingingCharacter.si,
   fieldNumeric: false,
+  showTextField: true,
   theme: themeOk,
 );
 
@@ -337,6 +368,7 @@ CardCustomContent calaveraIzquierda = CardCustomContent(
   tooltip: '',
   opcion: SingingCharacter.si,
   fieldNumeric: false,
+  showTextField: true,
   theme: themeOk,
 );
 
@@ -347,8 +379,10 @@ CardCustomContent reflejantes = CardCustomContent(
   tooltip: '',
   opcion: SingingCharacter.si,
   fieldNumeric: true,
+  showTextField: true,
   theme: themeOk,
 );
+
 //#########################################
 //Contenido para las tarjetas de interioir
 //#########################################
@@ -360,6 +394,7 @@ CardCustomContent tablero = CardCustomContent(
   tooltip: '',
   opcion: SingingCharacter.si,
   fieldNumeric: false,
+  showTextField: true,
   theme: themeOk,
 );
 
@@ -370,6 +405,7 @@ CardCustomContent volante = CardCustomContent(
   tooltip: '',
   opcion: SingingCharacter.si,
   fieldNumeric: false,
+  showTextField: true,
   theme: themeOk,
 );
 
@@ -380,6 +416,7 @@ CardCustomContent radio = CardCustomContent(
   tooltip: '',
   opcion: SingingCharacter.si,
   fieldNumeric: false,
+  showTextField: true,
   theme: themeOk,
 );
 
@@ -390,6 +427,7 @@ CardCustomContent equipoDeSonido = CardCustomContent(
   tooltip: '',
   opcion: SingingCharacter.si,
   fieldNumeric: false,
+  showTextField: true,
   theme: themeOk,
 );
 
@@ -400,6 +438,7 @@ CardCustomContent encendedor = CardCustomContent(
   tooltip: '',
   opcion: SingingCharacter.si,
   fieldNumeric: false,
+  showTextField: true,
   theme: themeOk,
 );
 
@@ -410,6 +449,7 @@ CardCustomContent espejo = CardCustomContent(
   tooltip: '',
   opcion: SingingCharacter.si,
   fieldNumeric: false,
+  showTextField: true,
   theme: themeOk,
 );
 
@@ -420,6 +460,7 @@ CardCustomContent asientos = CardCustomContent(
   tooltip: '',
   opcion: SingingCharacter.si,
   fieldNumeric: true,
+  showTextField: true,
   theme: themeOk,
 );
 
@@ -430,6 +471,7 @@ CardCustomContent tapetesDeAlfombra = CardCustomContent(
   tooltip: '',
   opcion: SingingCharacter.si,
   fieldNumeric: true,
+  showTextField: true,
   theme: themeOk,
 );
 
@@ -440,6 +482,7 @@ CardCustomContent tapetesDeHule = CardCustomContent(
   tooltip: '',
   opcion: SingingCharacter.si,
   fieldNumeric: true,
+  showTextField: true,
   theme: themeOk,
 );
 
@@ -450,6 +493,7 @@ CardCustomContent extintor = CardCustomContent(
   tooltip: '',
   opcion: SingingCharacter.si,
   fieldNumeric: false,
+  showTextField: true,
   theme: themeOk,
 );
 
@@ -460,6 +504,7 @@ CardCustomContent gatoManeral = CardCustomContent(
   tooltip: '',
   opcion: SingingCharacter.si,
   fieldNumeric: false,
+  showTextField: true,
   theme: themeOk,
 );
 
@@ -470,6 +515,7 @@ CardCustomContent trianguloDeSeguridad = CardCustomContent(
   tooltip: '',
   opcion: SingingCharacter.si,
   fieldNumeric: false,
+  showTextField: true,
   theme: themeOk,
 );
 
@@ -480,6 +526,7 @@ CardCustomContent bocinas = CardCustomContent(
   tooltip: '',
   opcion: SingingCharacter.si,
   fieldNumeric: true,
+  showTextField: true,
   theme: themeOk,
 );
 
@@ -490,6 +537,7 @@ CardCustomContent luces = CardCustomContent(
   tooltip: '',
   opcion: SingingCharacter.si,
   fieldNumeric: true,
+  showTextField: true,
   theme: themeOk,
 );
 
@@ -500,6 +548,7 @@ CardCustomContent tag = CardCustomContent(
   tooltip: '',
   opcion: SingingCharacter.si,
   fieldNumeric: false,
+  showTextField: true,
   theme: themeOk,
 );
 
@@ -510,6 +559,7 @@ CardCustomContent vialPass = CardCustomContent(
   tooltip: '',
   opcion: SingingCharacter.si,
   fieldNumeric: false,
+  showTextField: true,
   theme: themeOk,
 );
 
@@ -520,6 +570,7 @@ CardCustomContent simCard = CardCustomContent(
   tooltip: '',
   opcion: SingingCharacter.si,
   fieldNumeric: false,
+  showTextField: true,
   theme: themeOk,
 );
 
@@ -533,6 +584,7 @@ CardCustomContent radiador = CardCustomContent(
   tooltip: '',
   opcion: SingingCharacter.si,
   fieldNumeric: false,
+  showTextField: true,
   theme: themeOk,
 );
 
@@ -543,6 +595,7 @@ CardCustomContent motoventilador = CardCustomContent(
   tooltip: '',
   opcion: SingingCharacter.si,
   fieldNumeric: false,
+  showTextField: true,
   theme: themeOk,
 );
 
@@ -553,6 +606,7 @@ CardCustomContent alternador = CardCustomContent(
   tooltip: '',
   opcion: SingingCharacter.si,
   fieldNumeric: false,
+  showTextField: true,
   theme: themeOk,
 );
 
@@ -563,6 +617,7 @@ CardCustomContent cableDeBujias = CardCustomContent(
   tooltip: '',
   opcion: SingingCharacter.si,
   fieldNumeric: false,
+  showTextField: true,
   theme: themeOk,
 );
 
@@ -573,6 +628,7 @@ CardCustomContent depurador = CardCustomContent(
   tooltip: '',
   opcion: SingingCharacter.si,
   fieldNumeric: false,
+  showTextField: true,
   theme: themeOk,
 );
 
@@ -583,6 +639,7 @@ CardCustomContent carburador = CardCustomContent(
   tooltip: '',
   opcion: SingingCharacter.si,
   fieldNumeric: false,
+  showTextField: true,
   theme: themeOk,
 );
 
@@ -593,6 +650,7 @@ CardCustomContent filtroDeAire = CardCustomContent(
   tooltip: '',
   opcion: SingingCharacter.si,
   fieldNumeric: false,
+  showTextField: true,
   theme: themeOk,
 );
 
@@ -602,7 +660,8 @@ CardCustomContent inyectores = CardCustomContent(
   key: 'Inyectores',
   tooltip: '',
   opcion: SingingCharacter.si,
-  fieldNumeric: true,
+  fieldNumeric: false,
+  showTextField: true,
   theme: themeOk,
 );
 
@@ -613,6 +672,7 @@ CardCustomContent compresor = CardCustomContent(
   tooltip: '',
   opcion: SingingCharacter.si,
   fieldNumeric: false,
+  showTextField: true,
   theme: themeOk,
 );
 
@@ -623,6 +683,7 @@ CardCustomContent computadora = CardCustomContent(
   tooltip: '',
   opcion: SingingCharacter.si,
   fieldNumeric: false,
+  showTextField: true,
   theme: themeOk,
 );
 
@@ -633,5 +694,308 @@ CardCustomContent bateria = CardCustomContent(
   tooltip: '',
   opcion: SingingCharacter.si,
   fieldNumeric: false,
+  showTextField: true,
+  theme: themeOk,
+);
+
+//#########################################
+//Contenido para las tarjetas CheckList Motos
+//#########################################
+
+CardCustomContent motoAntenas = CardCustomContent(
+  titulo: 'Antenas',
+  subtitulo: 'Seleccione una opcion',
+  key: 'Antenas',
+  tooltip: '',
+  opcion: SingingCharacter.si,
+  fieldNumeric: true,
+  showTextField: true,
+  theme: themeOk,
+);
+
+CardCustomContent motoAsiento = CardCustomContent(
+  titulo: 'Asiento',
+  subtitulo: 'Seleccione una opcion',
+  key: 'Asiento',
+  tooltip: '',
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
+  showTextField: true,
+  theme: themeOk,
+);
+
+CardCustomContent motoBateria = CardCustomContent(
+  titulo: 'Bateria',
+  subtitulo: 'Seleccione una opcion',
+  key: 'Bateria',
+  tooltip: '',
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
+  showTextField: true,
+  theme: themeOk,
+);
+
+CardCustomContent motoCadena = CardCustomContent(
+  titulo: 'Cadena De Transmision',
+  subtitulo: 'Seleccione una opcion',
+  key: 'CadenaTransmision',
+  tooltip: '',
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
+  showTextField: true,
+  theme: themeOk,
+);
+
+/*
+CardCustomContent motoCantidadGasolina = CardCustomContent(
+  titulo: 'Cantidad De Gasoliona',
+  subtitulo: 'Seleccione una opcion',
+  key: 'CantidadDeGasoliona',
+  tooltip: '',
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
+  showTextField: false,
+  theme: themeOk,
+);*/
+
+CardCustomContent motoDepositoGasolina = CardCustomContent(
+  titulo: 'Deposito De Gasolina',
+  subtitulo: 'Seleccione una opcion',
+  key: 'DepositoDeGasolina',
+  tooltip: '',
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
+  showTextField: true,
+  theme: themeOk,
+);
+
+CardCustomContent motoEmblemas = CardCustomContent(
+  titulo: 'Emblemas',
+  subtitulo: 'Seleccione una opcion',
+  key: 'Emblemas',
+  tooltip: '',
+  opcion: SingingCharacter.si,
+  fieldNumeric: true,
+  showTextField: true,
+  theme: themeOk,
+);
+
+CardCustomContent motoEquipoDeSonido = CardCustomContent(
+  titulo: 'Equipo De Sonido',
+  subtitulo: 'Seleccione una opcion',
+  key: 'EquipoDeSonido',
+  tooltip: '',
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
+  showTextField: true,
+  theme: themeOk,
+);
+
+CardCustomContent motoFaro = CardCustomContent(
+  titulo: 'Faro',
+  subtitulo: 'Seleccione una opcion',
+  key: 'Faro',
+  tooltip: '',
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
+  showTextField: true,
+  theme: themeOk,
+);
+
+CardCustomContent motoFrenosDelanteros = CardCustomContent(
+  titulo: 'Frenos Delanteros',
+  subtitulo: 'Seleccione una opcion',
+  key: 'FrenosDelanteros',
+  tooltip: '',
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
+  showTextField: true,
+  theme: themeOk,
+);
+
+CardCustomContent motoFrenosTraseros = CardCustomContent(
+  titulo: 'Frenos Traseros',
+  subtitulo: 'Seleccione una opcion',
+  key: 'FrenosTraseros',
+  tooltip: '',
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
+  showTextField: true,
+  theme: themeOk,
+);
+
+CardCustomContent motoLucesTraseras = CardCustomContent(
+  titulo: 'Luces Traseras',
+  subtitulo: 'Seleccione una opcion',
+  key: 'LucesTraseras',
+  tooltip: '',
+  opcion: SingingCharacter.si,
+  fieldNumeric: true,
+  showTextField: true,
+  theme: themeOk,
+);
+
+CardCustomContent motoManubrio = CardCustomContent(
+  titulo: 'Manubrio',
+  subtitulo: 'Seleccione una opcion',
+  key: 'Manubrio',
+  tooltip: '',
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
+  showTextField: true,
+  theme: themeOk,
+);
+
+CardCustomContent motoMotor = CardCustomContent(
+  titulo: 'Motor',
+  subtitulo: 'Seleccione una opcion',
+  key: 'Motor',
+  tooltip: '',
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
+  showTextField: true,
+  theme: themeOk,
+);
+
+CardCustomContent motoPalancaDeCambios = CardCustomContent(
+  titulo: 'Palanca De Cambios',
+  subtitulo: 'Seleccione una opcion',
+  key: 'PalancaDeCambios',
+  tooltip: '',
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
+  showTextField: true,
+  theme: themeOk,
+);
+
+CardCustomContent motoParabrisas = CardCustomContent(
+  titulo: 'Parabrisas',
+  subtitulo: 'Seleccione una opcion',
+  key: 'Parabrisas',
+  tooltip: '',
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
+  showTextField: true,
+  theme: themeOk,
+);
+
+CardCustomContent motoPataLateral = CardCustomContent(
+  titulo: 'Pata Lateral',
+  subtitulo: 'Seleccione una opcion',
+  key: 'PataLateral',
+  tooltip: '',
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
+  showTextField: true,
+  theme: themeOk,
+);
+
+CardCustomContent motoPedalDeClutch = CardCustomContent(
+  titulo: 'Pedal De Clutch',
+  subtitulo: 'Seleccione una opcion',
+  key: 'PedalDeClutch',
+  tooltip: '',
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
+  showTextField: true,
+  theme: themeOk,
+);
+
+CardCustomContent motoPedalFrenoDelantero = CardCustomContent(
+  titulo: 'Pedal Freno Delantero',
+  subtitulo: 'Seleccione una opcion',
+  key: 'PedalFrenoDelantero',
+  tooltip: '',
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
+  showTextField: true,
+  theme: themeOk,
+);
+
+CardCustomContent motoPedalFrenoTrasero = CardCustomContent(
+  titulo: 'Pedal Freno Trasero',
+  subtitulo: 'Seleccione una opcion',
+  key: 'PedalFrenoTrasero',
+  tooltip: '',
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
+  showTextField: true,
+  theme: themeOk,
+);
+
+CardCustomContent motoReflejantes = CardCustomContent(
+  titulo: 'Reflejantes',
+  subtitulo: 'Seleccione una opcion',
+  key: 'Reflejantes',
+  tooltip: '',
+  opcion: SingingCharacter.si,
+  fieldNumeric: true,
+  showTextField: true,
+  theme: themeOk,
+);
+
+CardCustomContent motoRetrovisorDerecho = CardCustomContent(
+  titulo: 'Retrovisor Derecho',
+  subtitulo: 'Seleccione una opcion',
+  key: 'RetrovisorDerecho',
+  tooltip: '',
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
+  showTextField: true,
+  theme: themeOk,
+);
+
+CardCustomContent motoRetrovisorIzquierdo = CardCustomContent(
+  titulo: 'Retrovisor Izquierdo',
+  subtitulo: 'Seleccione una opcion',
+  key: 'RetrovisorIzquierdo',
+  tooltip: '',
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
+  showTextField: true,
+  theme: themeOk,
+);
+
+CardCustomContent motoSalpicaderaDelantera = CardCustomContent(
+  titulo: 'Salpicadera Delantera',
+  subtitulo: 'Seleccione una opcion',
+  key: 'SalpicaderaDelantera',
+  tooltip: '',
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
+  showTextField: true,
+  theme: themeOk,
+);
+
+CardCustomContent motoSalpicaderaTrasera = CardCustomContent(
+  titulo: 'Salpicadera Trasera',
+  subtitulo: 'Seleccione una opcion',
+  key: 'SalpicaderaTrasera',
+  tooltip: '',
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
+  showTextField: true,
+  theme: themeOk,
+);
+
+CardCustomContent motoTaponGasolina = CardCustomContent(
+  titulo: 'Tapon De Gasolina',
+  subtitulo: 'Seleccione una opcion',
+  key: 'TaponGasolina',
+  tooltip: '',
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
+  showTextField: true,
+  theme: themeOk,
+);
+
+CardCustomContent motoTuboDeEscape = CardCustomContent(
+  titulo: 'Tubo De Escape',
+  subtitulo: 'Seleccione una opcion',
+  key: 'TuboDeEscape',
+  tooltip: '',
+  opcion: SingingCharacter.si,
+  fieldNumeric: false,
+  showTextField: true,
   theme: themeOk,
 );
